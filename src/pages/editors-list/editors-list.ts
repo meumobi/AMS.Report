@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { EditorAfService } from '../../providers';
+import { Editor } from '../../models';
+
 /**
  * Generated class for the EditorsListPage page.
  *
@@ -13,12 +16,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'editors-list.html',
 })
 export class EditorsListPage {
+  editors: Editor[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public editorService: EditorAfService 
+  ) { }
+
+  addEditor() {
+
   }
 
+  showOptions() {
+
+  }
+  
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditorsListPage');
+    this.editorService.getEditors().subscribe((editors: Editor[]) => {
+      this.editors = editors;
+    });
   }
 
 }

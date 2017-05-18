@@ -3,8 +3,19 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { MyApp } from './app.component';
+
+// AF2 Settings
+export const firebaseConfig = {
+  apiKey: "AIzaSyBML2EVs0juvq3wJsjs3gYU-qHJAEu9UiA",
+  authDomain: "ams-report.firebaseapp.com",
+  databaseURL: "https://ams-report.firebaseio.com",
+  storageBucket: "ams-report.appspot.com",
+  messagingSenderId: "832063717167"
+};
 
 @NgModule({
   declarations: [
@@ -12,7 +23,9 @@ import { MyApp } from './app.component';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
