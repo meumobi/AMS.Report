@@ -1,5 +1,5 @@
 export interface Editor {
-  id: number;
+  $key?: string;
   name: string;
   siret: number;
   tva: number;

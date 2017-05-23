@@ -1,0 +1,53 @@
+<!--
+  Generated template for the SitesReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>sites-report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item>
+			<ion-label>FORMAT</ion-label>
+			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+				<ion-option value="bacon" selected="true">1600 x 1000</ion-option>
+				<ion-option value="olives">300 x 250</ion-option>
+				<ion-option value="xcheese" selected="true">970 x 250</ion-option>
+				<ion-option value="peppers">728 x 90</ion-option>
+				<ion-option value="mushrooms">300 x 600</ion-option>
+				<ion-option value="onions">320 x 50</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>POSITION</ion-label>
+			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">
+				<ion-option value="bacon" selected="true">Haut</ion-option>
+				<ion-option value="olives">Bas</ion-option>
+				<ion-option value="xcheese" selected="true">STF</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>Start Date</ion-label>
+			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="startDate"></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-label>End Date</ion-label>
+			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="endDate"></ion-datetime>
+		</ion-item>
+	</ion-list>
+	<button ion-button full>Apply</button>
+
+  <ion-list>
+    <ion-item *ngFor="let raw of reports | async">
+      {{raw.date}} | {{raw.site}} | {{raw.revenu}} | {{raw.fillRate}} | {{raw.inventaire}}
+    </ion-item>
+  </ion-list>
+</ion-content>

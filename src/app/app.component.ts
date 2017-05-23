@@ -24,9 +24,9 @@ export class MyApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Editors', name: 'EditorsListPage', index: 0, icon: 'briefcase' },
-    { title: 'Users', name: 'UsersListPage', index: 1, icon: 'contacts' },
-    { title: 'Sites', name: 'SitesListPage', index: 2, icon: 'laptop' },
-    { title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
+    //{ title: 'Users', name: 'UsersListPage', index: 1, icon: 'contacts' },
+    { title: 'Sites', name: 'SitesListPage', index: 2, icon: 'laptop' }
+    //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
   loggedInPages: PageInterface[] = [
     { title: 'Account', name: 'AccountPage', icon: 'person' },

@@ -24,7 +24,7 @@ export class EditorService {
       .map((res: Response) => res.json())
       .map((editors: Editor[]) => {
         for (let editor of editors) {
-          if (editor.id === id) {
+          if (editor.$key === id) {
             return editor;
           }
         }
