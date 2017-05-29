@@ -91,13 +91,10 @@ addSite(editorId: string) {
       {
         text: 'Save',
         handler: data => {
-          this.sitesService.create({editor_id: editorId, title: data.name})
-          .then(site => {
-            console.log(site);
-            console.log(site.key);
-            this.navCtrl.push('sites-report', {
-              site: site, 
-              id: site.$key
+          this.sitesService.create(data.name, editorId)
+          .then((site) => {
+            this.navCtrl.push('sites-detail', {
+              'id': site.key
             })
           })
           .catch(err => console.log(err, 'Can\'t create Site!'));
@@ -110,8 +107,7 @@ addSite(editorId: string) {
 
   openSitesList(editor: Editor) {
     this.navCtrl.push('SitesListPage', {
-      'id': editor.$key,
-      editor: editor
+      'editor_id': editor.$key
     })
   }
 
@@ -138,7 +134,7 @@ showOptions(editor: Editor) {
       },{
         text: 'Update Editor',
         handler: () => {
-          this.updateEditor(editor.$key);
+          this.updateEditor(editor);
         }
       },{
         text: 'Cancel',
@@ -158,10 +154,11 @@ showOptions(editor: Editor) {
     .catch(err => console.log(err, 'You do not have access!'));
   }
 
-  updateEditor(editorId) {
-    this.editors.update(editorId, {
-      //title: data.title
-    });
+  updateEditor(editor) {
+    this.navCtrl.push('editors-details', {
+      'id': editor.$key,
+      editor: editor
+    })
   }
   
   ionViewDidLoad() {

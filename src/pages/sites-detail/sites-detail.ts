@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
 
 import { SitesProvider } from '../../providers';
-import { Site } from '../../models';
+import { Site, ISite } from '../../models';
 
-/**
- * Generated class for the SitesDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage({
   name: 'sites-detail',
   segment: 'detail/:id'
@@ -20,15 +14,46 @@ import { Site } from '../../models';
 })
 export class SitesDetailPage {
 
-  site: Site;
+  site: ISite;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.site = this.navParams.data.site;
-    // db.object("/sites/-KjNtAwN5BBERmdFX54S");
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    public sitesService: SitesProvider
+  ) {
+    let key = this.navParams.data.id;
+    
+    this.sitesService.fetchById(key).subscribe( data => {
+      this.site = data;
+    })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SitesDetailPage');
+presentToast(msg: string) {
+  let toast = this.toastCtrl.create({
+    message: msg,
+    duration: 3000,
+    position: 'bottom'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
+
+  onSubmit({ value, valid }: { value: ISite, valid: boolean }) {
+    this.sitesService.update(this.site.$key, value)
+    .then(_ => {
+      this.presentToast('Site updated successfully');
+      this.navCtrl.pop();
+    })
+    .catch(err => console.log(err, 'You do not have access!'));
+  }
+
+  cancel() {
+    this.navCtrl.pop();
   }
 
 }

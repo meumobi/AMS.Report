@@ -20,7 +20,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    MyApp,
+    MyApp
   ],
   imports: [
     BrowserModule,

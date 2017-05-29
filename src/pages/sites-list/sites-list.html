@@ -22,9 +22,17 @@
 
 
 <ion-content padding>
+  <input type="text" #editor (change)="changeEditor(editor.value)" />
   <ion-list>
-    <ion-item *ngFor="let site of sites | async" (click)="openSiteReport(site)">
-      {{site.title}}
+    <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">
+      {{site.title}}<br />
+      <small><a (click)="openSite($event, site)">{{site.url}}</a></small>
+    <button item-right (click)="removeSite($event, site)" ion-button icon-only default>
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    <button item-right (click)="openSiteDetails($event, site)" ion-button icon-only default>
+      <ion-icon name="create"></ion-icon>
+    </button>
     </ion-item>
   </ion-list>
 </ion-content>

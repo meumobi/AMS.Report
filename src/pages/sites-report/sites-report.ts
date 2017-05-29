@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
-
-import { Site } from '../../models';
+import { SitesProvider } from '../../providers';
+import { ISite, Site } from '../../models';
 
 /**
  * Generated class for the SitesReportPage page.
@@ -21,15 +21,23 @@ import { Site } from '../../models';
 })
 export class SitesReportPage {
 
-  site: Site;
+  site: ISite;
   reports: FirebaseListObservable<any>;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public sitesService: SitesProvider,
     private db: AngularFireDatabase
   ) {
-    this.site = this.navParams.data.site;
+    let siteId = this.navParams.data.id;
+
+    this.sitesService.fetchById(siteId)
+      .subscribe( siteSnap => {
+        this.site = siteSnap;
+      }
+    );
+    
     let query: {orderByChild?: string, startAt?: string, endAt?: string} = {};
 
     if (this.site) {
@@ -37,7 +45,7 @@ export class SitesReportPage {
       query.startAt = "2017-03-02";
       query.endAt = "2017-03-04";
     }
-    
+
     this.reports = db.list('/reports/' + this.site.title, {query: query});
   }
 

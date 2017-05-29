@@ -3,7 +3,7 @@ import { IonicPage, NavController, AlertController, ActionSheetController, Toast
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { SitesProvider } from '../../providers';
-import { Site } from '../../models';
+import { ISite, Site } from '../../models';
 import { Editor } from '../../models';
 
 
@@ -20,8 +20,8 @@ import { Editor } from '../../models';
 })
 export class SitesListPage {
 
-  sites: FirebaseListObservable<Site[]>;
-  editor: Editor; 
+  sites: ISite[];
+  editorId: string; 
 
   constructor(
     private db: AngularFireDatabase,
@@ -32,22 +32,61 @@ export class SitesListPage {
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams
   ) { 
-    this.editor = this.navParams.data.editor;
-    let query: {orderByChild?: string, equalTo?: string} = {};
-
-    if (this.editor) {
-      query.orderByChild = 'editor_id';
-      query.equalTo = this.editor.$key;
-    }
-    
-    this.sites = db.list('/sites', {query: query});
+    this.editorId = this.navParams.data.editor_id;   
+    this.changeEditor(this.editorId);
   }
 
-  openSiteReport(site: Site) {
+  openSiteReport(site: ISite) {
     this.navCtrl.push('sites-report', {
-      'id': site.$key,
-      site: site
+      'id': site.$key
     })
+  }
+
+  openSiteDetails($event, site: ISite) {
+    $event.stopPropagation();
+    this.navCtrl.push('sites-detail', {
+      'id': site.$key
+    })
+  }
+
+removeSite($event, site: ISite) {
+  $event.stopPropagation();
+  let alert = this.alertCtrl.create({
+    title: 'Confirm deletion',
+    message: 'Do you want to remove this site?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Remove',
+        handler: () => {
+          this.sitesService.delete(site.$key)
+          .then(_ => {
+            this.presentToast('Site removed successfully');
+          })
+          .catch(err => console.log(err, 'You do not have access!'));
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
+  openSite($event, site: ISite) {
+    $event.stopPropagation();
+    window.open(site.url);
+  }
+
+  changeEditor(editorId) {
+    this.sitesService.fetchByEditor(editorId)
+      .subscribe( data => {
+        this.sites = data;
+      });
   }
 
   presentToast(msg: string) {
