@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { SitesProvider } from '../../providers';
 import { Editor } from '../../models';
+import { EditorSearchPipe } from '../../pipes';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,7 @@ import { Editor } from '../../models';
 })
 export class EditorsListPage {
   editors: FirebaseListObservable<any>;
+  @Input() search: string = "";
 
   constructor(
     private db: AngularFireDatabase,

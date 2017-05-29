@@ -17,14 +17,21 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-searchbar
+      [(ngModel)]="search"
+    >
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let editor of editors | async" (click)="showOptions(editor)">
+    <a ion-item 
+      *ngFor="let editor of editors | async | editorSearch:search" 
+      (click)="showOptions(editor)">
       {{editor.name}}
-    </ion-item>
+    </a>
   </ion-list>
 </ion-content>
