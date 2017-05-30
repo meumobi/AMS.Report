@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { SitesProvider } from '../../providers';
-import { ISite, Site } from '../../models';
-import { Editor } from '../../models';
+import { ISite } from '../../models';
+import { IEditor } from '../../models';
 
-
-/**
- * Generated class for the SitesListPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+@IonicPage({
+    name: 'sites-list',
+    segment: 'sites'
+})
 @Component({
   selector: 'page-sites-list',
   templateUrl: 'sites-list.html',
@@ -21,19 +16,28 @@ import { Editor } from '../../models';
 export class SitesListPage {
 
   sites: ISite[];
-  editorId: string; 
 
   constructor(
-    private db: AngularFireDatabase,
     public sitesService: SitesProvider,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams
-  ) { 
-    this.editorId = this.navParams.data.editor_id;   
-    this.changeEditor(this.editorId);
+  ) {
+    let editorId = this.navParams.data.editor_id;
+
+    if (editorId) {
+      this.sitesService.fetchByEditor(editorId)
+        .subscribe(data => {
+          this.sites = data;
+        })
+    } else {
+      this.sitesService.fetchAll()
+        .subscribe(data => {
+          this.sites = data;
+        });
+    }
   }
 
   openSiteReport(site: ISite) {
@@ -49,33 +53,33 @@ export class SitesListPage {
     })
   }
 
-removeSite($event, site: ISite) {
-  $event.stopPropagation();
-  let alert = this.alertCtrl.create({
-    title: 'Confirm deletion',
-    message: 'Do you want to remove this site?',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
+  removeSite($event, site: ISite) {
+    $event.stopPropagation();
+    let alert = this.alertCtrl.create({
+      title: 'Confirm deletion',
+      message: 'Do you want to remove this site?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.sitesService.delete(site.$key)
+              .then(_ => {
+                this.presentToast('Site removed successfully');
+              })
+              .catch(err => console.log(err, 'You do not have access!'));
+          }
         }
-      },
-      {
-        text: 'Remove',
-        handler: () => {
-          this.sitesService.delete(site.$key)
-          .then(_ => {
-            this.presentToast('Site removed successfully');
-          })
-          .catch(err => console.log(err, 'You do not have access!'));
-        }
-      }
-    ]
-  });
-  alert.present();
-}
+      ]
+    });
+    alert.present();
+  }
 
   openSite($event, site: ISite) {
     $event.stopPropagation();
@@ -84,7 +88,7 @@ removeSite($event, site: ISite) {
 
   changeEditor(editorId) {
     this.sitesService.fetchByEditor(editorId)
-      .subscribe( data => {
+      .subscribe(data => {
         this.sites = data;
       });
   }

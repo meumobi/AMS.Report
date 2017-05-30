@@ -7,9 +7,8 @@ webpackJsonp([2],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_list__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2__ = __webpack_require__(219);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SitesListPageModule", function() { return SitesListPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_report__ = __webpack_require__(315);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SitesReportPageModule", function() { return SitesReportPageModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,28 +18,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-var SitesListPageModule = (function () {
-    function SitesListPageModule() {
+var SitesReportPageModule = (function () {
+    function SitesReportPageModule() {
     }
-    return SitesListPageModule;
+    return SitesReportPageModule;
 }());
-SitesListPageModule = __decorate([
+SitesReportPageModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */],
+            __WEBPACK_IMPORTED_MODULE_2__sites_report__["a" /* SitesReportPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_3_angularfire2__["a" /* AngularFireModule */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sites_report__["a" /* SitesReportPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */]
+            __WEBPACK_IMPORTED_MODULE_2__sites_report__["a" /* SitesReportPage */]
         ]
     })
-], SitesListPageModule);
+], SitesReportPageModule);
 
-//# sourceMappingURL=sites-list.module.js.map
+//# sourceMappingURL=sites-report.module.js.map
+
+/***/ }),
+
+/***/ 303:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(9);
+var map_1 = __webpack_require__(54);
+Observable_1.Observable.prototype.map = map_1.map;
+//# sourceMappingURL=map.js.map
 
 /***/ }),
 
@@ -48,9 +57,29 @@ SitesListPageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(306);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(305);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(214);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__editor_editor__ = __webpack_require__(213);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__editor_editor__["a"]; });
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 305:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* unused harmony export EditorAfService */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -84,13 +113,13 @@ EditorAfService = __decorate([
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(307);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__ = __webpack_require__(308);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__);
@@ -142,31 +171,14 @@ EditorService = __decorate([
 
 /***/ }),
 
-/***/ 306:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(305);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(304);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(216);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ 307:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(29);
 /* unused harmony export BrowserXhr */
 /* unused harmony export JSONPBackend */
 /* unused harmony export JSONPConnection */
@@ -2346,7 +2358,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Version */]
 
 "use strict";
 
-var Observable_1 = __webpack_require__(8);
+var Observable_1 = __webpack_require__(9);
 var delay_1 = __webpack_require__(309);
 Observable_1.Observable.prototype.delay = delay_1.delay;
 //# sourceMappingURL=delay.js.map
@@ -2363,10 +2375,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var async_1 = __webpack_require__(218);
+var async_1 = __webpack_require__(216);
 var isDate_1 = __webpack_require__(310);
 var Subscriber_1 = __webpack_require__(20);
-var Notification_1 = __webpack_require__(217);
+var Notification_1 = __webpack_require__(215);
 /**
  * Delays the emission of items from the source Observable by a given timeout or
  * until a given Date.
@@ -2508,15 +2520,15 @@ exports.isDate = isDate;
 
 /***/ }),
 
-/***/ 314:
+/***/ 315:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers__ = __webpack_require__(306);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SitesListPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers__ = __webpack_require__(304);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SitesReportPage; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2531,101 +2543,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the SitesListPage page.
+ * Generated class for the SitesReportPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var SitesListPage = (function () {
-    function SitesListPage(db, sitesService, navCtrl, alertCtrl, toastCtrl, actionSheetCtrl, navParams) {
-        this.db = db;
-        this.sitesService = sitesService;
+var SitesReportPage = (function () {
+    function SitesReportPage(navCtrl, navParams, sitesService, db) {
+        var _this = this;
         this.navCtrl = navCtrl;
-        this.alertCtrl = alertCtrl;
-        this.toastCtrl = toastCtrl;
-        this.actionSheetCtrl = actionSheetCtrl;
         this.navParams = navParams;
-        this.editorId = this.navParams.data.editor_id;
-        this.changeEditor(this.editorId);
+        this.sitesService = sitesService;
+        this.db = db;
+        var siteId = this.navParams.data.id;
+        this.sitesService.fetchById(siteId)
+            .subscribe(function (siteSnap) {
+            _this.site = siteSnap;
+        });
+        var query = {};
+        if (this.site) {
+            query.orderByChild = 'date';
+            query.startAt = "2017-03-02";
+            query.endAt = "2017-03-04";
+        }
+        this.reports = db.list('/reports/' + this.site.title, { query: query });
     }
-    SitesListPage.prototype.openSiteReport = function (site) {
-        this.navCtrl.push('sites-report', {
-            'id': site.$key
-        });
+    SitesReportPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad SitesReportPage');
     };
-    SitesListPage.prototype.openSiteDetails = function ($event, site) {
-        $event.stopPropagation();
-        this.navCtrl.push('sites-detail', {
-            'id': site.$key
-        });
-    };
-    SitesListPage.prototype.removeSite = function ($event, site) {
-        var _this = this;
-        $event.stopPropagation();
-        var alert = this.alertCtrl.create({
-            title: 'Confirm deletion',
-            message: 'Do you want to remove this site?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: function () {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Remove',
-                    handler: function () {
-                        _this.sitesService.delete(site.$key)
-                            .then(function (_) {
-                            _this.presentToast('Site removed successfully');
-                        })
-                            .catch(function (err) { return console.log(err, 'You do not have access!'); });
-                    }
-                }
-            ]
-        });
-        alert.present();
-    };
-    SitesListPage.prototype.openSite = function ($event, site) {
-        $event.stopPropagation();
-        window.open(site.url);
-    };
-    SitesListPage.prototype.changeEditor = function (editorId) {
-        var _this = this;
-        this.sitesService.fetchByEditor(editorId)
-            .subscribe(function (data) {
-            _this.sites = data;
-        });
-    };
-    SitesListPage.prototype.presentToast = function (msg) {
-        var toast = this.toastCtrl.create({
-            message: msg,
-            duration: 3000,
-            position: 'bottom'
-        });
-        toast.onDidDismiss(function () {
-            console.log('Dismissed toast');
-        });
-        toast.present();
-    };
-    return SitesListPage;
+    return SitesReportPage;
 }());
-SitesListPage = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-sites-list',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-list/sites-list.html"*/'<!--\n  Generated template for the SitesListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Sites</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="addSite()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <input type="text" #editor (change)="changeEditor(editor.value)" />\n  <ion-list>\n    <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">\n      {{site.title}}<br />\n      <small><a (click)="openSite($event, site)">{{site.url}}</a></small>\n    <button item-right (click)="removeSite($event, site)" ion-button icon-only default>\n      <ion-icon name="trash"></ion-icon>\n    </button>\n    <button item-right (click)="openSiteDetails($event, site)" ion-button icon-only default>\n      <ion-icon name="create"></ion-icon>\n    </button>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-list/sites-list.html"*/,
+SitesReportPage = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])({
+        name: 'sites-report',
+        segment: 'report/:id'
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */],
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+        selector: 'page-sites-report',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/'<!--\n  Generated template for the SitesReportPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>sites-report</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n	<ion-list>\n		<ion-item>\n			<ion-label>FORMAT</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">1600 x 1000</ion-option>\n				<ion-option value="olives">300 x 250</ion-option>\n				<ion-option value="xcheese" selected="true">970 x 250</ion-option>\n				<ion-option value="peppers">728 x 90</ion-option>\n				<ion-option value="mushrooms">300 x 600</ion-option>\n				<ion-option value="onions">320 x 50</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>POSITION</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">Haut</ion-option>\n				<ion-option value="olives">Bas</ion-option>\n				<ion-option value="xcheese" selected="true">STF</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>Start Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="startDate"></ion-datetime>\n		</ion-item>\n		<ion-item>\n			<ion-label>End Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="endDate"></ion-datetime>\n		</ion-item>\n	</ion-list>\n	<button ion-button full>Apply</button>\n\n  <ion-list>\n    <ion-item *ngFor="let raw of reports | async">\n      {{raw.date}} | {{raw.site}} | {{raw.revenu}} | {{raw.fillRate}} | {{raw.inventaire}}\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_3__providers__["a" /* SitesProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-], SitesListPage);
+        __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */]])
+], SitesReportPage);
 
-//# sourceMappingURL=sites-list.js.map
+//# sourceMappingURL=sites-report.js.map
 
 /***/ })
 

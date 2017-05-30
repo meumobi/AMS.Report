@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export interface PageInterface {
   title: string;
   name: string;
+  class?: string;
   icon: string;
   logsOut?: boolean;
   index?: number;
@@ -23,9 +24,9 @@ export class MyApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Editors', name: 'EditorsListPage', index: 0, icon: 'briefcase' },
+    { title: 'Editors', name: 'editors-list', class: 'EditorsListPage', index: 0, icon: 'briefcase' },
     //{ title: 'Users', name: 'UsersListPage', index: 1, icon: 'contacts' },
-    { title: 'Sites', name: 'SitesListPage', index: 2, icon: 'laptop' }
+    { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop' }
     //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
   loggedInPages: PageInterface[] = [
@@ -67,7 +68,7 @@ export class MyApp {
   }
 
   isActive(page: PageInterface) {
-    if (this.nav.getActive() && this.nav.getActive().name === page.name) {
+    if (this.nav.getActive() && page.class && this.nav.getActive().name === page.class) {
       return 'primary';
     }
     return;

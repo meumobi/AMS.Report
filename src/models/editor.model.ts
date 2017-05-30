@@ -1,4 +1,6 @@
-export interface Editor {
+import * as firebase from 'firebase/app';
+
+export interface IEditor {
   $key?: string;
   name: string;
   siret?: number;
@@ -9,4 +11,14 @@ export interface Editor {
   city?: string;
   rcs?: string;
   notes?: string;
+  createdAt: Object;
+}
+
+export class Editor implements IEditor {
+  name;
+  createdAt = firebase.database.ServerValue.TIMESTAMP;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }

@@ -8,6 +8,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { MyApp } from './app.component';
 import { SitesProvider } from '../providers/sites/sites';
+import { EditorProvider } from '../providers/editor/editor';
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SitesProvider
+    SitesProvider,
+    EditorProvider
   ]
 })
 export class AppModule {}

@@ -1,14 +1,16 @@
 webpackJsonp([0],{
 
-/***/ 303:
+/***/ 298:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_update__ = __webpack_require__(316);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SitesUpdatePageModule", function() { return SitesUpdatePageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__editors_list__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pipes__ = __webpack_require__(318);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditorsListPageModule", function() { return EditorsListPageModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,26 +20,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var SitesUpdatePageModule = (function () {
-    function SitesUpdatePageModule() {
+
+
+var EditorsListPageModule = (function () {
+    function EditorsListPageModule() {
     }
-    return SitesUpdatePageModule;
+    return EditorsListPageModule;
 }());
-SitesUpdatePageModule = __decorate([
+EditorsListPageModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_update__["a" /* SitesUpdatePage */],
+            __WEBPACK_IMPORTED_MODULE_2__editors_list__["a" /* EditorsListPage */],
+            __WEBPACK_IMPORTED_MODULE_4__pipes__["a" /* EditorSearchPipe */]
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sites_update__["a" /* SitesUpdatePage */]),
+            __WEBPACK_IMPORTED_MODULE_3_angularfire2__["a" /* AngularFireModule */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__editors_list__["a" /* EditorsListPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_update__["a" /* SitesUpdatePage */]
+            __WEBPACK_IMPORTED_MODULE_2__editors_list__["a" /* EditorsListPage */]
         ]
     })
-], SitesUpdatePageModule);
+], EditorsListPageModule);
 
-//# sourceMappingURL=sites-update.module.js.map
+//# sourceMappingURL=editors-list.module.js.map
+
+/***/ }),
+
+/***/ 303:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(9);
+var map_1 = __webpack_require__(54);
+Observable_1.Observable.prototype.map = map_1.map;
+//# sourceMappingURL=map.js.map
 
 /***/ }),
 
@@ -45,9 +63,29 @@ SitesUpdatePageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(306);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(305);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(214);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__editor_editor__ = __webpack_require__(213);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__editor_editor__["a"]; });
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 305:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* unused harmony export EditorAfService */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -81,13 +119,13 @@ EditorAfService = __decorate([
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(307);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__ = __webpack_require__(308);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__);
@@ -139,31 +177,14 @@ EditorService = __decorate([
 
 /***/ }),
 
-/***/ 306:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(305);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(304);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(216);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ 307:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(29);
 /* unused harmony export BrowserXhr */
 /* unused harmony export JSONPBackend */
 /* unused harmony export JSONPConnection */
@@ -2343,7 +2364,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Version */]
 
 "use strict";
 
-var Observable_1 = __webpack_require__(8);
+var Observable_1 = __webpack_require__(9);
 var delay_1 = __webpack_require__(309);
 Observable_1.Observable.prototype.delay = delay_1.delay;
 //# sourceMappingURL=delay.js.map
@@ -2360,10 +2381,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var async_1 = __webpack_require__(218);
+var async_1 = __webpack_require__(216);
 var isDate_1 = __webpack_require__(310);
 var Subscriber_1 = __webpack_require__(20);
-var Notification_1 = __webpack_require__(217);
+var Notification_1 = __webpack_require__(215);
 /**
  * Delays the emission of items from the source Observable by a given timeout or
  * until a given Date.
@@ -2505,15 +2526,14 @@ exports.isDate = isDate;
 
 /***/ }),
 
-/***/ 316:
+/***/ 312:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers__ = __webpack_require__(306);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SitesUpdatePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers__ = __webpack_require__(304);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditorsListPage; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2527,26 +2547,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the SitesUpdatePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-var SitesUpdatePage = (function () {
-    function SitesUpdatePage(db, sitesService, navCtrl, alertCtrl, toastCtrl, actionSheetCtrl, navParams) {
-        this.db = db;
-        this.sitesService = sitesService;
+var EditorsListPage = (function () {
+    function EditorsListPage(navCtrl, alertCtrl, toastCtrl, actionSheetCtrl, navParams, sitesService, editorService) {
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
         this.actionSheetCtrl = actionSheetCtrl;
         this.navParams = navParams;
-        this.site = this.navParams.data.site;
-        console.log(this.site);
-        console.log('Name' + this.navParams.get('name'));
+        this.sitesService = sitesService;
+        this.editorService = editorService;
+        this.search = "";
     }
-    SitesUpdatePage.prototype.presentToast = function (msg) {
+    EditorsListPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.editorService.fetchAll()
+            .subscribe(function (data) {
+            _this.editors = data;
+        });
+    };
+    ;
+    EditorsListPage.prototype.presentToast = function (msg) {
         var toast = this.toastCtrl.create({
             message: msg,
             duration: 3000,
@@ -2557,23 +2577,201 @@ var SitesUpdatePage = (function () {
         });
         toast.present();
     };
-    return SitesUpdatePage;
+    EditorsListPage.prototype.addEditor = function () {
+        var _this = this;
+        var prompt = this.alertCtrl.create({
+            title: 'Editor Name',
+            message: "Enter a name for this new editor you're so keen on adding",
+            inputs: [
+                {
+                    name: 'name',
+                    placeholder: 'Name'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: function (data) {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: function (data) {
+                        _this.editorService.create(data.name)
+                            .then(function (editor) {
+                            _this.navCtrl.push('editor-details', {
+                                'id': editor.key
+                            });
+                        })
+                            .catch(function (err) { return console.log(err, 'You do not have access!'); });
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    EditorsListPage.prototype.addSite = function (editorId) {
+        var _this = this;
+        var prompt = this.alertCtrl.create({
+            title: 'Site Name',
+            message: "Enter a name for this new site you're so keen on adding",
+            inputs: [
+                {
+                    name: 'name',
+                    placeholder: 'Name'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: function (data) {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: function (data) {
+                        _this.sitesService.create(data.name, editorId)
+                            .then(function (site) {
+                            _this.navCtrl.push('sites-detail', {
+                                'id': site.key
+                            });
+                        })
+                            .catch(function (err) { return console.log(err, 'Can\'t create Site!'); });
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    EditorsListPage.prototype.openSitesList = function (editor) {
+        this.navCtrl.push('sites-list', {
+            'editor_id': editor.$key
+        });
+    };
+    EditorsListPage.prototype.showOptions = function (editor) {
+        var _this = this;
+        var actionSheet = this.actionSheetCtrl.create({
+            title: 'What do you want to do?',
+            buttons: [
+                {
+                    text: 'Delete Editor',
+                    role: 'destructive',
+                    handler: function () {
+                        _this.removeEditor(editor.$key);
+                    }
+                }, {
+                    text: 'List Sites',
+                    handler: function () {
+                        _this.openSitesList(editor);
+                    }
+                }, {
+                    text: 'Add Site',
+                    handler: function () {
+                        _this.addSite(editor.$key);
+                    }
+                }, {
+                    text: 'Update Editor',
+                    handler: function () {
+                        _this.updateEditor(editor);
+                    }
+                }, {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function () {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+        actionSheet.present();
+    };
+    EditorsListPage.prototype.removeEditor = function (editorId) {
+        var _this = this;
+        this.editorService.delete(editorId)
+            .then(function (_) { return _this.presentToast('Editor removed successfully'); })
+            .catch(function (err) { return console.log(err, 'You do not have access!'); });
+    };
+    EditorsListPage.prototype.updateEditor = function (editor) {
+        this.navCtrl.push('editor-details', {
+            'id': editor.$key,
+            editor: editor
+        });
+    };
+    return EditorsListPage;
 }());
-SitesUpdatePage = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-sites-update',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-update/sites-update.html"*/'<!--\n  Generated template for the SitesUpdatePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>SitesUpdate</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\nUpdate site {{site.title}}\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-update/sites-update.html"*/,
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Input */])(),
+    __metadata("design:type", String)
+], EditorsListPage.prototype, "search", void 0);
+EditorsListPage = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])({
+        name: 'editors-list',
+        segment: 'editors'
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */],
-        __WEBPACK_IMPORTED_MODULE_3__providers__["a" /* SitesProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-], SitesUpdatePage);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+        selector: 'page-editors-list',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/editors-list/editors-list.html"*/'<!--\n  Generated template for the EditorsListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Editors</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="addEditor()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <ion-toolbar>\n    <ion-searchbar\n      [(ngModel)]="search">\n    </ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <a ion-item \n      *ngFor="let editor of editors | editorSearch:search" \n      (click)="showOptions(editor)">\n      {{editor.name}}\n    </a>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/editors-list/editors-list.html"*/,
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__providers__["a" /* SitesProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers__["a" /* SitesProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__providers__["b" /* EditorProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers__["b" /* EditorProvider */]) === "function" && _g || Object])
+], EditorsListPage);
 
-//# sourceMappingURL=sites-update.js.map
+var _a, _b, _c, _d, _e, _f, _g;
+//# sourceMappingURL=editors-list.js.map
+
+/***/ }),
+
+/***/ 317:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditorSearchPipe; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var EditorSearchPipe = (function () {
+    function EditorSearchPipe() {
+    }
+    /**
+     * Takes a value and makes it lowercase.
+     */
+    EditorSearchPipe.prototype.transform = function (editors, searchString) {
+        var matches = [];
+        if (!searchString) {
+            return editors;
+        }
+        editors.forEach(function (editor) {
+            if (editor.name.match(new RegExp(searchString, 'i'))) {
+                matches.push(editor);
+            }
+        });
+        return matches;
+    };
+    return EditorSearchPipe;
+}());
+EditorSearchPipe = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Pipe */])({
+        name: 'editorSearch',
+    })
+], EditorSearchPipe);
+
+//# sourceMappingURL=editor-search.js.map
+
+/***/ }),
+
+/***/ 318:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_search_editor_search__ = __webpack_require__(317);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__editor_search_editor_search__["a"]; });
+
+//# sourceMappingURL=index.js.map
 
 /***/ })
 

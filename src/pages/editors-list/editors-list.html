@@ -19,8 +19,7 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-searchbar
-      [(ngModel)]="search"
-    >
+      [(ngModel)]="search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -29,7 +28,7 @@
 <ion-content padding>
   <ion-list>
     <a ion-item 
-      *ngFor="let editor of editors | async | editorSearch:search" 
+      *ngFor="let editor of editors | editorSearch:search" 
       (click)="showOptions(editor)">
       {{editor.name}}
     </a>

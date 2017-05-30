@@ -1,31 +1,38 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { SitesProvider } from '../../providers';
-import { Editor } from '../../models';
-import { EditorSearchPipe } from '../../pipes';
+import { EditorProvider } from '../../providers';
+import { IEditor } from '../../models';
 
-@IonicPage()
+@IonicPage({
+    name: 'editors-list',
+    segment: 'editors'
+})
 @Component({
   selector: 'page-editors-list',
   templateUrl: 'editors-list.html',
 })
 export class EditorsListPage {
-  editors: FirebaseListObservable<any>;
+  editors: IEditor[];
   @Input() search: string = "";
 
   constructor(
-    private db: AngularFireDatabase,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
-    public sitesService: SitesProvider 
-  ) { 
-    this.editors = db.list('/editors');
-  }
+    public sitesService: SitesProvider,
+    public editorService: EditorProvider 
+  ) {}
+
+ionViewDidLoad() {
+  this.editorService.fetchAll()
+    .subscribe(data => {
+      this.editors = data;
+    });
+};
 
 presentToast(msg: string) {
   let toast = this.toastCtrl.create({
@@ -61,10 +68,12 @@ addEditor() {
       {
         text: 'Save',
         handler: data => {
-          this.editors.push({
-            name: data.name
+          this.editorService.create(data.name)
+          .then((editor) => {
+            this.navCtrl.push('editor-details', {
+              'id': editor.key
+            })
           })
-          .then(_ => this.presentToast('Editor added successfully'))
           .catch(err => console.log(err, 'You do not have access!'));
         }
       }
@@ -107,13 +116,13 @@ addSite(editorId: string) {
   prompt.present();
 }
 
-  openSitesList(editor: Editor) {
-    this.navCtrl.push('SitesListPage', {
+  openSitesList(editor: IEditor) {
+    this.navCtrl.push('sites-list', {
       'editor_id': editor.$key
     })
   }
 
-showOptions(editor: Editor) {
+showOptions(editor: IEditor) {
   let actionSheet = this.actionSheetCtrl.create({
     title: 'What do you want to do?',
     buttons: [
@@ -151,19 +160,15 @@ showOptions(editor: Editor) {
 }
 
   removeEditor(editorId: string) {
-    this.editors.remove(editorId)
+    this.editorService.delete(editorId)
     .then(_ => this.presentToast('Editor removed successfully'))
     .catch(err => console.log(err, 'You do not have access!'));
   }
 
   updateEditor(editor) {
-    this.navCtrl.push('editors-details', {
+    this.navCtrl.push('editor-details', {
       'id': editor.$key,
       editor: editor
     })
-  }
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditorsListPage');
   }
 }

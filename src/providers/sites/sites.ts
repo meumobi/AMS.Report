@@ -1,40 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
-import 'rxjs/add/operator/map';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-
 import { ISite, Site } from '../../models';
 
-/*
-  Generated class for the SitesProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class SitesProvider {
 
-  items$: FirebaseListObservable<any>;
-  editorSubject = new ReplaySubject(1)
+  items$: FirebaseListObservable<ISite[]>;
 
   constructor(
     public db: AngularFireDatabase
   ) {
-    this.items$ = db.list('/sites', 
-    {
-      query: {
-        orderByChild: 'editor_id',
-        equalTo: this.editorSubject
-      }
-    });
+      this.items$ = this.db.list('/sites');
   }
 
   create(title: string, editorId: string) {
     return this.items$.push(new Site(title, editorId));
   }
 
-  update(siteId, changes: any) {
+  update(siteId: string, changes: any) {
     return this.items$.update(siteId, changes);
   }
 
@@ -42,12 +26,21 @@ export class SitesProvider {
     return this.items$.remove(siteId);
   }
 
-  fetchById(key: string): FirebaseObjectObservable<ISite> {
-    return this.db.object(`sites/${key}`);
+  fetchById(siteId: string): FirebaseObjectObservable<ISite> {
+    return this.db.object(`sites/${siteId}`);
   }
 
   fetchByEditor(editorId: string): FirebaseListObservable<ISite[]> {
-    this.editorSubject.next(editorId);
+    return this.db.list('/sites', 
+    {
+      query: {
+        orderByChild: 'editor_id',
+        equalTo: editorId
+      }
+    });
+  }
+
+  fetchAll(): FirebaseListObservable<ISite[]> {
     return this.items$;
-  } 
+  }
 }

@@ -7,9 +7,9 @@ webpackJsonp([3],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_detail__ = __webpack_require__(313);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(13);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SitesDetailPageModule", function() { return SitesDetailPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_list__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2__ = __webpack_require__(217);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SitesListPageModule", function() { return SitesListPageModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,27 +20,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var SitesDetailPageModule = (function () {
-    function SitesDetailPageModule() {
+var SitesListPageModule = (function () {
+    function SitesListPageModule() {
     }
-    return SitesDetailPageModule;
+    return SitesListPageModule;
 }());
-SitesDetailPageModule = __decorate([
+SitesListPageModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_detail__["a" /* SitesDetailPage */],
+            __WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sites_detail__["a" /* SitesDetailPage */]),
-            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormsModule */]
+            __WEBPACK_IMPORTED_MODULE_3_angularfire2__["a" /* AngularFireModule */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__sites_detail__["a" /* SitesDetailPage */]
+            __WEBPACK_IMPORTED_MODULE_2__sites_list__["a" /* SitesListPage */]
         ]
     })
-], SitesDetailPageModule);
+], SitesListPageModule);
 
-//# sourceMappingURL=sites-detail.module.js.map
+//# sourceMappingURL=sites-list.module.js.map
+
+/***/ }),
+
+/***/ 303:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(9);
+var map_1 = __webpack_require__(54);
+Observable_1.Observable.prototype.map = map_1.map;
+//# sourceMappingURL=map.js.map
 
 /***/ }),
 
@@ -48,9 +60,29 @@ SitesDetailPageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(306);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(305);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(214);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__editor_editor__ = __webpack_require__(213);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__editor_editor__["a"]; });
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 305:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* unused harmony export EditorAfService */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -84,13 +116,13 @@ EditorAfService = __decorate([
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(307);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__ = __webpack_require__(308);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__);
@@ -142,31 +174,14 @@ EditorService = __decorate([
 
 /***/ }),
 
-/***/ 306:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__editor_service__ = __webpack_require__(305);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editor_af_service__ = __webpack_require__(304);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sites_sites__ = __webpack_require__(216);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__sites_sites__["a"]; });
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ 307:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(29);
 /* unused harmony export BrowserXhr */
 /* unused harmony export JSONPBackend */
 /* unused harmony export JSONPConnection */
@@ -2346,7 +2361,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Version */]
 
 "use strict";
 
-var Observable_1 = __webpack_require__(8);
+var Observable_1 = __webpack_require__(9);
 var delay_1 = __webpack_require__(309);
 Observable_1.Observable.prototype.delay = delay_1.delay;
 //# sourceMappingURL=delay.js.map
@@ -2363,10 +2378,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var async_1 = __webpack_require__(218);
+var async_1 = __webpack_require__(216);
 var isDate_1 = __webpack_require__(310);
 var Subscriber_1 = __webpack_require__(20);
-var Notification_1 = __webpack_require__(217);
+var Notification_1 = __webpack_require__(215);
 /**
  * Delays the emission of items from the source Observable by a given timeout or
  * until a given Date.
@@ -2508,14 +2523,14 @@ exports.isDate = isDate;
 
 /***/ }),
 
-/***/ 313:
+/***/ 314:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers__ = __webpack_require__(306);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SitesDetailPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers__ = __webpack_require__(304);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SitesListPage; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2528,19 +2543,80 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SitesDetailPage = (function () {
-    function SitesDetailPage(navCtrl, navParams, toastCtrl, sitesService) {
+var SitesListPage = (function () {
+    function SitesListPage(sitesService, navCtrl, alertCtrl, toastCtrl, actionSheetCtrl, navParams) {
         var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.toastCtrl = toastCtrl;
         this.sitesService = sitesService;
-        var key = this.navParams.data.id;
-        this.sitesService.fetchById(key).subscribe(function (data) {
-            _this.site = data;
-        });
+        this.navCtrl = navCtrl;
+        this.alertCtrl = alertCtrl;
+        this.toastCtrl = toastCtrl;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.navParams = navParams;
+        var editorId = this.navParams.data.editor_id;
+        if (editorId) {
+            this.sitesService.fetchByEditor(editorId)
+                .subscribe(function (data) {
+                _this.sites = data;
+            });
+        }
+        else {
+            this.sitesService.fetchAll()
+                .subscribe(function (data) {
+                _this.sites = data;
+            });
+        }
     }
-    SitesDetailPage.prototype.presentToast = function (msg) {
+    SitesListPage.prototype.openSiteReport = function (site) {
+        this.navCtrl.push('sites-report', {
+            'id': site.$key
+        });
+    };
+    SitesListPage.prototype.openSiteDetails = function ($event, site) {
+        $event.stopPropagation();
+        this.navCtrl.push('sites-detail', {
+            'id': site.$key
+        });
+    };
+    SitesListPage.prototype.removeSite = function ($event, site) {
+        var _this = this;
+        $event.stopPropagation();
+        var alert = this.alertCtrl.create({
+            title: 'Confirm deletion',
+            message: 'Do you want to remove this site?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function () {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Remove',
+                    handler: function () {
+                        _this.sitesService.delete(site.$key)
+                            .then(function (_) {
+                            _this.presentToast('Site removed successfully');
+                        })
+                            .catch(function (err) { return console.log(err, 'You do not have access!'); });
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    SitesListPage.prototype.openSite = function ($event, site) {
+        $event.stopPropagation();
+        window.open(site.url);
+    };
+    SitesListPage.prototype.changeEditor = function (editorId) {
+        var _this = this;
+        this.sitesService.fetchByEditor(editorId)
+            .subscribe(function (data) {
+            _this.sites = data;
+        });
+    };
+    SitesListPage.prototype.presentToast = function (msg) {
         var toast = this.toastCtrl.create({
             message: msg,
             duration: 3000,
@@ -2551,36 +2627,21 @@ var SitesDetailPage = (function () {
         });
         toast.present();
     };
-    SitesDetailPage.prototype.onSubmit = function (_a) {
-        var _this = this;
-        var value = _a.value, valid = _a.valid;
-        this.sitesService.update(this.site.$key, value)
-            .then(function (_) {
-            _this.presentToast('Site updated successfully');
-            _this.navCtrl.pop();
-        })
-            .catch(function (err) { return console.log(err, 'You do not have access!'); });
-    };
-    SitesDetailPage.prototype.cancel = function () {
-        this.navCtrl.pop();
-    };
-    return SitesDetailPage;
+    return SitesListPage;
 }());
-SitesDetailPage = __decorate([
+SitesListPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])({
-        name: 'sites-detail',
-        segment: 'detail/:id'
+        name: 'sites-list',
+        segment: 'sites'
     }),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        selector: 'page-sites-detail',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-detail/sites-detail.html"*/'<!--\n  Generated template for the SitesDetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>sites-detail</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="site">\n    <ion-list>\n      <ion-item>\n        <ion-label color="primary" stacked>Name</ion-label>\n        <ion-input type="text" \n          name="title" \n          [(ngModel)]="site.title" \n          #siteName=\'ngModel\'\n          required>\n        </ion-input>\n      </ion-item>\n        <div *ngIf="siteName.errors?.required && siteName.touched" class="error">\n          Name is required\n        </div>\n      <ion-item>\n        <ion-label color="primary" stacked>URL</ion-label>\n        <ion-input type="url" name="url" [(ngModel)]="site.url">\n        </ion-input>\n      </ion-item>\n    </ion-list>\n    <ion-row responsive-sm>\n      <ion-col>\n        <button ion-button \n          type="submit" \n          [disabled]="f.invalid"\n          block>Save</button>\n      </ion-col>\n      <ion-col>\n        <button ion-button \n          (click)="cancel()" \n          color="light" \n          block>Cancel</button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-detail/sites-detail.html"*/,
+        selector: 'page-sites-list',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-list/sites-list.html"*/'<!--\n  Generated template for the SitesListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Sites</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="addSite()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <input type="text" #editor (change)="changeEditor(editor.value)" />\n  <ion-list>\n    <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">\n      {{site.title}}<br />\n      <small><a (click)="openSite($event, site)">{{site.url}}</a></small>\n    <button item-right (click)="removeSite($event, site)" ion-button icon-only default>\n      <ion-icon name="trash"></ion-icon>\n    </button>\n    <button item-right (click)="openSiteDetails($event, site)" ion-button icon-only default>\n      <ion-icon name="create"></ion-icon>\n    </button>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-list/sites-list.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2__providers__["a" /* SitesProvider */]])
-], SitesDetailPage);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__providers__["a" /* SitesProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers__["a" /* SitesProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ActionSheetController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _f || Object])
+], SitesListPage);
 
-//# sourceMappingURL=sites-detail.js.map
+var _a, _b, _c, _d, _e, _f;
+//# sourceMappingURL=sites-list.js.map
 
 /***/ })
 
