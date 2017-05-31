@@ -18,8 +18,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar
-      [(ngModel)]="search">
+    <ion-searchbar [(ngModel)]="search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -27,10 +26,14 @@
 
 <ion-content padding>
   <ion-list>
-    <a ion-item 
-      *ngFor="let editor of editors | editorSearch:search" 
-      (click)="showOptions(editor)">
+    <ion-item *ngFor="let editor of editors | editorSearch:search" (click)="openSitesList(editor)">
       {{editor.name}}
-    </a>
+      <button item-right (click)="removeEditor($event, editor)" ion-button icon-only default>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button item-right (click)="updateEditor($event, editor)" ion-button icon-only default>
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-item>
   </ion-list>
 </ion-content>

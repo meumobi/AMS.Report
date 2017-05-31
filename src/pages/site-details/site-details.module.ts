@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SitesDetailPage } from './sites-detail';
+import { SiteDetailsPage } from './site-details';
 
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
-    SitesDetailPage,
+    SiteDetailsPage,
   ],
   imports: [
-    IonicPageModule.forChild(SitesDetailPage),
+    IonicPageModule.forChild(SiteDetailsPage),
     FormsModule
   ],
   exports: [
-    SitesDetailPage
+    SiteDetailsPage
   ]
 })
-export class SitesDetailPageModule {}
+export class SiteDetailsPageModule {}

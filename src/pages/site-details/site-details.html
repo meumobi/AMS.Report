@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>sites-detail</ion-title>
+    <ion-title>Edit Site</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -33,6 +33,14 @@
         <ion-input type="url" name="url" [(ngModel)]="site.url">
         </ion-input>
       </ion-item>
+      <ion-item *ngIf="(editor && editor.name)">
+        <ion-label color="primary" stacked>Editor</ion-label>
+        <ion-input type="text" 
+          disabled="true"
+          [ngModel]="editor.name"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
     </ion-list>
     <ion-row responsive-sm>
       <ion-col>
@@ -43,6 +51,7 @@
       </ion-col>
       <ion-col>
         <button ion-button 
+          type="button"
           (click)="cancel()" 
           color="light" 
           block>Cancel</button>

@@ -39,7 +39,7 @@ export class MyApp {
     { title: 'Support', name: 'SupportPage', icon: 'help' }
   ];
 
-  rootPage:string = 'EditorsListPage';
+  rootPage:string = 'editors-list';
 
   constructor(
     public platform: Platform,

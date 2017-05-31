@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
 
-import { SitesProvider } from '../../providers';
-import { ISite } from '../../models';
-import { IEditor } from '../../models';
+import { SitesProvider, EditorProvider } from '../../providers';
+import { ISite, IEditor } from '../../models';
 
 @IonicPage({
     name: 'sites-list',
@@ -16,9 +15,11 @@ import { IEditor } from '../../models';
 export class SitesListPage {
 
   sites: ISite[];
+  editor: IEditor;
 
   constructor(
     public sitesService: SitesProvider,
+    public editorService: EditorProvider,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
@@ -28,16 +29,29 @@ export class SitesListPage {
     let editorId = this.navParams.data.editor_id;
 
     if (editorId) {
-      this.sitesService.fetchByEditor(editorId)
-        .subscribe(data => {
-          this.sites = data;
-        })
+      this.loadEditor(editorId);
     } else {
       this.sitesService.fetchAll()
         .subscribe(data => {
           this.sites = data;
         });
-    }
+    }    
+  }
+
+  loadSites(editorId) {
+    this.sitesService.fetchByEditorId(editorId)
+      .subscribe(data => {
+        this.sites = data;
+      })
+  }
+
+  loadEditor(editorId) {
+    this.editorService.fetchById(editorId)
+        .subscribe( data => {
+          this.editor = data;
+          console.log(this.editor.name);
+          this.loadSites(this.editor.$key);
+        })
   }
 
   openSiteReport(site: ISite) {
@@ -46,9 +60,9 @@ export class SitesListPage {
     })
   }
 
-  openSiteDetails($event, site: ISite) {
+  updateSite($event, site: ISite) {
     $event.stopPropagation();
-    this.navCtrl.push('sites-detail', {
+    this.navCtrl.push('site-details', {
       'id': site.$key
     })
   }
@@ -81,16 +95,45 @@ export class SitesListPage {
     alert.present();
   }
 
+  isUndefined(val) { return typeof val === 'undefined'; }
+
+  addSite(editorId: string) {
+    let prompt = this.alertCtrl.create({
+      title: 'Site Name',
+      message: "Enter a name for this new site you're so keen on adding",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.sitesService.create(data.name, editorId)
+            .then((site) => {
+              this.navCtrl.push('site-details', {
+                'id': site.key
+              })
+            })
+            .catch(err => console.log(err, 'Can\'t create Site!'));
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   openSite($event, site: ISite) {
     $event.stopPropagation();
     window.open(site.url);
-  }
-
-  changeEditor(editorId) {
-    this.sitesService.fetchByEditor(editorId)
-      .subscribe(data => {
-        this.sites = data;
-      });
   }
 
   presentToast(msg: string) {

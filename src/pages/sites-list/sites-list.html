@@ -10,9 +10,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Sites</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addSite()">
+    <ion-title *ngIf="editor; else allSites">Sites of {{editor.name}}</ion-title>
+    <ng-template #allSites>
+      <ion-title>All Sites</ion-title>
+    </ng-template>
+    <ion-buttons *ngIf="editor" end>
+      <button ion-button icon-only (click)="addSite(editor.$key)">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -22,7 +25,7 @@
 
 
 <ion-content padding>
-  <input type="text" #editor (change)="changeEditor(editor.value)" />
+  <input type="text" #editorId (change)="loadSites(editorId.value)" />
   <ion-list>
     <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">
       {{site.title}}<br />
@@ -30,7 +33,7 @@
     <button item-right (click)="removeSite($event, site)" ion-button icon-only default>
       <ion-icon name="trash"></ion-icon>
     </button>
-    <button item-right (click)="openSiteDetails($event, site)" ion-button icon-only default>
+    <button item-right (click)="updateSite($event, site)" ion-button icon-only default>
       <ion-icon name="create"></ion-icon>
     </button>
     </ion-item>

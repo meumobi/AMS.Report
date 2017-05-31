@@ -19,6 +19,11 @@ export class SitesProvider {
   }
 
   update(siteId: string, changes: any) {
+    /*
+      Remove undefined properties or it should raise
+      "firebase set failed first argument contains undefined in property"
+    */ 
+    Object.keys(changes).forEach(key => changes[key] === undefined && delete changes[key])
     return this.items$.update(siteId, changes);
   }
 
@@ -30,7 +35,7 @@ export class SitesProvider {
     return this.db.object(`sites/${siteId}`);
   }
 
-  fetchByEditor(editorId: string): FirebaseListObservable<ISite[]> {
+  fetchByEditorId(editorId: string): FirebaseListObservable<ISite[]> {
     return this.db.list('/sites', 
     {
       query: {

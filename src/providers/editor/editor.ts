@@ -18,7 +18,12 @@ export class EditorProvider {
     return this.items$.push(new Editor(name));
   }
 
-  update(id: string, changes: any) {
+  update(id: string, changes: IEditor) {
+    /*
+      Remove undefined properties or it should raise
+      "firebase set failed first argument contains undefined in property"
+    */ 
+    Object.keys(changes).forEach(key => changes[key] === undefined && delete changes[key])
     return this.items$.update(id, changes);
   }
 

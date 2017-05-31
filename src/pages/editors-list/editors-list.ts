@@ -25,96 +25,64 @@ export class EditorsListPage {
     public navParams: NavParams,
     public sitesService: SitesProvider,
     public editorService: EditorProvider 
-  ) {}
+  ) {
+    this.editorService.fetchAll()
+    .subscribe(
+      data => {
+        this.editors = data;
+      },
+      err => {
+        console.log('error');
+      });
+  }
 
-ionViewDidLoad() {
-  this.editorService.fetchAll()
-    .subscribe(data => {
-      this.editors = data;
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
     });
-};
 
-presentToast(msg: string) {
-  let toast = this.toastCtrl.create({
-    message: msg,
-    duration: 3000,
-    position: 'bottom'
-  });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
 
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
+    toast.present();
+  }
 
-  toast.present();
-}
-
-addEditor() {
-  let prompt = this.alertCtrl.create({
-    title: 'Editor Name',
-    message: "Enter a name for this new editor you're so keen on adding",
-    inputs: [
-      {
-        name: 'name',
-        placeholder: 'Name'
-      },
-    ],
-    buttons: [
-      {
-        text: 'Cancel',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Save',
-        handler: data => {
-          this.editorService.create(data.name)
-          .then((editor) => {
-            this.navCtrl.push('editor-details', {
-              'id': editor.key
+  addEditor() {
+    let prompt = this.alertCtrl.create({
+      title: 'Editor Name',
+      message: "Enter a name for this new editor you're so keen on adding",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.editorService.create(data.name)
+            .then((editor) => {
+              this.navCtrl.push('editor-details', {
+                'id': editor.key
+              })
             })
-          })
-          .catch(err => console.log(err, 'You do not have access!'));
+            .catch(err => console.log(err, 'You do not have access!'));
+          }
         }
-      }
-    ]
-  });
-  prompt.present();
-}
-
-addSite(editorId: string) {
-  let prompt = this.alertCtrl.create({
-    title: 'Site Name',
-    message: "Enter a name for this new site you're so keen on adding",
-    inputs: [
-      {
-        name: 'name',
-        placeholder: 'Name'
-      },
-    ],
-    buttons: [
-      {
-        text: 'Cancel',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Save',
-        handler: data => {
-          this.sitesService.create(data.name, editorId)
-          .then((site) => {
-            this.navCtrl.push('sites-detail', {
-              'id': site.key
-            })
-          })
-          .catch(err => console.log(err, 'Can\'t create Site!'));
-        }
-      }
-    ]
-  });
-  prompt.present();
-}
+      ]
+    });
+    prompt.present();
+  }
 
   openSitesList(editor: IEditor) {
     this.navCtrl.push('sites-list', {
@@ -122,53 +90,38 @@ addSite(editorId: string) {
     })
   }
 
-showOptions(editor: IEditor) {
-  let actionSheet = this.actionSheetCtrl.create({
-    title: 'What do you want to do?',
-    buttons: [
-      {
-        text: 'Delete Editor',
-        role: 'destructive',
-        handler: () => {
-          this.removeEditor(editor.$key);
+  removeEditor($event, editor: IEditor) {
+    $event.stopPropagation();
+    let alert = this.alertCtrl.create({
+      title: 'Confirm deletion',
+      message: 'Do you want to remove this editor?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.editorService.delete(editor.$key)
+              .then(_ => {
+                this.presentToast('Editor removed successfully');
+              })
+              .catch(err => console.log(err, 'You do not have access!'));
+          }
         }
-      },{
-        text: 'List Sites',
-        handler: () => {
-          this.openSitesList(editor);
-        }
-      },{
-        text: 'Add Site',
-        handler: () => {
-          this.addSite(editor.$key);
-        }
-      },{
-        text: 'Update Editor',
-        handler: () => {
-          this.updateEditor(editor);
-        }
-      },{
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }
-    ]
-  });
-  actionSheet.present();
-}
-
-  removeEditor(editorId: string) {
-    this.editorService.delete(editorId)
-    .then(_ => this.presentToast('Editor removed successfully'))
-    .catch(err => console.log(err, 'You do not have access!'));
+      ]
+    });
+    alert.present();
   }
 
-  updateEditor(editor) {
+  updateEditor($event, editor: IEditor) {
+    $event.stopPropagation();
     this.navCtrl.push('editor-details', {
-      'id': editor.$key,
-      editor: editor
+      'id': editor.$key
     })
   }
 }
