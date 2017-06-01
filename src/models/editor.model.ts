@@ -6,6 +6,7 @@ export interface IEditor {
   siret?: number;
   tva?: string;
   address?: string;
+  eai?: string; //Extra Address Information
   email?: string;
   zip?: string;
   city?: string;
