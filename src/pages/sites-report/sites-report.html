@@ -46,8 +46,24 @@
 	<button ion-button full>Apply</button>
 
   <ion-list>
-    <ion-item *ngFor="let raw of reports | async">
-      {{raw.date}} | {{raw.site}} | {{raw.revenu}} | {{raw.fillRate}} | {{raw.inventaire}}
-    </ion-item>
+		<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"
+        [sortableRowGroup]="false">
+    <p-header>Toggleable Row Groups with Footers</p-header>
+    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['inventaire']}}</ng-template>
+			<p-column field="date" header="Date"></p-column>
+			<p-column field="site" header="Site"></p-column>
+			<p-column field="fillRate" header="Fill Rate"></p-column>
+			<p-column field="impressions prises" header="Impressions"></p-column>
+			<p-column field="revenu" header="Revenu">
+        <ng-template let-col let-car="rowData" pTemplate="body">
+            <span>{{car[col.field] | currency:'USD':true:'.0-0'}}</span>
+        </ng-template>
+    </p-column>
+    <ng-template pTemplate="rowgroupfooter" let-car>
+        <td colspan="3" style="text-align:right">Total Revenu</td>
+				<td>{{calculateGroupTotal(car['inventaire'], "impressions prises")}}</td>
+        <td>{{calculateGroupTotal(car['inventaire'], "revenu") | currency:'USD':true:'.0-0' }}</td>
+    </ng-template>
+</p-dataTable>
   </ion-list>
 </ion-content>

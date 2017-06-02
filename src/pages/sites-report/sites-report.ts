@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Http, Response } from '@angular/http';
 
 import { SitesProvider } from '../../providers';
 import { ISite, Site } from '../../models';
+import 'rxjs/add/operator/map';
+
+import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 /**
  * Generated class for the SitesReportPage page.
@@ -23,13 +27,23 @@ export class SitesReportPage {
 
   site: ISite;
   reports: FirebaseListObservable<any>;
+  rep: any[];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public sitesService: SitesProvider,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private http: Http
   ) {
+    this.http.get('/assets/data.json')
+      .map((res: Response) => res.json())
+      .subscribe(data => {
+        this.rep = data.reports["Le Rugbynistere"];
+        console.log(this.rep);
+      });
+
+    
     let siteId = this.navParams.data.id;
 
     this.sitesService.fetchById(siteId)
@@ -47,6 +61,20 @@ export class SitesReportPage {
     }
 
     this.reports = db.list('/reports/' + this.site.title, {query: query});
+  }
+
+  calculateGroupTotal(groupFieldValue: string, field: string) {
+    let total = 0;
+    
+    if(this.rep) {
+        for(let raw of this.rep) {
+            if(raw['inventaire'] === groupFieldValue) {
+                total += raw[field];
+            }
+        }
+    }
+
+    return total;
   }
 
   ionViewDidLoad() {

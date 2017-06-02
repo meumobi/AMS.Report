@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SitesReportPage } from './sites-report';
+import { HttpModule } from '@angular/http';
+
+import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -8,6 +11,10 @@ import { SitesReportPage } from './sites-report';
   ],
   imports: [
     IonicPageModule.forChild(SitesReportPage),
+    DataTableModule,
+    HttpModule,
+    SharedModule
+
   ],
   exports: [
     SitesReportPage
