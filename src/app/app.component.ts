@@ -25,7 +25,7 @@ export class MyApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Editors', name: 'editors-list', class: 'EditorsListPage', index: 0, icon: 'briefcase' },
-    //{ title: 'Users', name: 'UsersListPage', index: 1, icon: 'contacts' },
+    { title: 'Users', name: 'users-list', class: 'UsersListPage', index: 1, icon: 'contacts' },
     { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop' }
     //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
@@ -35,7 +35,7 @@ export class MyApp {
     { title: 'Logout', name: 'TabsPage', icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
-    { title: 'Login', name: 'LoginPage', icon: 'log-in' },
+    { title: 'Login', name: 'login', class: 'LoginPage', icon: 'log-in' },
     { title: 'Support', name: 'SupportPage', icon: 'help' }
   ];
 

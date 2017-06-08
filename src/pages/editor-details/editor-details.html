@@ -16,7 +16,7 @@
   <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="editor">
     <ion-list>
       <ion-item>
-        <ion-label color="primary" stacked>Name</ion-label>
+        <ion-label color="primary" floating>Name</ion-label>
         <ion-input type="text" 
           name="name" 
           [(ngModel)]="editor.name"
@@ -28,37 +28,37 @@
         Name is required
       </div>
       <ion-item>
-        <ion-label color="primary" stacked>Siret</ion-label>
+        <ion-label color="primary" floating>Siret</ion-label>
         <ion-input type="number" name="siret" [(ngModel)]="editor.siret">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>RCS</ion-label>
+        <ion-label color="primary" floating>RCS</ion-label>
         <ion-input type="text" name="rcs" [(ngModel)]="editor.rcs">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>TVA intracommunautaire</ion-label>
+        <ion-label color="primary" floating>TVA intracommunautaire</ion-label>
         <ion-input type="text" name="tva" [(ngModel)]="editor.tva">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>Address</ion-label>
+        <ion-label color="primary" floating>Address</ion-label>
         <ion-input type="text" name="address" [(ngModel)]="editor.address">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>Extra Address Information</ion-label>
+        <ion-label color="primary" floating>Extra Address Information</ion-label>
         <ion-input type="text" name="eai" [(ngModel)]="editor.eai">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>City</ion-label>
+        <ion-label color="primary" floating>City</ion-label>
         <ion-input type="text" name="city" [(ngModel)]="editor.city">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" stacked>Zip Code</ion-label>
+        <ion-label color="primary" floating>Zip Code</ion-label>
         <ion-input type="text" name="zip" [(ngModel)]="editor.zip">
         </ion-input>
       </ion-item>

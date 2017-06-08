@@ -5,19 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
 import { SitesProvider } from '../providers/sites/sites';
 import { EditorProvider } from '../providers/editor/editor';
-
-// AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyBML2EVs0juvq3wJsjs3gYU-qHJAEu9UiA",
-  authDomain: "ams-report.firebaseapp.com",
-  databaseURL: "https://ams-report.firebaseio.com",
-  storageBucket: "ams-report.appspot.com",
-  messagingSenderId: "832063717167"
-};
+import { FIREBASE_CONFIG } from './app.firebase.config';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -26,8 +20,9 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,7 +33,8 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SitesProvider,
-    EditorProvider
+    EditorProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

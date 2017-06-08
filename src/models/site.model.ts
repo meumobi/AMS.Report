@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 
 export interface ISite {
-  $key?: string, 
+  $key?: string; 
   title: string;
   editor_id: string;
   createdAt: Object;
