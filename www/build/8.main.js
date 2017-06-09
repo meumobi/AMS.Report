@@ -63,6 +63,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+// import { IUser } from '../../models';
+// import { UserProvider, AuthProvider } from '../../providers';
 
 var LoginPage = (function () {
     function LoginPage(fb, navCtrl, navParams) {
@@ -91,11 +93,10 @@ LoginPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-login',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/login/login.html"*/'<!--\n  Generated template for the LoginPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<!--ion-header>\n\n  <ion-navbar>\n    <ion-title>Login</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n  <ion-item>\n    <ion-label floating>Email Address</ion-label>\n    <ion-input type="text" [(ngModel)]="user.email"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)]="user.password"></ion-input>\n  </ion-item>\n  <button ion-button (click)="login()">Login</button>\n  <a href="#" (click)="forgotPassword()">Forgot Password</a>\n</ion-content-->\n\n<ion-content class="background">\n  <ion-card>\n    <ion-card-header>\n      <div class="logo">\n        <img src="assets/img/logo.png" alt="logo">\n      </div>\n    </ion-card-header>\n    <ion-card-content>\n      <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">\n        <ion-list no-lines>\n          <div class="spacer" style="height: 10px;"></div>\n          <ion-item>\n            <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>\n          </ion-item>\n          <div class="error" *ngIf="user.get(\'email\').hasError(\'required\') && user.get(\'email\').touched">\n            Email is required\n          </div>\n          <div class="spacer" style="height: 5px;"></div>\n          <ion-item>\n            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>\n          </ion-item>\n          <div class="error" *ngIf="user.get(\'password\').hasError(\'required\') && user.get(\'password\').touched">\n            Password is required\n          </div>\n          <div class="spacer" style="height: 10px;"></div>\n          <button type="submit" [disabled]="user.invalid" ion-button block round outline color="light">Login</button>\n          <div class="spacer" style="height: 10px;"></div>\n          <p>OR</p>\n          <div class="spacer" style="height: 10px;"></div>\n          <button ion-button clear full color="light" (click)="passwordreset()">Forgot login details ? <b> Get Help </b></button>\n        </ion-list>\n      </form>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/login/login.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _c || Object])
 ], LoginPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=login.js.map
 
 /***/ })

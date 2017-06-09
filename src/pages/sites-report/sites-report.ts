@@ -4,10 +4,10 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { Http, Response } from '@angular/http';
 
 import { SitesProvider } from '../../providers';
-import { ISite, Site } from '../../models';
+import { ISite } from '../../models';
 import 'rxjs/add/operator/map';
 
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule } from 'primeng/primeng';
 
 /**
  * Generated class for the SitesReportPage page.
