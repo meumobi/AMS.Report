@@ -1,4 +1,11 @@
 page-login {
+.logo {
+    background-color: rgba(255, 255, 255, 0.8);
+    img {
+        max-width: 150px;
+        margin: auto
+    }
+}
 .background {
     background-image: url('http://www.dailyfresh-media.com/www-admysports/wp-content/uploads/2015/07/Slider31.jpg');
     background-position: right;

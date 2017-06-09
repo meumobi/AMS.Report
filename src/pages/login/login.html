@@ -28,7 +28,9 @@
 <ion-content class="background">
   <ion-card>
     <ion-card-header>
-      Login
+      <div class="logo">
+        <img src="assets/img/logo.png" alt="logo">
+      </div>
     </ion-card-header>
     <ion-card-content>
       <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
