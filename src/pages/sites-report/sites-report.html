@@ -45,12 +45,15 @@
 	</ion-list>
 	<button ion-button full>Apply</button>
 
+	<div id="react-pivot"></div>
+
   <ion-list>
 		<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"
         [sortableRowGroup]="false">
     <p-header>Toggleable Row Groups with Footers</p-header>
     <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['inventaire']}}</ng-template>
 			<p-column field="date" header="Date"></p-column>
+			<p-column field="inventaire" header="Inventaire"></p-column>
 			<p-column field="site" header="Site"></p-column>
 			<p-column field="fillRate" header="Fill Rate"></p-column>
 			<p-column field="impressions prises" header="Impressions"></p-column>
@@ -64,6 +67,6 @@
 				<td>{{calculateGroupTotal(car['inventaire'], "impressions prises")}}</td>
         <td>{{calculateGroupTotal(car['inventaire'], "revenu") | currency:'USD':true:'.0-0' }}</td>
     </ng-template>
-</p-dataTable>
+		</p-dataTable>
   </ion-list>
 </ion-content>

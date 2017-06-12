@@ -11146,32 +11146,116 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var SitesReportPage = (function () {
-    function SitesReportPage(navCtrl, navParams, sitesService, db, http) {
-        var _this = this;
+    function SitesReportPage(navCtrl, navParams, sitesService, db, elRef, http) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.sitesService = sitesService;
         this.db = db;
+        this.elRef = elRef;
         this.http = http;
+    }
+    SitesReportPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
         this.http.get('/assets/data.json')
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
             _this.rep = data.reports["Le Rugbynistere"];
-            console.log(_this.rep);
+            //console.log(this.rep);
         });
         var siteId = this.navParams.data.id;
         this.sitesService.fetchById(siteId)
             .subscribe(function (siteSnap) {
             _this.site = siteSnap;
+            console.log('========= Site');
+            console.log(_this.site);
         });
         var query = {};
+        /*
         if (this.site) {
-            query.orderByChild = 'date';
-            query.startAt = "2017-03-02";
-            query.endAt = "2017-03-04";
+          query.orderByChild = 'date';
+          query.startAt = "2017-03-02";
+          query.endAt = "2017-03-09";
         }
-        this.reports = db.list('/reports/' + this.site.title, { query: query });
-    }
+        */
+        //this.db.list('/reports/' + this.site.title, {query: query}).subscribe(
+        this.db.list('/reports/' + this.site.title).subscribe(function (data) {
+            _this.rep = data;
+            console.log('========= Rep');
+            console.log(_this.rep);
+            console.log('========= Reports');
+            console.log(_this.reports);
+            console.log('========= Site');
+            console.log(_this.site);
+            ReactPivot(el, {
+                rows: _this.rep,
+                dimensions: dimensions,
+                calculations: calculations,
+                reduce: reduce,
+                activeDimensions: ['Inventaire', 'Site'],
+                nPaginateRows: 20
+            });
+        }, function (err) {
+            console.log('error');
+        });
+        /*
+        var rows = [
+          {"firstName":"Victor","lastName":"Dias","state":"NY","transaction":{"amount":"399.73","date":"2012-02-02T08:00:00.000Z","business":"Kozey-Moore","name":"Checking Account 2297","type":"deposit","account":"82741327"}},
+          {"firstName":"Jean-Baptiste","lastName":"Dalle","state":"NY","transaction":{"amount":"768.84","date":"2012-02-02T08:00:00.000Z","business":"Herman-Langworth","name":"Money Market Account 9344","type":"deposit","account":"95753704"}},
+          {"firstName":"Francisco","lastName":"Brekke","state":"NY","transaction":{"amount":"399.73","date":"2012-02-02T08:00:00.000Z","business":"Kozey-Moore","name":"Checking Account 2297","type":"deposit","account":"82741327"}},
+          {"firstName":"Francisco","lastName":"Brekke","state":"NY","transaction":{"amount":"768.84","date":"2012-02-02T08:00:00.000Z","business":"Herman-Langworth","name":"Money Market Account 9344","type":"deposit","account":"95753704"}}
+        ];
+        */
+        var dimensions = [
+            { value: 'annonceur', title: 'Annonceurs' },
+            { value: 'format', title: 'Format' },
+            { value: 'position', title: 'Position' },
+            { value: 'site', title: 'Site' },
+            { value: 'inventaire', title: 'Inventaire' }
+        ];
+        var reduce = function (row, memo) {
+            memo.imprPrisesTotal = (memo.imprPrisesTotal || 0) + parseFloat(row['impressions prises']);
+            memo.imprEnvoyeesTotal = (memo.imprEnvoyeesTotal || 0) + parseFloat(row['impressions envoyees']);
+            memo.imprRecuesTotal = (memo.imprRecuesTotal || 0) + parseFloat(row['impressions reçues']);
+            memo.revenuTotal = (memo.revenuTotal || 0) + parseFloat(row.revenu);
+            memo.cpm = (1000 * memo.revenuTotal / memo.imprPrisesTotal);
+            //memo.amountTotal = (memo.amountTotal || 0) + parseFloat(row.transaction.amount)
+            //memo.amountTotal = (memo.amountTotal || 0) + parseFloat(row.transaction.amount)
+            return memo;
+        };
+        var calculations = [
+            {
+                value: 'imprPrisesTotal', title: 'Impr. prises',
+                template: function (val, row) {
+                    return val;
+                }
+            },
+            {
+                value: 'imprEnvoyeesTotal', title: 'Impr. envoyées',
+                template: function (val, row) {
+                    return val;
+                }
+            },
+            {
+                value: 'imprRecuesTotal', title: 'Impr. reçues',
+                template: function (val, row) {
+                    return val;
+                }
+            },
+            {
+                value: 'revenuTotal', title: 'Revenus',
+                template: function (val, row) {
+                    return '€' + val.toFixed(2);
+                }
+            },
+            {
+                value: 'cpm', title: 'CPM',
+                template: function (val, row) {
+                    return val.toFixed(2);
+                }
+            }
+        ];
+        var el = this.elRef.nativeElement.querySelector('#react-pivot');
+    };
     SitesReportPage.prototype.calculateGroupTotal = function (groupFieldValue, field) {
         var total = 0;
         if (this.rep) {
@@ -11184,9 +11268,6 @@ var SitesReportPage = (function () {
         }
         return total;
     };
-    SitesReportPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SitesReportPage');
-    };
     return SitesReportPage;
 }());
 SitesReportPage = __decorate([
@@ -11195,12 +11276,12 @@ SitesReportPage = __decorate([
         segment: 'report/:id'
     }),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-sites-report',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/'<!--\n  Generated template for the SitesReportPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>sites-report</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n	<ion-list>\n		<ion-item>\n			<ion-label>FORMAT</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">1600 x 1000</ion-option>\n				<ion-option value="olives">300 x 250</ion-option>\n				<ion-option value="xcheese" selected="true">970 x 250</ion-option>\n				<ion-option value="peppers">728 x 90</ion-option>\n				<ion-option value="mushrooms">300 x 600</ion-option>\n				<ion-option value="onions">320 x 50</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>POSITION</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">Haut</ion-option>\n				<ion-option value="olives">Bas</ion-option>\n				<ion-option value="xcheese" selected="true">STF</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>Start Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="startDate"></ion-datetime>\n		</ion-item>\n		<ion-item>\n			<ion-label>End Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="endDate"></ion-datetime>\n		</ion-item>\n	</ion-list>\n	<button ion-button full>Apply</button>\n\n  <ion-list>\n		<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"\n        [sortableRowGroup]="false">\n    <p-header>Toggleable Row Groups with Footers</p-header>\n    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData[\'inventaire\']}}</ng-template>\n			<p-column field="date" header="Date"></p-column>\n			<p-column field="site" header="Site"></p-column>\n			<p-column field="fillRate" header="Fill Rate"></p-column>\n			<p-column field="impressions prises" header="Impressions"></p-column>\n			<p-column field="revenu" header="Revenu">\n        <ng-template let-col let-car="rowData" pTemplate="body">\n            <span>{{car[col.field] | currency:\'USD\':true:\'.0-0\'}}</span>\n        </ng-template>\n    </p-column>\n    <ng-template pTemplate="rowgroupfooter" let-car>\n        <td colspan="3" style="text-align:right">Total Revenu</td>\n				<td>{{calculateGroupTotal(car[\'inventaire\'], "impressions prises")}}</td>\n        <td>{{calculateGroupTotal(car[\'inventaire\'], "revenu") | currency:\'USD\':true:\'.0-0\' }}</td>\n    </ng-template>\n</p-dataTable>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/,
+        selector: 'page-sites-report',template:/*ion-inline-start:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/'<!--\n  Generated template for the SitesReportPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>sites-report</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n	<ion-list>\n		<ion-item>\n			<ion-label>FORMAT</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">1600 x 1000</ion-option>\n				<ion-option value="olives">300 x 250</ion-option>\n				<ion-option value="xcheese" selected="true">970 x 250</ion-option>\n				<ion-option value="peppers">728 x 90</ion-option>\n				<ion-option value="mushrooms">300 x 600</ion-option>\n				<ion-option value="onions">320 x 50</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>POSITION</ion-label>\n			<ion-select [(ngModel)]="toppings" multiple="true" cancelText="Nah" okText="Okay!">\n				<ion-option value="bacon" selected="true">Haut</ion-option>\n				<ion-option value="olives">Bas</ion-option>\n				<ion-option value="xcheese" selected="true">STF</ion-option>\n			</ion-select>\n		</ion-item>\n		<ion-item>\n			<ion-label>Start Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="startDate"></ion-datetime>\n		</ion-item>\n		<ion-item>\n			<ion-label>End Date</ion-label>\n			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="endDate"></ion-datetime>\n		</ion-item>\n	</ion-list>\n	<button ion-button full>Apply</button>\n\n	<div id="react-pivot"></div>\n\n  <ion-list>\n		<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"\n        [sortableRowGroup]="false">\n    <p-header>Toggleable Row Groups with Footers</p-header>\n    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData[\'inventaire\']}}</ng-template>\n			<p-column field="date" header="Date"></p-column>\n			<p-column field="inventaire" header="Inventaire"></p-column>\n			<p-column field="site" header="Site"></p-column>\n			<p-column field="fillRate" header="Fill Rate"></p-column>\n			<p-column field="impressions prises" header="Impressions"></p-column>\n			<p-column field="revenu" header="Revenu">\n        <ng-template let-col let-car="rowData" pTemplate="body">\n            <span>{{car[col.field] | currency:\'USD\':true:\'.0-0\'}}</span>\n        </ng-template>\n    </p-column>\n    <ng-template pTemplate="rowgroupfooter" let-car>\n        <td colspan="3" style="text-align:right">Total Revenu</td>\n				<td>{{calculateGroupTotal(car[\'inventaire\'], "impressions prises")}}</td>\n        <td>{{calculateGroupTotal(car[\'inventaire\'], "revenu") | currency:\'USD\':true:\'.0-0\' }}</td>\n    </ng-template>\n		</p-dataTable>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/victor/Dvpt/PROJECTS/ion-ams-report/src/pages/sites-report/sites-report.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__providers__["b" /* SitesProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers__["b" /* SitesProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__providers__["b" /* SitesProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers__["b" /* SitesProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["b" /* AngularFireDatabase */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _f || Object])
 ], SitesReportPage);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=sites-report.js.map
 
 /***/ }),

@@ -22,6 +22,10 @@ module.exports = {
     src: ['{{ROOT}}/node_modules/sw-toolbox/sw-toolbox.js'],
     dest: '{{BUILD}}'
   },
+  copyReactPivot: {
+    src: ['{{ROOT}}/node_modules/react-pivot/dist/react-pivot-standalone-2.0.0.min.js'],
+    dest: '{{BUILD}}'
+  },
   copyPrimeng: {
       src: [
         '{{ROOT}}/node_modules/primeng/resources/themes/omega/theme.css', 
