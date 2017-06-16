@@ -43,14 +43,15 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
+// Use the primary color as the background for the toolbar-md-background
+$toolbar-md-background:                   color($colors, dark);
 
-
+// Change the color of the segment button text
+$toolbar-md-active-color:                 #fff;
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
 
 
 // App Theme
@@ -62,6 +63,8 @@ $colors: (
 
 @import "ionic.theme.default";
 
+$split-pane-side-min-width: 270px !default;
+$split-pane-side-max-width: 20% !default;
 
 // Ionicons
 // --------------------------------------------------
