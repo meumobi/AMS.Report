@@ -39,7 +39,7 @@ export class MyApp {
     { title: 'Support', name: 'SupportPage', icon: 'help' }
   ];
 
-  rootPage:string = 'editors-list';
+  rootPage:String = 'editors-list';
 
   constructor(
     public platform: Platform,
@@ -59,8 +59,8 @@ export class MyApp {
     });
   }
 
-  openPage(page: PageInterface) {
-    this.nav.setRoot(page.name);
+  openPage(page: String) {
+    this.nav.setRoot(page);
   }
 
   openNewsFeed() {

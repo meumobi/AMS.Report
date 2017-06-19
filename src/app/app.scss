@@ -14,3 +14,24 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.logo-logotype {
+    height: 34px;
+    margin-left: 12px;
+}
+
+.logo-icon {
+    position: relative;
+    width: 34px;
+    height: 34px;
+}
+
+button.toolbar-logo-button {
+    background: transparent;
+}
+
+div.toolbar-logo-lockup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
