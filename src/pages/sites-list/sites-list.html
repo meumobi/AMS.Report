@@ -26,7 +26,44 @@
 
 <ion-content padding>
   <input type="text" #editorId (change)="loadSites(editorId.value)" />
-  <ion-list>
+  <ion-row wrap>
+    <ion-col *ngFor="let site of sites" col-md-4>
+      <ion-card (click)="openSiteReport(site)">
+
+        <img src="http://api.thumbalizr.com/?url={{site.url}}&width=400">
+        <!-- img src="assets/img/advance-card-bttf.png" -->
+
+        <ion-card-content>
+          <h1>{{site.title}}</h1>
+          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
+            Whoa. This is heavy.</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button (click)="removeSite($event, site)" ion-button icon-left clear small>
+              <ion-icon name="trash"></ion-icon>
+              <div>Remove</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="updateSite($event, site)" ion-button icon-left clear small>
+              <ion-icon name="create"></ion-icon>
+              <div>Update</div>
+             </button>
+          </ion-col>
+          <ion-col center text-center>
+            <ion-note>
+              11h ago
+            </ion-note>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <!--ion-list>
     <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">
       {{site.title}}<br />
       <small><a (click)="openSite($event, site)">{{site.url}}</a></small>
@@ -37,5 +74,6 @@
       <ion-icon name="create"></ion-icon>
     </button>
     </ion-item>
-  </ion-list>
+  </ion-list-->
+
 </ion-content>

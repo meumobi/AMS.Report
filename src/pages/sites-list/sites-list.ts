@@ -37,6 +37,15 @@ export class SitesListPage {
         });
     }    
   }
+/*
+  ionViewCanEnter(): boolean {
+    if(userIsLoggedIn){
+      return true;
+    } else {
+      return false;
+    }
+  }
+*/
 
   loadSites(editorId) {
     this.sitesService.fetchByEditorId(editorId)
