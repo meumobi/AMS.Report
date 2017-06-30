@@ -2,4 +2,19 @@ page-sites-report {
     .reactPivot {
         margin-top: 10px;
     }
+    .top-banner {
+        background-color: #F5F5F5;
+    }
+    .date-picker {
+        div:first-child {
+                cursor: pointer;
+        }
+        .icon {
+            color: color($colors, primary);
+        }
+        .range{
+            float: right;
+            padding-right: 16px;
+        }
+    }
 }

@@ -5,21 +5,39 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>sites-report</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title *ngIf="site">Reporting of {{site.title}}</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
-	<div>
 		<report-header [raws]="rep" *ngIf="rep"></report-header>
-		<report-table [rows]="rep['Premium']" *ngIf="rep && rep['Premium']" title="Premium"></report-table>
-		<report-table [rows]="rep['AMS Market Place']" *ngIf="rep && rep['AMS Market Place']" title="AMS Market Place"></report-table>
-		<report-table [rows]="rep['AdNetwork Fill']" *ngIf="rep && rep['AdNetwork Fill']" title="AdNetwork Fill"></report-table>
-	</div>
+		<div class="date-picker" *ngIf="rangeFilter">
+			<ion-item>
+				<div item-right>
+					<ion-icon name="calendar"></ion-icon>
+					<span (click)="openCalendar()">Custom period</span> 
+					| <button (click)="last7days()">Last 7 days</button>
+					| <button (click)="last30days()">Last 30 days</button>
+					| <button (click)="lastMonth()">Last month</button>
+					| <button (click)="currentMonth()">Current month</button>
+				</div>
+			</ion-item>
+			<div class="range">
+				<small>{{rangeFilter.startAt | amDateFormat:'MMMM D'}} - {{rangeFilter.endAt| amDateFormat:'LL'}}</small>
+			</div>
+		</div>
 
-		<!--ion-list>
+	<section *ngIf="rep; else noData">
+		<report-table [rows]="rep['Premium']" *ngIf="rep['Premium']" title="Premium"></report-table>
+		<report-table [rows]="rep['AMS Market Place']" *ngIf="rep['AMS Market Place']" title="AMS Market Place"></report-table>
+		<report-table [rows]="rep['AdNetwork Fill']" *ngIf="rep['AdNetwork Fill']" title="AdNetwork Fill"></report-table>
+	</section>
+	<ng-template #noData>
+		
+	</ng-template>
+
+	<!--ion-list>
 			<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"
 					[sortableRowGroup]="false">
 			<p-header>Toggleable Row Groups with Footers</p-header>
@@ -41,7 +59,7 @@
 					<td>{{calculateGroupTotal(car['inventaire'], "revenu") | currency:'USD':true:'.0-0' }}</td>
 			</ng-template>
 			</p-dataTable>
-		</ion-list-->	
+		</ion-list-->
 
 	<!--ion-list>
 		<ion-item>

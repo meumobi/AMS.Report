@@ -1,23 +1,18 @@
 import { Component, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Http, Response } from '@angular/http';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Http } from '@angular/http';
 import { groupRowsBy } from '../../helpers/helpers';
 
 import { SitesProvider } from '../../providers';
 import { ISite } from '../../models';
 import 'rxjs/add/operator/map';
 
-import { DataTableModule } from 'primeng/primeng';
+//import { DataTableModule } from 'primeng/primeng';
+import { CalendarController } from "ion2-calendar/dist";
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
-declare var ReactPivot: any;
-
-/**
- * Generated class for the SitesReportPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage({
   name: 'sites-report',
   segment: 'report/:id'
@@ -25,12 +20,15 @@ declare var ReactPivot: any;
 @Component({
   selector: 'page-sites-report',
   templateUrl: 'sites-report.html',
+  providers: []
 })
 
 export class SitesReportPage {
 
   site: ISite;
   reports: FirebaseListObservable<any>;
+  query: {orderByChild?: string, startAt?: string, endAt?: string} = {};
+  rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   rep: any[];
 
   constructor(
@@ -40,33 +38,93 @@ export class SitesReportPage {
     public loadingCtrl: LoadingController,
     private db: AngularFireDatabase,
     private elRef:ElementRef,
-    private http: Http
-  ) {
+    private http: Http,
+    public calendarCtrl: CalendarController
+  ) {}
 
+  last7days() {
+    this.rangeFilter = {
+      startAt: moment().subtract(166, 'days'),
+      endAt: moment()
+    }
+
+    this.fetchDataByQuery();
   }
 
-  ionViewDidLoad() {
+  last30days() {
+    this.rangeFilter = {
+      startAt: moment().subtract(29, 'days'),
+      endAt: moment()
+    }
+
+    this.fetchDataByQuery();
+  }
+
+  lastMonth() {
+    this.rangeFilter = {
+      startAt: moment().subtract(1, 'month').startOf('month'),
+      endAt: moment().subtract(1, 'month').endOf('month')
+    }
+
+    this.fetchDataByQuery();
+  }
+
+  currentMonth() {
+    this.rangeFilter = {
+      startAt: moment().startOf('month'),
+      endAt: moment()
+    }
+
+    this.fetchDataByQuery();
+  }
+
+  formatQuery() {
+    this.query.orderByChild = 'date';
+    this.query.startAt = this.rangeFilter.startAt.format('YYYY/MM/DD');
+    this.query.endAt = this.rangeFilter.endAt.format('YYYY/MM/DD');
+  }
+
+  fetchDataByQuery() {
     let loader = this.loadingCtrl.create({
       content: 'Getting latest entries...',
       //dismissOnPageChange: true
     });
 
     loader.present().then(() => {
-      return this.db.list('/reports/' + this.site.title, {query: query})
+      return this.db.list('/reports/' + this.site.title, {query: this.query})
       .subscribe(
         data => {
           console.log('Dd data fetched');
+          //console.log(data);
           if (Object.keys(data).length) {
             this.rep = groupRowsBy(data, 'inventaire');
-          } 
+          } else {
+
+          }
           loader.dismiss();   
         },
         err => {
           loader.dismiss();
           console.log('error');
         });
-    });
-    
+    });  
+  }
+
+  openCalendar() {
+    this.calendarCtrl.openCalendar({
+      //from: new Date(),
+      isRadio: false,
+      isSaveHistory:true,
+      canBackwardsSelected: true,
+    })
+      .then( (res:any) => { 
+        console.log('open Calendar')
+        console.log(res) })
+      .catch( () => {} )
+  }
+  
+  ionViewDidLoad() {
+
     let siteId = this.navParams.data.id;
 
     this.sitesService.fetchById(siteId)
@@ -76,15 +134,7 @@ export class SitesReportPage {
         console.log(this.site);
       }
     );
-    
-    let query: {orderByChild?: string, startAt?: string, endAt?: string} = {};
 
-    /*
-    if (this.site) {
-      query.orderByChild = 'date';
-      query.startAt = "2017-03-02";
-      query.endAt = "2017-03-09";
-    }    
-    */
+    this.last7days();
   }
 }
