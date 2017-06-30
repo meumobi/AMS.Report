@@ -7,10 +7,15 @@ page-login {
         padding: 20px 0;
     }
 }
-.background {
-    background-image: url('http://www.dailyfresh-media.com/www-admysports/wp-content/uploads/2015/07/Slider31.jpg');
-    background-position: right;
+
+.background { 
+  background: url('/assets/img/background.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+
 .scroll-content {
     align-content: center;
     display: flex;
