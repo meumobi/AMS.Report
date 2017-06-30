@@ -24,14 +24,15 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
-# firebase PaaS Pricing
-Free Plan include:
-- Realtime Database, 1GB Stored
-- Hosting: 1GB Stored
-
-https://firebase.google.com/pricing/
-
-# Hosting website on Firebase
+# Firebase PaaS Pricing
+[Free Plan](https://firebase.google.com/pricing/) includes:
+- Realtime Database
+  - 1GB Stored
+  - 10GB/month downloaded
+- Hosting
+  - 1GB stored
+  - 10GB/month transferred
+  - Custom domain & SSL
 
 https://medium.com/google-cloud/google-firebase-can-host-your-website-and-single-page-application-4e9c9e0c6a95
 
@@ -40,6 +41,9 @@ https://medium.com/google-cloud/google-firebase-can-host-your-website-and-single
 http://www.csvjson.com/csv2json
 
 # create new pages
-$ ionic g page Login
+
+```
+$ ionic g page login
 [OK] Generated a page named Login!
 $ ionic g page users-list
+```
