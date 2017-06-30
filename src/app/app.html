@@ -1,3 +1,4 @@
+<!-- [when] boolean value that will trigger SplitPane -->
 <ion-split-pane>
 
   <!-- logged out menu -->
@@ -38,6 +39,10 @@
         <button ion-item menuClose *ngFor="let p of loggedOutPages" (click)="openPage(p.name)">
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
           {{p.title}}
+        </button>
+        <button ion-item menuClose (click)="logout()">
+          <ion-icon item-start name="log-out"></ion-icon>
+          Logout
         </button>
       </ion-list>
 

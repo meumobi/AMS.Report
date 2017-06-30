@@ -10,8 +10,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { SitesProvider } from '../providers/sites/sites';
 import { EditorProvider } from '../providers/editor/editor';
+import { AuthProvider } from '../providers/auth/auth';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import { UserProvider } from '../providers/user/user';
+import { CalendarModule } from "ion2-calendar";
+import { MomentModule } from 'angular2-moment';
+
 
 @NgModule({
   declarations: [
@@ -22,11 +26,13 @@ import { UserProvider } from '../providers/user/user';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CalendarModule,
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    MyApp
   ],
   providers: [
     StatusBar,
@@ -34,7 +40,8 @@ import { UserProvider } from '../providers/user/user';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SitesProvider,
     EditorProvider,
-    UserProvider
+    UserProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}

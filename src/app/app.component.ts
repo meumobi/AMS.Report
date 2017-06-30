@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthProvider } from '../providers';
 
 export interface PageInterface {
   title: string;
@@ -39,16 +41,36 @@ export class MyApp {
     { title: 'Support', name: 'SupportPage', icon: 'help' }
   ];
 
-  rootPage:String = 'editors-list';
+  rootPage: String;
+  isAuthenticated: Boolean = false;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public menuCtrl: MenuController,
+    private afAuth: AngularFireAuth,
+    public authData: AuthProvider
   ) {
 
+    const authObserver = this.afAuth.authState.subscribe( user => {
+      if (user) {
+        console.log('authState change');
+        console.log(user);
+        this.rootPage = 'sites-list';
+        this.isAuthenticated = true;
+        //authObserver.unsubscribe();
+      } else {
+        this.rootPage = 'login';
+        //authObserver.unsubscribe();
+        this.isAuthenticated = false;
+      }
+    });
+    
     this.platformReady()
   }
+
+  ionViewDidLoad() {}
 
   platformReady() {
     this.platform.ready().then(() => {
@@ -61,6 +83,15 @@ export class MyApp {
 
   openPage(page: String) {
     this.nav.setRoot(page);
+  }
+
+  logout() {
+    this.authData.logoutUser()
+    .then( authData => {
+      this.nav.setRoot('login');
+    }, error => {
+      console.log(error.message);
+    });
   }
 
   openNewsFeed() {

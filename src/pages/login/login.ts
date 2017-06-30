@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  MenuController,
+  LoadingController, 
+  Loading, 
+  AlertController } from 'ionic-angular';
 
 // import { IUser } from '../../models';
-// import { UserProvider, AuthProvider } from '../../providers';
+import { AuthProvider } from '../../providers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator } from '../../validators/email';
 
 @IonicPage({
     name: 'login',
@@ -16,27 +23,60 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginPage {
 
   user: FormGroup; // = {} as IUser;
+  loading: Loading;
 
   constructor(
     private fb: FormBuilder,
-    public navCtrl: NavController, 
-    public navParams: NavParams
+    public navCtrl: NavController,
+    public authData: AuthProvider,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public menu : MenuController
   ) {
     this.user = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    })
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    });
   }
 
-  onSubmit() {
-    console.log(this.user.value, this.user.valid);
+  toggleSplitPane() {
+    this.menu.enable(!this.menu.isEnabled());
   }
 
-  login() {
-
+  ionViewWillLeave(){
+    this.menu.enable(true);
+  }
+  
+  ionViewDidEnter(){
+    this.menu.enable(false);
   }
 
-  forgotPassword() {
+  loginUser(){
+      if (!this.user.valid){
+        console.log(this.user.value);
+      } else {
+        this.authData.loginUser(this.user.value.email, this.user.value.password)
+        .then( authData => {
+          this.navCtrl.setRoot('sites-list');
+        }, error => {
+          this.loading.dismiss().then( () => {
+            let alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+          });
+        });
 
+        this.loading = this.loadingCtrl.create({
+          dismissOnPageChange: true,
+        });
+        this.loading.present();
+      }
   }
 }

@@ -1,18 +1,30 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase/app';
 import { IUser } from '../../models';
 
 
 @Injectable()
 export class AuthProvider {
 
-  constructor(private af2Auth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth) {
     console.log('Hello AuthProvider Provider');
   }
 
-  registerUser(user: IUser) {
-    return this.af2Auth.auth.createUserWithEmailAndPassword(user.email, user.password);
+  signupUser(newEmail: string, newPassword: string): firebase.Promise<any> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(newEmail, newPassword);
+  }
+
+  loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(newEmail, newPassword);
+  }
+
+  resetPassword(email: string): firebase.Promise<any> {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  logoutUser(): firebase.Promise<any> {
+    return this.afAuth.auth.signOut();
   }
 
 }
