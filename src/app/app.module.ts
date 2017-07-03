@@ -16,7 +16,6 @@ import { UserProvider } from '../providers/user/user';
 import { CalendarModule } from "ion2-calendar";
 import { MomentModule } from 'angular2-moment';
 
-
 @NgModule({
   declarations: [
     MyApp

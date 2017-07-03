@@ -12,7 +12,7 @@
     </button>
     <ion-title *ngIf="editor; else allSites">Sites of {{editor.name}}</ion-title>
     <ng-template #allSites>
-      <ion-title>All Sites</ion-title>
+      <ion-title>Sites</ion-title>
     </ng-template>
     <ion-buttons *ngIf="editor" end>
       <button ion-button icon-only (click)="addSite(editor.$key)">
@@ -20,14 +20,16 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="search">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-  <input type="text" #editorId (change)="loadSites(editorId.value)" />
   <ion-row wrap>
-    <ion-col *ngFor="let site of sites" col-md-4>
+    <ion-col *ngFor="let site of sites | search:search:'title'" col-md-4>
       <ion-card (click)="openSiteReport(site)">
 
         <img src="http://api.thumbalizr.com/?url={{site.url}}&width=400">

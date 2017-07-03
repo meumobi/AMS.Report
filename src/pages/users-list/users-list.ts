@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
-import { IUser } from '../../models';
+
 import { UserProvider } from '../../providers';
+import { IUser } from '../../models';
 
 @IonicPage({
     name: 'users-list',
@@ -12,6 +13,8 @@ import { UserProvider } from '../../providers';
   templateUrl: 'users-list.html',
 })
 export class UsersListPage {
+  users: IUser[];
+  @Input() search: string = "";
 
   constructor(
     public navCtrl: NavController,
@@ -20,16 +23,40 @@ export class UsersListPage {
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
     public userService: UserProvider
-    ) {}
+  ) {
+    this.userService.fetchAll()
+    .subscribe(
+      data => {
+        this.users = data;
+        console.log(this.users);
+      },
+      err => {
+        console.log('error');
+      });
+  }
 
-  addUser(editorId: string) {
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  createUser() {
     let prompt = this.alertCtrl.create({
-      title: 'Site Name',
-      message: "Enter a name for this new site you're so keen on adding",
+      title: 'User Email',
+      message: "Enter an email for this new user you're so keen on adding",
       inputs: [
         {
-          name: 'name',
-          placeholder: 'Name'
+          name: 'email',
+          placeholder: 'Email'
         },
       ],
       buttons: [
@@ -42,15 +69,13 @@ export class UsersListPage {
         {
           text: 'Save',
           handler: data => {
-            this.userService.create()
-            /*
-            .then((site) => {
+            this.userService.create(data.email)
+            .then((user) => {
               this.navCtrl.push('user-details', {
-                'id': site.key
+                'id': user.key
               })
             })
-            .catch(err => console.log(err, 'Can\'t create Site!'));            
-            */
+            .catch(err => console.log(err, 'You do not have access!'));
           }
         }
       ]
@@ -58,14 +83,38 @@ export class UsersListPage {
     prompt.present();
   }
 
-  async register(user: IUser) {
-    try {
-      //const result = await this.authService.registerUser(user);
-      //console.log(result);
-    }
-    catch(e) {
-      console.error(e);
-    }
+  deleteUser($event, user: IUser) {
+    $event.stopPropagation();
+    let alert = this.alertCtrl.create({
+      title: 'Confirm deletion',
+      message: 'Do you want to remove this user?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.userService.delete(user.$key)
+              .then(_ => {
+                this.presentToast('User removed successfully');
+              })
+              .catch(err => console.log(err, 'You do not have access!'));
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
+  updateUser($event, user: IUser) {
+    $event.stopPropagation();
+    this.navCtrl.push('user-details', {
+      'id': user.$key
+    })
+  }
 }

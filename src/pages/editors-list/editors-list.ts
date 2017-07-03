@@ -15,7 +15,6 @@ import { IEditor } from '../../models';
 })
 export class EditorsListPage {
   editors: IEditor[];
-  @Input() search: string = "";
 
   constructor(
     public navCtrl: NavController,

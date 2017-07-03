@@ -1,1 +1,1 @@
-export * from './editor-search/editor-search';
+export * from './search';

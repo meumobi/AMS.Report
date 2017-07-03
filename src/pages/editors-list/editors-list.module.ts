@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EditorsListPage } from './editors-list';
 
-import { AngularFireModule } from 'angularfire2';
-import { EditorSearchPipe } from '../../pipes';
+import { EditorsListPage } from './editors-list';
+import { SharedModule } from '../../shared/shared.module'
 
 @NgModule({
   declarations: [
-    EditorsListPage,
-    EditorSearchPipe
+    EditorsListPage
   ],
   imports: [
-    AngularFireModule,
     IonicPageModule.forChild(EditorsListPage),
+    SharedModule
   ],
   exports: [
     EditorsListPage

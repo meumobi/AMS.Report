@@ -1,5 +1,5 @@
 <!--
-  Generated template for the UsersListPage page.
+  Generated template for the EditorsListPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>users-list</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Users</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="createUser()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="search">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item *ngFor="let user of users | search:search:'displayName'">
+      {{user.title}}
+      <button item-right (click)="deleteUser($event, user)" ion-button icon-only default>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button item-right (click)="updateUser($event, user)" ion-button icon-only default>
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
 </ion-content>
