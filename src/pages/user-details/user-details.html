@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>user-details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="updateUser()" [formGroup]="userForm" *ngIf="user">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="First name" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Last name" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Cell Number</ion-label>
+        <ion-input type="tel" placeholder="" formControlName="cellNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Landline Number</ion-label>
+        <ion-input type="tel" placeholder="" formControlName="landlineNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select formControlName="role">
+          <ion-option value="editor">Editor</ion-option>
+          <ion-option value="admin">Admin</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="(editor && editor.name)">
+        <ion-label color="primary" stacked>Editor</ion-label>
+        <ion-input type="text" 
+          disabled="true"
+          [ngModel]="editor.name"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button 
+          type="submit" 
+          [disabled]="user.invalid"
+          block>Save</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button 
+          type="button"
+          (click)="cancel()" 
+          color="light" 
+          block>Cancel</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

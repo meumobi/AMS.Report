@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 
 export interface IUser {
   $key?: string; 
+  displayName: string;
   firstName?: string;
   lastName?: string;
   password?: string;
@@ -10,18 +11,17 @@ export interface IUser {
   email: string;
   cellNumber?: string;
   landlineNumber?: string;
-
 }
 
 export class User implements IUser {
   email;
   editor_id;
+  displayName;
   createdAt = firebase.database.ServerValue.TIMESTAMP;
 
-  constructor(private fields: any) {
-    // Quick and dirty extend/assign fields to this model
-    for (let f in fields) {
-      this[f] = fields[f];
-    }
+  constructor(email: string, editorId: string) {
+    this.email = email;
+    this.displayName = email;
+    this.editor_id = editorId;
   }
 }

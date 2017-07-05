@@ -1,8 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  AlertController, 
+  ActionSheetController, 
+  ToastController, 
+  LoadingController,
+  NavParams } from 'ionic-angular';
 
 import { UserProvider } from '../../providers';
+import { EditorProvider } from './../../providers/editor/editor';
 import { IUser } from '../../models';
+import { IEditor } from './../../models';
+
 
 @IonicPage({
     name: 'users-list',
@@ -14,16 +24,26 @@ import { IUser } from '../../models';
 })
 export class UsersListPage {
   users: IUser[];
+  editor: IEditor;
+
   @Input() search: string = "";
 
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
-    public userService: UserProvider
+    public userService: UserProvider,
+    public editorService: EditorProvider,
   ) {
+    let editorId = this.navParams.data.editor_id;
+
+    if (editorId) {
+      this.loadEditor(editorId);
+      this.loadUsers(editorId);
+    } else {
     this.userService.fetchAll()
     .subscribe(
       data => {
@@ -33,6 +53,21 @@ export class UsersListPage {
       err => {
         console.log('error');
       });
+    }  
+  }
+
+  loadUsers(editorId: string) {
+    this.userService.fetchByEditorId(editorId)
+    .subscribe(data => {
+      this.users = data;
+    })
+  }
+
+  loadEditor(editorId) {
+    this.editorService.fetchById(editorId)
+        .subscribe( data => {
+          this.editor = data;          
+        })
   }
 
   presentToast(msg: string) {
@@ -48,8 +83,8 @@ export class UsersListPage {
 
     toast.present();
   }
-
-  createUser() {
+ 
+  createUser(editorId: string) {
     let prompt = this.alertCtrl.create({
       title: 'User Email',
       message: "Enter an email for this new user you're so keen on adding",
@@ -69,13 +104,33 @@ export class UsersListPage {
         {
           text: 'Save',
           handler: data => {
-            this.userService.create(data.email)
+            let loading = this.loadingCtrl.create({
+              dismissOnPageChange: true,
+            });
+            loading.present();
+            this.userService.create(data.email, editorId)
             .then((user) => {
-              this.navCtrl.push('user-details', {
-                'id': user.key
+              loading.dismiss().then( () => {
+                this.navCtrl.push('user-details', {
+                  'id': user.key
+                })
+              });
+            })
+            .catch(err => {
+              console.log(err.message);
+              loading.dismiss().then( () => {
+                let alert = this.alertCtrl.create({
+                  message: err.message,
+                  buttons: [
+                    {
+                      text: "Ok",
+                      role: 'cancel'
+                    }
+                  ]
+                });
+                alert.present();
               })
             })
-            .catch(err => console.log(err, 'You do not have access!'));
           }
         }
       ]
@@ -109,6 +164,16 @@ export class UsersListPage {
       ]
     });
     alert.present();
+  }
+
+  resetUserPassword($event, user: IUser) {
+    $event.stopPropagation();
+    this.userService.resetPassword(user.email)
+    .then( () => {
+      this.presentToast('Email sent successfully');
+    }, error => {
+      console.log(error.message);
+    });
   }
 
   updateUser($event, user: IUser) {

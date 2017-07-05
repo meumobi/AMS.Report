@@ -89,6 +89,14 @@ export class EditorsListPage {
     })
   }
 
+  openUsersList($event, editor: IEditor) {
+    $event.stopPropagation();
+    this.navCtrl.push('users-list', {
+      'editor_id': editor.$key
+    })
+  }
+
+
   removeEditor($event, editor: IEditor) {
     $event.stopPropagation();
     let alert = this.alertCtrl.create({
