@@ -6,10 +6,9 @@ import {
   LoadingController, 
   Loading, 
   AlertController } from 'ionic-angular';
-
-// import { IUser } from '../../models';
-import { AuthProvider } from '../../providers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { AuthProvider } from '../../providers';
 import { EmailValidator } from '../../validators/email';
 
 @IonicPage({
@@ -35,7 +34,7 @@ export class LoginPage {
   ) {
     this.user = this.fb.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      password: ['', Validators.compose([Validators.required])]
     });
   }
 
@@ -45,6 +44,7 @@ export class LoginPage {
 
   ionViewWillLeave(){
     this.menu.enable(true);
+    console.log("Looks like I'm about to leave :(");
   }
   
   ionViewDidEnter(){

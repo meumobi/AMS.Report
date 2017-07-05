@@ -18,55 +18,54 @@ export class SiteDetailsPage {
   editor: IEditor;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public sitesService: SitesProvider,
     public editorService: EditorProvider
   ) {
     let key = this.navParams.data.id;
-    
-    this.sitesService.fetchById(key).subscribe( data => {
+
+    this.sitesService.fetchById(key).subscribe(data => {
       this.site = data;
       this.loadEditor(this.site.editor_id);
     })
   }
 
-presentToast(msg: string) {
-  let toast = this.toastCtrl.create({
-    message: msg,
-    duration: 3000,
-    position: 'bottom'
-  });
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
 
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
 
-  toast.present();
-}
+    toast.present();
+  }
 
   loadEditor(editorId) {
     this.editorService.fetchById(editorId)
-        .subscribe( data => {
-          this.editor = data;
-          console.log(this.editor.name);
-        })
+      .subscribe(data => {
+        this.editor = data;
+        console.log(this.editor.name);
+      })
   }
 
   isUndefined(val) { return typeof val === 'undefined'; }
 
   onSubmit({ value, valid }: { value: ISite, valid: boolean }) {
     this.sitesService.update(this.site.$key, value)
-    .then(_ => {
-      this.presentToast('Site updated successfully');
-      this.navCtrl.pop();
-    })
-    .catch(err => console.log(err, 'You do not have access!'));
+      .then(_ => {
+        this.presentToast('Site updated successfully');
+        this.navCtrl.pop();
+      })
+      .catch(err => console.log(err, 'You do not have access!'));
   }
 
   cancel() {
     this.navCtrl.pop();
   }
-
 }

@@ -1,8 +1,8 @@
 <!-- [when] boolean value that will trigger SplitPane -->
-<ion-split-pane>
+<ion-split-pane [when]="isAuthenticated()">
 
-  <!-- logged out menu -->
-  <ion-menu id="loggedOutMenu" [content]="content">
+  <!-- logged in menu -->
+  <ion-menu id="loggedInMenu" [content]="content">
 
     <ion-header>
       <ion-toolbar>
@@ -16,56 +16,6 @@
             </div>
           </button>
         </ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="outer-content">
-
-      
-    <ion-list>
-        <ion-list-header>
-          Navigate
-        </ion-list-header>
-        <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p.name)">
-          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{p.title}}
-        </button>
-      </ion-list>
-      
-      <ion-list>
-        <ion-list-header>
-          Account
-        </ion-list-header>
-        <button ion-item menuClose *ngFor="let p of loggedOutPages" (click)="openPage(p.name)">
-          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{p.title}}
-        </button>
-        <button ion-item menuClose (click)="logout()">
-          <ion-icon item-start name="log-out"></ion-icon>
-          Logout
-        </button>
-      </ion-list>
-
-      <ion-list>
-        <ion-list-header>
-          News
-        </ion-list-header>
-        <button ion-item menuClose (click)="openNewFeed()">
-          <ion-icon item-start name="logo-rss"></ion-icon>
-          DailyFresh-media
-          <ion-badge item-right>V2</ion-badge>
-        </button>
-      </ion-list>
-    </ion-content>
-
-  </ion-menu>
-
-  <!-- logged in menu -->
-  <ion-menu id="loggedInMenu" [content]="content">
-
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -89,21 +39,17 @@
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
           {{p.title}}
         </button>
-      </ion-list>
-
-      <ion-list>
-        <ion-list-header>
-          News
-        </ion-list-header>
-        <button ion-item menuClose (click)="openNewFeed()">
-          <ion-icon item-start name="logo-rss"></ion-icon>
-          DailyFresh-media
-          <ion-badge item-right>V2</ion-badge>
+        <button ion-item menuClose (click)="resetPassword()">
+          <ion-icon item-start name="mail"></ion-icon>
+          Reset Password
+        </button>
+        <button ion-item menuClose (click)="logout()">
+          <ion-icon item-start name="log-out"></ion-icon>
+          Logout
         </button>
       </ion-list>
-
+      <ion-item *ngIf="user">Logged as: <br/>{{user.email}}</ion-item>
     </ion-content>
-
   </ion-menu>
 
   <!-- main navigation -->

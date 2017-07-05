@@ -6,7 +6,7 @@
       </div>
     </ion-card-header>
     <ion-card-content>
-      <form novalidate (ngSubmit)="loginUser(user)" [formGroup]="user" novalidate>
+      <form (ngSubmit)="loginUser(user)" [formGroup]="user" novalidate>
         <ion-list no-lines>
           <div class="spacer" style="height: 10px;"></div>
           <ion-item>
@@ -31,10 +31,6 @@
           <div class="spacer" style="height: 10px;"></div>
           <button type="submit" [disabled]="user.invalid" ion-button block round outline color="light">Login</button>
           <div class="spacer" style="height: 10px;"></div>
-          <p>OR</p>
-          <div class="spacer" style="height: 10px;"></div>
-          <button ion-button clear full color="light" (click)="passwordreset()">Forgot login details ? <b> Get Help </b></button>
-          <button ion-button clear full color="light" (click)="toggleSplitPane()">Toggle Split pane</button>
         </ion-list>
       </form>
     </ion-card-content>

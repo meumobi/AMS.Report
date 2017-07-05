@@ -30,6 +30,7 @@ export class SitesListPage {
 
     if (editorId) {
       this.loadEditor(editorId);
+      this.loadSites(editorId);
     } else {
       this.sitesService.fetchAll()
         .subscribe(data => {
@@ -37,15 +38,6 @@ export class SitesListPage {
         });
     }    
   }
-/*
-  ionViewCanEnter(): boolean {
-    if(userIsLoggedIn){
-      return true;
-    } else {
-      return false;
-    }
-  }
-*/
 
   loadSites(editorId) {
     this.sitesService.fetchByEditorId(editorId)
@@ -57,9 +49,7 @@ export class SitesListPage {
   loadEditor(editorId) {
     this.editorService.fetchById(editorId)
         .subscribe( data => {
-          this.editor = data;
-          console.log(this.editor.name);
-          this.loadSites(this.editor.$key);
+          this.editor = data;          
         })
   }
 

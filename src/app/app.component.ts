@@ -1,8 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController } from 'ionic-angular';
+import { 
+  Nav, 
+  Platform, 
+  MenuController,
+  ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Observable } from 'rxjs/Observable';
+import firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
+
 import { AuthProvider } from '../providers';
 
 export interface PageInterface {
@@ -32,17 +39,12 @@ export class MyApp {
     //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
   loggedInPages: PageInterface[] = [
-    { title: 'Account', name: 'AccountPage', icon: 'person' },
-    { title: 'Support', name: 'SupportPage', icon: 'help' },
-    { title: 'Logout', name: 'TabsPage', icon: 'log-out', logsOut: true }
-  ];
-  loggedOutPages: PageInterface[] = [
-    { title: 'Login', name: 'login', class: 'LoginPage', icon: 'log-in' },
-    { title: 'Support', name: 'SupportPage', icon: 'help' }
+    //{ title: 'Account', name: 'AccountPage', icon: 'person' },
   ];
 
   rootPage: String;
-  isAuthenticated: Boolean = false;
+  user: firebase.User;
+  public authState: Observable<firebase.User>;
 
   constructor(
     public platform: Platform,
@@ -50,27 +52,36 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public menuCtrl: MenuController,
     private afAuth: AngularFireAuth,
-    public authData: AuthProvider
+    public authData: AuthProvider,
+    public toastCtrl: ToastController
   ) {
+    this.authState = this.afAuth.authState;
 
-    const authObserver = this.afAuth.authState.subscribe( user => {
+    this.authState = afAuth.authState;
+    this.authState.subscribe((user: firebase.User) => {
       if (user) {
         console.log('authState change');
         console.log(user);
+        this.user = user;
         this.rootPage = 'sites-list';
-        this.isAuthenticated = true;
+        /*
+        TODO: I don't understand the use or not of unsubscribe
+        https://javebratt.com/angularfire2-authentication-ionic/
+        */
         //authObserver.unsubscribe();
       } else {
         this.rootPage = 'login';
         //authObserver.unsubscribe();
-        this.isAuthenticated = false;
+        //this.isAuthenticated = false;
       }
     });
-    
+
     this.platformReady()
   }
 
-  ionViewDidLoad() {}
+  isAuthenticated() {
+    return !!this.user;
+  }
 
   platformReady() {
     this.platform.ready().then(() => {
@@ -94,8 +105,27 @@ export class MyApp {
     });
   }
 
-  openNewsFeed() {
-    this.nav.setRoot('NewsFeedPage');
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  resetPassword() {
+    this.authData.resetPassword(this.user.email)
+    .then( () => {
+      this.presentToast('Email sent successfully');
+    }, error => {
+      console.log(error.message);
+    });
   }
 
   isActive(page: PageInterface) {
