@@ -44,8 +44,8 @@ export class SitesReportPage {
 
   last7days() {
     this.rangeFilter = {
-      startAt: moment().subtract(6, 'days'),
-      endAt: moment()
+      startAt: moment().subtract(7, 'days'),
+      endAt: moment().subtract(1, 'days')
     }
 
     this.fetchDataByQuery();
@@ -53,8 +53,8 @@ export class SitesReportPage {
 
   last30days() {
     this.rangeFilter = {
-      startAt: moment().subtract(29, 'days'),
-      endAt: moment()
+      startAt: moment().subtract(30, 'days'),
+      endAt: moment().subtract(1, 'days')
     }
 
     this.fetchDataByQuery();
@@ -108,7 +108,9 @@ export class SitesReportPage {
           console.log('Dd data fetched');
           console.log(data);
           var raws = {};
-          var array = [];
+
+          var array = convertToArrayOfLeaves(data)
+
           data.forEach(partenaires => {
             for (var partenaire in partenaires) {
               if (partenaires.hasOwnProperty(partenaire)) {
