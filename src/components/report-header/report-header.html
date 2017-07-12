@@ -34,7 +34,7 @@
     <div>
       <div class="cell">
         &nbsp;<br/>
-        <div *ngIf="report['AdNetwork Fill']">
+        <div *ngIf="report['Total']">
           {{report['Total'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
           <small>{{report['Total'].impressions.toLocaleString('fr-FR')}} imps</small></div>
         </div>
