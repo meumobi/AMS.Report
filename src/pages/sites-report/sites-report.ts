@@ -27,7 +27,7 @@ export class SitesReportPage {
 
   site: ISite;
   reports: FirebaseListObservable<any>;
-  query: {orderByChild?: string, startAt?: string, endAt?: string} = {};
+  query: {orderByKey?: boolean, orderByChild?: string, startAt?: string, endAt?: string} = {};
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   rep: any[];
 
@@ -44,7 +44,7 @@ export class SitesReportPage {
 
   last7days() {
     this.rangeFilter = {
-      startAt: moment().subtract(166, 'days'),
+      startAt: moment().subtract(6, 'days'),
       endAt: moment()
     }
 
@@ -79,9 +79,10 @@ export class SitesReportPage {
   }
 
   formatQuery() {
-    this.query.orderByChild = 'date';
-    this.query.startAt = this.rangeFilter.startAt.format('YYYY/MM/DD');
-    this.query.endAt = this.rangeFilter.endAt.format('YYYY/MM/DD');
+    //this.query.orderByChild = 'date';
+    this.query.orderByKey = true;
+    this.query.startAt = this.rangeFilter.startAt.format('YYYY-MM-DD');
+    this.query.endAt = this.rangeFilter.endAt.format('YYYY-MM-DD');
   }
 
   fetchDataByQuery() {
@@ -91,13 +92,36 @@ export class SitesReportPage {
     });
 
     loader.present().then(() => {
-      return this.db.list('/reports/' + this.site.title, {query: this.query})
+      let path = '/reports/' + this.site.title.toLowerCase();
+      console.log(path);
+      console.log(this.query);
+      let query = {
+        orderByKey: true,
+        startAt: this.rangeFilter.startAt.format('YYYY-MM-DD'),
+        endAt: this.rangeFilter.endAt.format('YYYY-MM-DD')
+      }
+      
+      console.log(query);
+      return this.db.list(path, {query: query})
       .subscribe(
         data => {
           console.log('Dd data fetched');
-          //console.log(data);
-          if (Object.keys(data).length) {
-            this.rep = groupRowsBy(data, 'inventaire');
+          console.log(data);
+          var raws = {};
+          var array = [];
+          data.forEach(partenaires => {
+            for (var partenaire in partenaires) {
+              if (partenaires.hasOwnProperty(partenaire)) {
+                Object.assign(raws, partenaires[partenaire]);
+              }
+            }
+          });
+
+          var result = Object.keys(raws).map((key)=>raws[key]);
+
+          console.log(result);
+          if (Object.keys(result).length) {
+            this.rep = groupRowsBy(result, 'inventaire');
           } else {
 
           }
