@@ -13,33 +13,34 @@ export class ReportHeaderComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    var fields = Object.keys(this.raws);
-
-    for (var field of fields) {
-      this.report[field] = this.fillReport(field);
-      this.sumTotal(this.report[field].revenue, this.report[field].impressions);
-    }
+    this.report = this.summarizeReport(this.raws);
   }
 
-  sumTotal(rev, imps) {
-    this.report['Total'] = {
-      revenue: this.report['Total'] ? this.report['Total'].revenue + rev : rev,
-      impressions: this.report['Total'] ? this.report['Total'].impressions + imps : imps
+  summarizeReport(raws: any[]) {
+    var fields = Object.keys(raws);
+    var report = {};
+
+    for (var field of fields) {
+      let revenue = this.sum('revenu', raws[field]);
+      let impressions = this.sum('impressions prises', raws[field]);
+
+      report[field] = {
+        revenue: revenue,
+        impressions: impressions
+      }
+      report['Total'] = {
+        revenue: report['Total'] ? report['Total'].revenue + revenue : revenue,
+        impressions: report['Total'] ? report['Total'].impressions + impressions : impressions
+      }
     }
+
+    return report;
   }
 
   sum(field: string, arr) {
     var total = arr.reduce( function( prevVal, elem ) {
-      return prevVal + elem[field];
+      return prevVal + parseFloat(elem[field]);
     }, 0 );
-    return total;
-  }
-
-  fillReport(group: string) {
-    var total = {
-      revenue: this.sum('revenu', this.raws[group]),
-      impressions: this.sum('impressions prises', this.raws[group])
-    }
 
     return total;
   }
