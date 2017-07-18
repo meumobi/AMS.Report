@@ -44,8 +44,8 @@ export class SitesReportPage {
 
   last7days() {
     this.rangeFilter = {
-      startAt: moment().subtract(7, 'days'),
-      endAt: moment().subtract(1, 'days')
+      startAt: moment().subtract(6, 'days'),
+      endAt: moment()
     }
 
     this.fetchDataByQuery();
@@ -53,8 +53,8 @@ export class SitesReportPage {
 
   last30days() {
     this.rangeFilter = {
-      startAt: moment().subtract(30, 'days'),
-      endAt: moment().subtract(1, 'days')
+      startAt: moment().subtract(29, 'days'),
+      endAt: moment()
     }
 
     this.fetchDataByQuery();
@@ -85,6 +85,20 @@ export class SitesReportPage {
     this.query.endAt = this.rangeFilter.endAt.format('YYYY-MM-DD');
   }
 
+  getQueryOrderedByChildAndRange(range, filtersPrefix) {
+    let startDate = range.startAt.format('YYYY-MM-DD');
+    let endDate = range.endAt.format('YYYY-MM-DD');
+    
+    let query = {
+      orderByChild: filtersPrefix ? 'group' : 'date',
+      startAt: filtersPrefix ? filtersPrefix + '_' +  startDate : startDate,
+      endAt: filtersPrefix ? filtersPrefix + '_' +  endDate : endDate
+    }
+    console.log(query);
+
+    return query;
+  }
+
   fetchDataByQuery() {
     let loader = this.loadingCtrl.create({
       content: 'Getting latest entries...',
@@ -92,36 +106,27 @@ export class SitesReportPage {
     });
 
     loader.present().then(() => {
-      let path = '/reports/' + this.site.title.toLowerCase();
-      console.log(path);
-      console.log(this.query);
-      let query = {
-        orderByKey: true,
-        startAt: this.rangeFilter.startAt.format('YYYY-MM-DD'),
-        endAt: this.rangeFilter.endAt.format('YYYY-MM-DD')
-      }
+      let path = '/reports/';
+
+      let siteName = this.site.title ? this.site.title.toLowerCase() : null;
+      let query = this.getQueryOrderedByChildAndRange(this.rangeFilter, siteName);
       
       console.log(query);
       return this.db.list(path, {query: query})
       .subscribe(
         data => {
           console.log('Dd data fetched');
-          console.log(data);
+          //console.log(data);
           var raws = {};
-
-          var array = convertToArrayOfLeaves(data)
-
-          data.forEach(partenaires => {
-            for (var partenaire in partenaires) {
-              if (partenaires.hasOwnProperty(partenaire)) {
-                Object.assign(raws, partenaires[partenaire]);
-              }
-            }
+          
+          data.forEach(group => {
+            //raws.concat(group['raws']);
+            Object.assign(raws, group['raws']);
           });
 
           var result = Object.keys(raws).map((key)=>raws[key]);
 
-          console.log(result);
+          //console.log(result);
           if (Object.keys(result).length) {
             this.rep = groupRowsBy(result, 'inventaire');
           } else {

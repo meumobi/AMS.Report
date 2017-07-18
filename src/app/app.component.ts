@@ -35,7 +35,8 @@ export class MyApp {
   appPages: PageInterface[] = [
     { title: 'Editors', name: 'editors-list', class: 'EditorsListPage', index: 0, icon: 'briefcase' },
     { title: 'Users', name: 'users-list', class: 'UsersListPage', index: 1, icon: 'contacts' },
-    { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop' }
+    { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop' },
+    { title: 'Reporting', name: 'sites-report', class: 'SitesReportPage', index: 3, icon: 'stats' }
     //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
   loggedInPages: PageInterface[] = [
