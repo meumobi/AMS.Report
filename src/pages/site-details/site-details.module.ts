@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SiteDetailsPage } from './site-details';
-
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     IonicPageModule.forChild(SiteDetailsPage),
-    FormsModule
+    FormsModule,
+    TranslateModule.forChild()
   ],
   exports: [
     SiteDetailsPage

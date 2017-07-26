@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>editor-details</ion-title>
+    <ion-title>{{'Editor account details' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
   <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="editor">
     <ion-list>
       <ion-item>
-        <ion-label color="primary" floating>Name</ion-label>
+        <ion-label color="primary" floating>{{'Name' |translate}}</ion-label>
         <ion-input type="text" 
           name="name" 
           [(ngModel)]="editor.name"
@@ -43,32 +43,32 @@
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>Address</ion-label>
+        <ion-label color="primary" floating>{{'Address' | translate}}</ion-label>
         <ion-input type="text" name="address" [(ngModel)]="editor.address">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>Extra Address Information</ion-label>
+        <ion-label color="primary" floating>{{'Extra Address Information' | translate}}</ion-label>
         <ion-input type="text" name="eai" [(ngModel)]="editor.eai">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>City</ion-label>
+        <ion-label color="primary" floating>{{'City' | translate}}</ion-label>
         <ion-input type="text" name="city" [(ngModel)]="editor.city">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary" floating>Zip Code</ion-label>
+        <ion-label color="primary" floating>{{'Zip Code' | translate}}</ion-label>
         <ion-input type="text" name="zip" [(ngModel)]="editor.zip">
         </ion-input>
       </ion-item>
     </ion-list>
       <ion-row responsive-sm>
     <ion-col>
-      <button ion-button type="submit" block>Save</button>
+      <button ion-button type="submit" block>{{'Save' | translate}}</button>
     </ion-col>
     <ion-col>
-      <button ion-button type="button" (click)="cancel()" color="light" block>Cancel</button>
+      <button ion-button type="button" (click)="cancel()" color="light" block>{{'Cancel' | translate}}</button>
     </ion-col>
   </ion-row>
   </form>

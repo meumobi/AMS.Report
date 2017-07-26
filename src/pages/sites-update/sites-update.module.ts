@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SitesUpdatePage } from './sites-update';
 
 @NgModule({
@@ -8,6 +10,7 @@ import { SitesUpdatePage } from './sites-update';
   ],
   imports: [
     IonicPageModule.forChild(SitesUpdatePage),
+    TranslateModule.forChild()
   ],
   exports: [
     SitesUpdatePage

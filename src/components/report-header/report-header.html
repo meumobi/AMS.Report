@@ -1,11 +1,11 @@
 <!-- Generated template for the ReportHeaderComponent component -->
-<div class="container">
+<div class="container" *ngIf="report">
   <div id="details">
     <div class="header">
-      <span>Revenus estimés</span>
+      <span>{{"Estimated Revenue" | translate}}</span>
     </div>
     <div>
-      <div class="cell">Premium<br/>
+      <div class="cell">{{"Premium" | translate}}<br/>
         <div *ngIf="report['Premium']">
           {{report['Premium'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
           <small>{{report['Premium'].impressions.toLocaleString('fr-FR')}} imps</small>
@@ -29,7 +29,7 @@
   </div>
   <div id="total">
     <div class="header">
-      <span>Total</span>
+      <span>{{"Total" | translate}}</span>
     </div>
     <div>
       <div class="cell">

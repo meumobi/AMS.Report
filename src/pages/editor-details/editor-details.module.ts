@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EditorDetailsPage } from './editor-details';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { EditorDetailsPage } from './editor-details';
 
 @NgModule({
   declarations: [
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     IonicPageModule.forChild(EditorDetailsPage),
+    TranslateModule.forChild(),
     FormsModule
   ],
   exports: [

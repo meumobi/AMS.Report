@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Observable } from 'rxjs/Observable';
 import firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthProvider } from '../providers';
 
@@ -54,8 +55,10 @@ export class MyApp {
     public menuCtrl: MenuController,
     private afAuth: AngularFireAuth,
     public authData: AuthProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public translate: TranslateService
   ) {
+    translate.setDefaultLang('fr');
     this.authState = this.afAuth.authState;
 
     this.authState = afAuth.authState;
@@ -123,7 +126,9 @@ export class MyApp {
   resetPassword() {
     this.authData.resetPassword(this.user.email)
     .then( () => {
-      this.presentToast('Email sent successfully');
+      this.translate.get('Email sent successfully').subscribe((res: string) => {
+        this.presentToast(res);
+      });
     }, error => {
       console.log(error.message);
     });

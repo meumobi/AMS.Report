@@ -10,9 +10,9 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title *ngIf="editor; else allSites">Sites of {{editor.name}}</ion-title>
+    <ion-title *ngIf="editor; else allSites">{{'sites-list.header' | translate:{name: editor.name} }}</ion-title>
     <ng-template #allSites>
-      <ion-title>Sites</ion-title>
+      <ion-title>{{'Sites' | translate}}</ion-title>
     </ng-template>
     <ion-buttons *ngIf="editor" end>
       <button ion-button icon-only (click)="addSite(editor.$key)">
@@ -21,7 +21,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="search">
+    <ion-searchbar [(ngModel)]="search" [placeholder]="'Search' | translate">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -45,13 +45,13 @@
           <ion-col>
             <button (click)="removeSite($event, site)" ion-button icon-left clear small>
               <ion-icon name="trash"></ion-icon>
-              <div>Remove</div>
+              <div>{{'Remove' | translate}}</div>
             </button>
           </ion-col>
           <ion-col>
             <button (click)="updateSite($event, site)" ion-button icon-left clear small>
               <ion-icon name="create"></ion-icon>
-              <div>Update</div>
+              <div>{{'Update' | translate}}</div>
              </button>
           </ion-col>
           <ion-col center text-center>
@@ -64,18 +64,5 @@
       </ion-card>
     </ion-col>
   </ion-row>
-
-  <!--ion-list>
-    <ion-item *ngFor="let site of sites" (click)="openSiteReport(site)">
-      {{site.title}}<br />
-      <small><a (click)="openSite($event, site)">{{site.url}}</a></small>
-    <button item-right (click)="removeSite($event, site)" ion-button icon-only default>
-      <ion-icon name="trash"></ion-icon>
-    </button>
-    <button item-right (click)="updateSite($event, site)" ion-button icon-only default>
-      <ion-icon name="create"></ion-icon>
-    </button>
-    </ion-item>
-  </ion-list-->
 
 </ion-content>

@@ -5,7 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   * Filter an array of items, return items whose item.<field> contains <searchString>.
+   * <ion-searchbar [(ngModel)]="search"></ion-searchbar>
+   * ...
+   * *ngFor="let site of sites | search:search:'title'"
    */
   transform(items: any[], searchString: string, field: string = 'name'): any {
     let matches: any[] = [];

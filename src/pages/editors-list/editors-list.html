@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Editors</ion-title>
+    <ion-title>{{'Editors' | translate}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addEditor()">
         <ion-icon name="add"></ion-icon>
@@ -18,7 +18,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="search">
+    <ion-searchbar [(ngModel)]="search" [placeholder]="'Search' | translate">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>

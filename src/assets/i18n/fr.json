@@ -1,0 +1,48 @@
+{
+	"Account": "Compte",
+	"Address": "Adresse",
+	"Admin": "Admin",
+	"Cancel": "Annuler",
+	"Cell Number": "Mobile",
+	"City": "Ville",
+	"Current month": "Mois courant",
+	"Custom period": "Sélectionner la période",
+	"Editor": "Éditeur",
+	"Editor account details": "Détails du compte éditeur",
+	"Editors": "Éditeurs",
+	"Email": "Email",
+	"Email sent successfully": "Envoi d'email confirmé!",
+	"Estimated Revenue": "Revenus estimés",
+	"Extra Address Information": "Informations complémentaires",
+	"First name": "Prénom",
+	"Full Reporting": "Reporting complet",
+	"Landline Number": "Ligne fixe",
+	"Last 30 days": "30 derniers jours",
+	"Last 7 days": "7 derniers jours",
+	"Last month": "Mois dernier",
+	"Last name": "Nom",
+	"Logged as:": "Loggué en tant que:",
+	"Logout": "Se délogguer",
+	"Name": "Nom",
+	"Navigate": "Navigation",
+	"Password": "Mot de passe",
+	"Premium": "Premium",
+	"Remove": "Effacer",
+	"Reset Password": "Réinitialiser son mot de passe",
+	"Save": "Enregistrer",
+	"Search": "Rechercher",
+	"Sites": "Sites",
+	"Total": "Total",
+	"Update": "Actualiser",
+	"Users": "Utilisateurs",
+	"Zip Code": "Code postal",
+	"sites-list": {
+		"header": "Les sites de {{name}}"
+	},
+	"sites-report": {
+		"header": "Reporting de {{name}}"
+	},
+	"users-list": {
+		"header": "Les comptes associés à {{name}}"
+	}
+}

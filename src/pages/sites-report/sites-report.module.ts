@@ -6,6 +6,7 @@ import { ReportHeaderComponent } from '../../components/report-header/report-hea
 import { ReportTableComponent } from '../../components/report-table/report-table';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { MomentModule } from 'angular2-moment';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MomentModule } from 'angular2-moment';
     DataTableModule,
     HttpModule,
     SharedModule,
-    MomentModule
+    MomentModule,
+    TranslateModule.forChild()
   ],
   exports: [
     SitesReportPage

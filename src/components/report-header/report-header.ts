@@ -1,24 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { 
+  Component,
+  Input, 
+  OnInit,
+  OnChanges,
+  SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'report-header',
   templateUrl: 'report-header.html'
 })
-export class ReportHeaderComponent implements OnInit {
+export class ReportHeaderComponent implements OnInit, OnChanges {
 
   @Input() 
   raws: any[];
-  report: object = {};
+
+  report: any[];
 
   constructor() {}
 
   ngOnInit() {
-    this.report = this.summarizeReport(this.raws);
+   
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+      // only run when property "data" changed
+      console.log('ngOnChanges report-header');
+      if (changes['raws']) {
+        console.log('Data changed');
+
+        this.report = this.summarizeReport(this.raws); 
+        //this.groupPosts = this.groupByCategory(this.data);
+      }
   }
 
   summarizeReport(raws: any[]) {
+    if (!raws) return;
+
     var fields = Object.keys(raws);
-    var report = {};
+    var report = [];
 
     for (var field of fields) {
       let revenue = this.sum('revenu', raws[field]);

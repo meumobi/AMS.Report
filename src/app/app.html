@@ -23,17 +23,17 @@
 
       <ion-list>
         <ion-list-header>
-          Navigate
+          {{'Navigate' | translate}}
         </ion-list-header>
         <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p.name)">
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{p.title}}
+          {{p.title | translate}}
         </button>
       </ion-list>
 
       <ion-list>
         <ion-list-header>
-          Account
+          {{'Account' | translate}}
         </ion-list-header>
         <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p.name)">
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
@@ -41,15 +41,15 @@
         </button>
         <button ion-item menuClose (click)="resetPassword()">
           <ion-icon item-start name="mail"></ion-icon>
-          Reset Password
+          {{'Reset Password' | translate}}
         </button>
         <button ion-item menuClose (click)="logout()">
           <ion-icon item-start name="log-out"></ion-icon>
-          Logout
+          {{'Logout' | translate}}
         </button>
       </ion-list>
       <ion-item *ngIf="user">
-        Logged as: <br/>{{user.email}}
+        {{'Logged as:' | translate}} <br/>{{user.email}}
       </ion-item>
     </ion-content>
   </ion-menu>

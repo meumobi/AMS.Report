@@ -128,9 +128,11 @@ export class SitesReportPage {
 
           //console.log(result);
           if (Object.keys(result).length) {
+            console.log("Result's length: " + Object.keys(result).length);
             this.rep = groupRowsBy(result, 'inventaire');
           } else {
-
+            console.log("Result's length 0");
+            this.rep = groupRowsBy(result, 'inventaire');
           }
           loader.dismiss();   
         },
@@ -150,7 +152,14 @@ export class SitesReportPage {
     })
       .then( (res:any) => { 
         console.log('open Calendar')
-        console.log(res) })
+        console.log(res) 
+        this.rangeFilter = {
+          startAt: moment(res.from.time),
+          endAt: moment(res.to.time)
+        }
+
+        this.fetchDataByQuery();
+      })
       .catch( () => {} )
   }
   

@@ -6,21 +6,24 @@
 -->
 <ion-header>
 	<ion-navbar>
-		<ion-title *ngIf="site">Reporting of {{site.title}}</ion-title>
+		<ion-title *ngIf="site && site.title; else noSite">{{'sites-report.header' | translate:{name: site.title} }}</ion-title>
+		<ng-template #noSite>
+			<ion-title>{{"Full Reporting" | translate}}</ion-title>
+		</ng-template>
 	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-		<report-header [raws]="rep" *ngIf="rep"></report-header>
+		<report-header [raws]="rep"></report-header>
 		<div class="date-picker" *ngIf="rangeFilter">
 			<ion-item>
 				<div item-right>
 					<ion-icon name="calendar"></ion-icon>
-					<span (click)="openCalendar()">Custom period</span> 
-					| <button (click)="last7days()">Last 7 days</button>
-					| <button (click)="last30days()">Last 30 days</button>
-					| <button (click)="lastMonth()">Last month</button>
-					| <button (click)="currentMonth()">Current month</button>
+					<span (click)="openCalendar()">{{'Custom period' | translate}}</span> 
+					| <button (click)="last7days()">{{'Last 7 days' | translate}}</button>
+					| <button (click)="last30days()">{{'Last 30 days' | translate}}</button>
+					| <button (click)="lastMonth()">{{'Last month' | translate}}</button>
+					| <button (click)="currentMonth()">{{'Current month' | translate}}</button>
 				</div>
 			</ion-item>
 			<div class="range">

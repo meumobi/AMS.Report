@@ -15,7 +15,7 @@
   <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="site">
     <ion-list>
       <ion-item>
-        <ion-label color="primary" stacked>Name</ion-label>
+        <ion-label color="primary" stacked>{{'Name' | translate}}</ion-label>
         <ion-input type="text" 
           name="title" 
           [(ngModel)]="site.title" 
@@ -32,7 +32,7 @@
         </ion-input>
       </ion-item>
       <ion-item *ngIf="(editor && editor.name)">
-        <ion-label color="primary" stacked>Editor</ion-label>
+        <ion-label color="primary" stacked>{{'Editor' | translate}}</ion-label>
         <ion-input type="text" 
           disabled="true"
           [ngModel]="editor.name"
@@ -45,14 +45,14 @@
         <button ion-button 
           type="submit" 
           [disabled]="f.invalid"
-          block>Save</button>
+          block>{{'Save' | translate}}</button>
       </ion-col>
       <ion-col>
         <button ion-button 
           type="button"
           (click)="cancel()" 
           color="light" 
-          block>Cancel</button>
+          block>{{'Cancel' | translate}}</button>
       </ion-col>
     </ion-row>
   </form>

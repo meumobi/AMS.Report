@@ -20,7 +20,7 @@
           </div>
           <div class="spacer" style="height: 5px;"></div>
           <ion-item>
-            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+            <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
           </ion-item>
           <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
             Password is required
