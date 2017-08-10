@@ -36,5 +36,9 @@ module.exports = {
   copyFontAwesome: {
     src: '{{ROOT}}/node_modules/font-awesome/fonts/**/*',
     dest: '{{WWW}}/assets/fonts/'
+  },
+  copyEnvConfig: {
+      src: ['{{SRC}}/app/config/**/*.json'],
+      dest: '{{WWW}}/app/config'
   }
 }

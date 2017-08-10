@@ -11,6 +11,7 @@ import { MomentModule } from 'angular2-moment';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
+import { APP_INITIALIZER } 	from '@angular/core';
 
 import { MyApp } from './app.component';
 import { SitesProvider } from '../providers/sites/sites';
@@ -19,9 +20,14 @@ import { AuthProvider } from '../providers/auth/auth';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import { UserProvider } from '../providers/user/user';
 import { ItemService } from './../providers/item.service';
+import { AppConfig } 		from './config/app.config'; 
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function initConfig(config: AppConfig){
+ return () => config.load() 
 }
 
 @NgModule({
@@ -57,7 +63,14 @@ export function createTranslateLoader(http: Http) {
     EditorProvider,
     UserProvider,
     AuthProvider,
-    ItemService
+    ItemService,
+    AppConfig,
+    { 
+			provide: APP_INITIALIZER, 
+			useFactory: initConfig, 
+			deps: [AppConfig], 
+      multi: true 
+    }
   ]
 })
 export class AppModule {}

@@ -34,9 +34,18 @@ export class SitesListPage {
     } else {
       this.sitesService.fetchAll()
         .subscribe(data => {
-          this.sites = data;
+          this.sites = data.map((e) => {
+            return this.decorateItem(e);
+          });
         });
     }    
+  }
+
+  decorateItem(item) {
+    /*
+      Handle item properties here before to render it
+    */
+    return item;
   }
 
   loadSites(editorId) {

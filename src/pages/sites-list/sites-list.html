@@ -32,8 +32,7 @@
     <ion-col *ngFor="let site of sites | search:search:'title'" col-md-4>
       <ion-card (click)="openSiteReport(site)">
 
-        <img src="http://api.thumbalizr.com/?url={{site.url}}&width=400">
-        <!-- img src="assets/img/advance-card-bttf.png" -->
+        <img [src]="site.url | thumbImage" *ngIf="site.url">
 
         <ion-card-content>
           <h1>{{site.title}}</h1>
