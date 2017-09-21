@@ -24,6 +24,9 @@
 					| <button (click)="last30days()">{{'Last 30 days' | translate}}</button>
 					| <button (click)="lastMonth()">{{'Last month' | translate}}</button>
 					| <button (click)="currentMonth()">{{'Current month' | translate}}</button>
+					// 
+					<ion-icon name="settings"></ion-icon>
+					<button (click)="toggleRole()">{{'Change Role' | translate}}</button> : {{role}}
 				</div>
 			</ion-item>
 			<div class="range">
@@ -32,20 +35,21 @@
 		</div>
 
 	<section *ngIf="rep; else noData">
-		<report-table [rows]="rep['Premium']" *ngIf="rep['Premium']" title="Premium"></report-table>
-		<report-table [rows]="rep['AMS Market Place']" *ngIf="rep['AMS Market Place']" title="AMS Market Place"></report-table>
-		<report-table [rows]="rep['AdNetwork Fill']" *ngIf="rep['AdNetwork Fill']" title="AdNetwork Fill"></report-table>
+		<report-table [rows]="rep['Premium']" [role]="role" *ngIf="rep['Premium']" title="Premium"></report-table>
+		<report-table [rows]="rep['AMS Market Place']" [role]="role" *ngIf="rep['AMS Market Place']" title="AMS Market Place"></report-table>
+		<report-table [rows]="rep['AdNetwork Fill']" [role]="role" *ngIf="rep['AdNetwork Fill']" title="AdNetwork Fill"></report-table>
 	</section>
 	<ng-template #noData>
 		
 	</ng-template>
 
 	<!--ion-list>
-			<p-dataTable [value]="rep" sortField="inventaire" rowGroupMode="subheader" groupField="inventaire" expandableRowGroups="true"
-					[sortableRowGroup]="false">
+			<p-dataTable [value]="rep['AMS Market Place']" sortField="site" rowGroupMode="subheader" groupField="site" expandableRowGroups="true"
+					[sortableRowGroup]="false" *ngIf="rep">
 			<p-header>Toggleable Row Groups with Footers</p-header>
-			<ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['inventaire']}}</ng-template>
+			<ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['site']}}</ng-template>
 				<p-column field="date" header="Date"></p-column>
+				<p-column field="key" header="Key"></p-column>
 				<p-column field="inventaire" header="Inventaire"></p-column>
 				<p-column field="site" header="Site"></p-column>
 				<p-column field="fillRate" header="Fill Rate"></p-column>
@@ -57,22 +61,10 @@
 					</ng-template>
 			</p-column>
 			<ng-template pTemplate="rowgroupfooter" let-car>
-					<td colspan="4" style="text-align:right">Total Revenu</td>
-					<td>{{calculateGroupTotal(car['inventaire'], "impressions prises")}}</td>
-					<td>{{calculateGroupTotal(car['inventaire'], "revenu") | currency:'USD':true:'.0-0' }}</td>
+					<td colspan="5" style="text-align:right">Total Revenu</td>
+					<td></td>
+					<td></td>
 			</ng-template>
 			</p-dataTable>
-		</ion-list-->
-
-	<!--ion-list>
-		<ion-item>
-			<ion-label>Start Date</ion-label>
-			<ion-datetime displayFormat="DD/MM/YYYY" min="2017" max="2017-06-30" pickerFormat="DD MMMM YYYY" [(ngModel)]="startDate"></ion-datetime>
-		</ion-item>
-		<ion-item>
-			<ion-label>End Date</ion-label>
-			<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="endDate"></ion-datetime>
-		</ion-item>
-	</ion-list>
-	<button ion-button full>Apply</button-->
+		</ion-list -->
 </ion-content>

@@ -30,6 +30,8 @@ export class SitesReportPage {
   query: {orderByKey?: boolean, orderByChild?: string, startAt?: string, endAt?: string} = {};
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   rep: any[];
+  role: string = "admin";
+  roles: string[] = ["editor", "admin"];
 
   constructor(
     public navCtrl: NavController, 
@@ -41,6 +43,22 @@ export class SitesReportPage {
     private http: Http,
     public calendarCtrl: CalendarController
   ) {}
+
+  /*
+  ionViewCanEnter() {
+    console.log('ionViewCanEnter');
+    setTimeout(() => {
+      this.navCtrl.setRoot('login');
+    }, 0);
+
+    return false;
+  }
+
+  */
+  
+  toggleRole() {
+    this.role = this.roles[(this.roles.indexOf(this.role) + 1) % this.roles.length];
+  }
 
   last7days() {
     this.rangeFilter = {
@@ -172,9 +190,8 @@ export class SitesReportPage {
         this.site = siteSnap;
         console.log('========= Site');
         console.log(this.site);
+        this.last7days();
       }
     );
-
-    this.last7days();
   }
 }

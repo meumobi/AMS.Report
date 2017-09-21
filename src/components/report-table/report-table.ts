@@ -9,6 +9,7 @@ import {
   SimpleChanges } from '@angular/core';
 
 import { ItemService } from './../../providers/item.service';
+import { filterBy } from '../../helpers/helpers';
 
 declare var ReactPivot: any;
 
@@ -17,19 +18,11 @@ declare var ReactPivot: any;
   templateUrl: 'report-table.html',
 })
 
-export class ReportTableComponent implements OnInit, AfterViewInit, OnChanges {
+export class ReportTableComponent implements AfterViewInit, OnChanges {
 
   @Input() title: string;
+  @Input() role: string;
   @Input() rows: any[];
-
-  pivot = {
-    dimensions: [],
-    calculations: [],
-    htmlElement: null,
-    reduce: null 
-  }
-  // type = {premium, network}
-  // access = {admin, editor}
 
   @ViewChild('report') input: ElementRef;
 
@@ -37,105 +30,148 @@ export class ReportTableComponent implements OnInit, AfterViewInit, OnChanges {
     public itemService: ItemService
   ) {}
 
-  ngOnInit() {
-    this.pivot.dimensions = this.getDimensions();
-    this.pivot.calculations = this.getCalculations();
-    this.pivot.reduce = this.getReduce();
-  }
+  updateReport(rows) {
+    let pivot = {
+      dimensions: [],
+      calculations: [],
+      htmlElement: null,
+      reduce: null 
+    };
 
-  ngOnChanges(changes: SimpleChanges) {
-      // only run when property "data" changed
-      console.log('ngOnChanges report-table');
-      if (changes['rows']) {
-        this.pivot.dimensions = this.getDimensions();
-        this.pivot.calculations = this.getCalculations();
-        this.pivot.reduce = this.getReduce();
-        var htmlElement = this.input.nativeElement;
-        this.pivot.htmlElement = htmlElement;
-        console.log('Data changed'); 
-        console.log(this.pivot); 
-        this.updateReport(this.rows, this.pivot)
-      }
-  }
+    pivot.dimensions = this.getDimensions();
+    pivot.calculations = this.getCalculations();
+    pivot.reduce = this.getReduce();
+    pivot.htmlElement = this.input.nativeElement;
 
-  updateReport(rows, pivot) {
-    console.log('update Report');
-    console.log(pivot); 
     ReactPivot(pivot.htmlElement, {
       rows: rows,
       dimensions: pivot.dimensions,
       calculations: pivot.calculations,
       reduce: pivot.reduce,
-      activeDimensions: ['Partenaires', 'Formats'],
+      activeDimensions: ['Formats'],
       nPaginateRows: 20
     })
   }
 
-
   getDimensions() {
     var dimensions = [
-      {value: 'annonceur', title: 'Advertisers'},
-      {value: 'partenaire', title: 'Partners'},
-      {value: 'format', title: 'Formats'},
-      {value: 'position', title: 'Positions'},
-      {value: 'site', title: 'Sites'},
-      {value: 'key', title: 'Keys'}
+      {
+        value: 'annonceur', 
+        title: 'Advertisers',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium"],
+
+      },
+      {
+        value: 'partenaire', 
+        title: 'Partners',
+        scope: ['admin'],
+        inventaire: ["AMS Market Place", "AdNetwork Fill"],
+      },
+      {
+        value: 'format', 
+        title: 'Formats',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+      },
+      {
+        value: 'position', 
+        title: 'Positions',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+      },
+      {
+        value: 'site', 
+        title: 'Sites',
+        scope: ['admin'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+      },
+      {
+        value: 'key', 
+        title: 'Keys',
+        scope: ['admin'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+      }
     ];
 
-    dimensions.map((item) => {return this.itemService.translateField(item, 'title')});
+    var dimensionsToDisplay = filterBy(dimensions, "scope", this.role);
+    dimensionsToDisplay = filterBy(dimensionsToDisplay, "inventaire", this.title);
 
-    return dimensions;
+    dimensionsToDisplay.map((item) => {
+      return this.itemService.translateField(item, 'title')
+    });
+
+    return dimensionsToDisplay;
   }
 
   getCalculations() {
     var calculations = [
       {
         value: 'imprEnvoyeesTotal', title: 'Sent imps',
+        scope: ['admin'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR');
         }
       },
       {
         value: 'imprRecuesTotal', title: 'Received imps',
+        scope: ["admin"],
+        inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR');
         }
       },
       {
         value: 'imprPrisesTotal', title: 'Paid imps',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR');
         }
       },
       {
         value: 'cpm', title: 'CPM',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
         }
       },
       {
         value: 'revenuTotal', title: 'Revenues',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
         }
       },
       {
         value: 'fillRate', title: 'FillRate',
+        scope: ['admin'],
+        inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val + ' %';
         }
       },
       {
         value: 'discrepencies', title: 'Discrepencies',
+        scope: ['admin'],
+        inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val + ' %';
         }
       }
     ];
 
-    calculations.map((item) => {return this.itemService.translateField(item, 'title')});
+    var columnsToDisplay = filterBy(calculations, "scope", this.role);
+    columnsToDisplay = filterBy(columnsToDisplay, "inventaire", this.title);
 
-    return calculations;
+    columnsToDisplay.map((item) => {
+      return this.itemService.translateField(item, 'title')
+    });
+
+    return columnsToDisplay;
   }
 
   getReduce() {
@@ -154,9 +190,14 @@ export class ReportTableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    var htmlElement = this.input.nativeElement;
-    this.pivot.htmlElement = htmlElement;
+    this.updateReport(this.rows);
+  }
 
-    this.updateReport(this.rows, this.pivot)
+  ngOnChanges(changes: SimpleChanges) {
+      console.log('ngOnChanges report-table');
+      if (changes['rows'] || changes['role']) {
+        console.log('Data changed'); 
+        this.updateReport(this.rows)
+      }
   }
 }
