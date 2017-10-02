@@ -47,3 +47,32 @@ $ ionic g page login
 [OK] Generated a page named Login!
 $ ionic g page users-list
 ```
+
+# Contributing
+
+## Pull Requests
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
+
+## Commit msg
+### `<type>: Closes #<issue-id>, <title>`
+
+#### `<type>`
+
+```
+FIX         - Code changes linked to a known issue.
+FEATURE     - New feature.
+HOTFIX      - Quick fixes to the codebase.
+ENHANCEMENT - Update of existing feature.
+UPGRADE     - Upgrade of 3rd party lib.
+DOC         - Documentation.
+```
+
+#### Examples
+```
+BUG: Closes #69, Hide Stock widget if reponse empty
+UPGRADE: Closes #96, Upgrade libraries versions and set App version
+```
