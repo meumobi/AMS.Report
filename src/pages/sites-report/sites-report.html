@@ -30,7 +30,8 @@
 				</div>
 			</ion-item>
 			<div class="range">
-				<small>{{rangeFilter.startAt | amDateFormat:'MMMM D'}} - {{rangeFilter.endAt| amDateFormat:'LL'}}</small>
+				<small>{{rangeFilter.startAt | amDateFormat:'MMMM D'}} - {{rangeFilter.endAt | amDateFormat:'LL'}}</small>
+				| <small>{{'Complete compiled data up to' | translate}}: {{latestUnpluggedImport | amDateFormat:'LL'}} </small>
 			</div>
 		</div>
 

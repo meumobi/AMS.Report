@@ -29,6 +29,7 @@ export class SitesReportPage {
   reports: FirebaseListObservable<any>;
   query: {orderByKey?: boolean, orderByChild?: string, startAt?: string, endAt?: string} = {};
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
+  latestUnpluggedImport: Moment;
   rep: any[];
   role: string = "admin";
   roles: string[] = ["editor", "admin"];
@@ -161,6 +162,20 @@ export class SitesReportPage {
     });  
   }
 
+  getLatestUnpluggedImport(){
+    let path = '/settings/';
+    this.db.object(path)
+    .subscribe(
+      data => {        
+        this.latestUnpluggedImport = moment(data.latestUnpluggedImport);
+      },
+      err => {
+        console.log('error');
+      }
+    );    
+  }
+
+
   openCalendar() {
     this.calendarCtrl.openCalendar({
       //from: new Date(),
@@ -191,6 +206,7 @@ export class SitesReportPage {
         console.log('========= Site');
         console.log(this.site);
         this.last7days();
+        this.getLatestUnpluggedImport();
       }
     );
   }

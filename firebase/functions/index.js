@@ -4,17 +4,17 @@ const format = require("date-format-lite")
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-exports.setLastDate = functions.https.onRequest((req, res) => {
+exports.setLatestUnpluggedImport = functions.https.onRequest((req, res) => {
   const token = "2e6f9b0d5885b6010f9167787445617f553a735f";
   const pwd = sha1(req.query.pwd);
   if (token == pwd){
     var date = new Date();
     const lastDate = date.format("YYYY-MM-DD");
-    admin.database().ref('/lastDate').update({last: lastDate}).then(snapshot => {
-      console.log("Last Date Updated");
+    admin.database().ref('/settings').update({latestUnpluggedImport: latestUnpluggedImport}).then(snapshot => {
+      console.log("Latest Unplugged Import Updated");
       res.send("ok");
     }).catch(function(error) {
-      console.log("Error Updating Last Date:", error);
+      console.log("Error Updating Latest Unplugged Import:", error);
       res.send("nok");      
     });
   } else {
