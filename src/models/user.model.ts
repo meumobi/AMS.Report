@@ -11,6 +11,7 @@ export interface IUser {
   email: string;
   cellNumber?: string;
   landlineNumber?: string;
+  role: string;
 }
 
 export class User implements IUser {
@@ -18,6 +19,7 @@ export class User implements IUser {
   editor_id;
   displayName;
   createdAt = firebase.database.ServerValue.TIMESTAMP;
+  role = "editor";
 
   constructor(email: string, editorId: string) {
     this.email = email;

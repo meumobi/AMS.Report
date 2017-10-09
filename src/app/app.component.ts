@@ -8,10 +8,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Observable } from 'rxjs/Observable';
 import firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { TranslateService } from '@ngx-translate/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AuthProvider } from '../providers';
+import { UserProvider } from '../providers';
+import { IUser } from '../models';
+
+import { filterBy } from '../helpers/helpers';
 
 export interface PageInterface {
   title: string;
@@ -20,6 +24,7 @@ export interface PageInterface {
   icon: string;
   logsOut?: boolean;
   index?: number;
+  scope: Array<string>;
 }
 
 @Component({
@@ -34,18 +39,21 @@ export class MyApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Editors', name: 'editors-list', class: 'EditorsListPage', index: 0, icon: 'briefcase' },
-    { title: 'Users', name: 'users-list', class: 'UsersListPage', index: 1, icon: 'contacts' },
-    { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop' },
-    { title: 'Reporting', name: 'sites-report', class: 'SitesReportPage', index: 3, icon: 'stats' }
+    { title: 'Editors', name: 'editors-list', class: 'EditorsListPage', index: 0, icon: 'briefcase', scope: ['admin'] },
+    { title: 'Users', name: 'users-list', class: 'UsersListPage', index: 1, icon: 'contacts', scope: ['admin'] },
+    { title: 'Sites', name: 'sites-list', class: 'SitesListPage', index: 2, icon: 'laptop', scope: ['admin', 'editor'] },
+    { title: 'Reporting', name: 'sites-report', class: 'SitesReportPage', index: 3, icon: 'stats', scope: ['admin'] }
     //{ title: 'Campaigns', name: 'CampaignsListPage', index: 3, icon: 'pricetags' }
   ];
   loggedInPages: PageInterface[] = [
     //{ title: 'Account', name: 'AccountPage', icon: 'person' },
   ];
+  linksToDisplay: PageInterface[] = [];
 
   rootPage: String;
-  user: firebase.User;
+  user: IUser;
+  userAuth: firebase.User;
+  isAdmin: boolean;
   public authState: Observable<firebase.User>;
 
   constructor(
@@ -53,30 +61,44 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public menuCtrl: MenuController,
-    private afAuth: AngularFireAuth,
     public authData: AuthProvider,
+    private afAuth: AngularFireAuth,
     public toastCtrl: ToastController,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public userService: UserProvider
   ) {
     translate.setDefaultLang('fr');
-    this.authState = this.afAuth.authState;
+
+    userService.getCurrent().subscribe((user) => {
+      console.log('app.component/userService.getCurrent');
+      console.log(user);
+      this.isAdmin = (user.role == 'admin');
+      this.linksToDisplay = filterBy(this.appPages, "scope", user.role);
+    })
 
     this.authState = afAuth.authState;
-    this.authState.subscribe((user: firebase.User) => {
-      if (user) {
-        console.log('authState change');
-        console.log(user);
-        this.user = user;
-        this.rootPage = 'sites-list';
-        /*
-        TODO: I don't understand the use or not of unsubscribe
+    const authObserver = this.authState.subscribe((user: firebase.User) => {
+      /*
         https://javebratt.com/angularfire2-authentication-ionic/
         */
-        //authObserver.unsubscribe();
+      if (user) {
+        console.log('app.component/authObserver');
+        console.log(user);
+        this.userAuth = user;
+        userService.fetchByEmail(user.email).subscribe((users) => {
+          this.user = users.shift();
+          console.log(this.user);
+          if (this.user) {
+            userService.setCurrent(this.user);
+            this.rootPage = 'sites-list';
+            //authObserver.unsubscribe();
+          } else {
+            this.rootPage = 'login';
+            authObserver.unsubscribe();
+          }
+        });
       } else {
-        this.rootPage = 'login';
-        //authObserver.unsubscribe();
-        //this.isAuthenticated = false;
+        this.rootPage = 'login';  
       }
     });
 

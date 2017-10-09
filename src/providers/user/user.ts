@@ -1,23 +1,52 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+
 import { 
   AngularFireDatabase, 
   FirebaseListObservable, 
   FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase/app';
 
 import { IUser, User } from '../../models';
 import { AuthProvider } from './../auth/auth';
-
 
 @Injectable()
 export class UserProvider {
 
   items$: FirebaseListObservable<IUser[]>;
+  current: Observable<IUser>;
+  roles: Object;
+  currentObserver: any;
 
   constructor(
     public db: AngularFireDatabase,
+    public afAuth: AngularFireAuth,
     public auth: AuthProvider
   ) {
     this.items$ = db.list('/users');
+    this.roles = {
+      ADMIN: "admin",
+      EDITOR: "editor"
+    }
+
+    this.current = Observable.create(observer => {
+      this.currentObserver = observer;
+    });
+  }
+  
+
+  getCurrent(): Observable<IUser> {
+    console.log('getCurrentUser');
+    return this.current;
+  }
+
+  setCurrent(user: IUser) {
+    this.currentObserver.next(user);
+  }
+
+  getRoles() {
+    return Object.keys(this.roles).map(k => this.roles[k]);
   }
 
   create(email: string, editorId: string) {
@@ -49,6 +78,16 @@ export class UserProvider {
   fetchById(id: string): FirebaseObjectObservable<IUser> {
     return this.db.object(`users/${id}`);
   }
+
+  fetchByEmail(email: string): FirebaseListObservable<IUser[]> {
+    return this.db.list('/users', 
+    {
+      query: {
+        orderByChild: 'email',
+        equalTo: email
+      }
+    });
+  }  
 
   fetchByEditorId(editorId: string): FirebaseListObservable<IUser[]> {
     return this.db.list('/users', 
