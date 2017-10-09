@@ -9,7 +9,7 @@ exports.setLatestUnpluggedImport = functions.https.onRequest((req, res) => {
   const pwd = sha1(req.query.pwd);
   if (token == pwd){
     var date = new Date();
-    const lastDate = date.format("YYYY-MM-DD");
+    const latestUnpluggedImport = date.format("YYYY-MM-DD");
     admin.database().ref('/settings').update({latestUnpluggedImport: latestUnpluggedImport}).then(snapshot => {
       console.log("Latest Unplugged Import Updated");
       res.send("ok");
