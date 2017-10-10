@@ -5,11 +5,13 @@ import {
   MenuController,
   LoadingController, 
   Loading, 
-  AlertController } from 'ionic-angular';
+  AlertController,
+  App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthProvider } from '../../providers';
 import { EmailValidator } from '../../validators/email';
+import { AppConfig } from './../../app/config/app.config';
 
 @IonicPage({
     name: 'login',
@@ -30,7 +32,9 @@ export class LoginPage {
     public authData: AuthProvider,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public menu : MenuController
+    public menu : MenuController,
+    private _app: App,
+    public config: AppConfig
   ) {
     this.user = this.fb.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -49,6 +53,7 @@ export class LoginPage {
   
   ionViewDidEnter(){
     this.menu.enable(false);
+    this._app.setTitle(this.config.get('settings.title'));
   }
 
   loginUser(){
