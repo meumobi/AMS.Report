@@ -15,9 +15,10 @@ import { AuthProvider } from './../auth/auth';
 export class UserProvider {
 
   items$: FirebaseListObservable<IUser[]>;
-  current: Observable<IUser>;
+  current: IUser;
   roles: Object;
-  currentObserver: any;
+  //currentObserver: any;
+
 
   constructor(
     public db: AngularFireDatabase,
@@ -29,20 +30,20 @@ export class UserProvider {
       ADMIN: "admin",
       EDITOR: "editor"
     }
-
+/*
     this.current = Observable.create(observer => {
       this.currentObserver = observer;
     });
+ */ 
   }
-  
 
-  getCurrent(): Observable<IUser> {
+  getCurrent(): IUser {
     console.log('getCurrentUser');
     return this.current;
   }
 
   setCurrent(user: IUser) {
-    this.currentObserver.next(user);
+    this.current = user;
   }
 
   getRoles() {

@@ -1,8 +1,20 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  AlertController, 
+  ActionSheetController, 
+  ToastController, 
+  NavParams,
+  App } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase/app';
 
-import { SitesProvider, EditorProvider } from '../../providers';
-import { ISite, IEditor } from '../../models';
+import { 
+  SitesProvider, 
+  EditorProvider,
+  UserProvider } from '../../providers';
+import { ISite, IEditor, IUser } from '../../models';
 
 @IonicPage({
     name: 'sites-list',
@@ -16,6 +28,8 @@ export class SitesListPage {
 
   sites: ISite[];
   editor: IEditor;
+  user: IUser;
+  isAdmin: boolean;
 
   constructor(
     public sitesService: SitesProvider,
@@ -24,21 +38,39 @@ export class SitesListPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private afAuth: AngularFireAuth,
+    public userService: UserProvider,
+    private _app: App
   ) {
     let editorId = this.navParams.data.editor_id;
 
-    if (editorId) {
-      this.loadEditor(editorId);
-      this.loadSites(editorId);
-    } else {
-      this.sitesService.fetchAll()
-        .subscribe(data => {
-          this.sites = data.map((e) => {
-            return this.decorateItem(e);
+    this.user = userService.getCurrent();
+    
+    if (this.user) {
+      this.isAdmin = (this.user.role == 'admin');
+      console.log('isAdmin: ' + this.isAdmin);
+      if (this.user.role == 'editor') {
+        editorId = this.user.editor_id; 
+      }
+      if (editorId) {
+        this.loadEditor(editorId);
+        this.loadSites(editorId);
+      } else {
+        this.sitesService.fetchAll()
+          .subscribe(data => {
+            this.sites = data.map((e) => {
+              return this.decorateItem(e);
+            });
           });
-        });
-    }    
+      }
+    }
+  }
+
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
   }
 
   decorateItem(item) {

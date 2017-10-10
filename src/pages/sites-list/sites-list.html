@@ -14,13 +14,13 @@
     <ng-template #allSites>
       <ion-title>{{'Sites' | translate}}</ion-title>
     </ng-template>
-    <ion-buttons *ngIf="editor" end>
+    <ion-buttons *ngIf="editor && isAdmin" end>
       <button ion-button icon-only (click)="addSite(editor.$key)">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="sites && sites.length > 10">
     <ion-searchbar [(ngModel)]="search" [placeholder]="'Search' | translate">
     </ion-searchbar>
   </ion-toolbar>
@@ -36,11 +36,10 @@
 
         <ion-card-content>
           <h1>{{site.title}}</h1>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-            Whoa. This is heavy.</p>
+          <p></p>
         </ion-card-content>
 
-        <ion-row>
+        <ion-row *ngIf="isAdmin">
           <ion-col>
             <button (click)="removeSite($event, site)" ion-button icon-left clear small>
               <ion-icon name="trash"></ion-icon>
@@ -52,11 +51,6 @@
               <ion-icon name="create"></ion-icon>
               <div>{{'Update' | translate}}</div>
              </button>
-          </ion-col>
-          <ion-col center text-center>
-            <ion-note>
-              11h ago
-            </ion-note>
           </ion-col>
         </ion-row>
 
