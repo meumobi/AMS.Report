@@ -69,13 +69,6 @@ export class MyApp {
   ) {
     translate.setDefaultLang('fr');
 
-    userService.getCurrent().subscribe((user) => {
-      console.log('app.component/userService.getCurrent');
-      console.log(user);
-      this.isAdmin = (user.role == 'admin');
-      this.linksToDisplay = filterBy(this.appPages, "scope", user.role);
-    })
-
     this.authState = afAuth.authState;
     const authObserver = this.authState.subscribe((user: firebase.User) => {
       /*
@@ -90,6 +83,8 @@ export class MyApp {
           console.log(this.user);
           if (this.user) {
             userService.setCurrent(this.user);
+            this.isAdmin = (this.user.role == 'admin');
+            this.linksToDisplay = filterBy(this.appPages, "scope", this.user.role);
             this.rootPage = 'sites-list';
             //authObserver.unsubscribe();
           } else {
