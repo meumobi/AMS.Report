@@ -2,10 +2,10 @@ import { Component, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Http } from '@angular/http';
-import { groupRowsBy } from '../../helpers/helpers';
+import { groupRowsBy } from './../../helpers/helpers';
 
-import { SitesProvider, UserProvider } from '../../providers';
-import { ISite } from '../../models';
+import { SitesProvider, UserProvider } from './../../providers';
+import { ISite, IUser } from './../../models';
 import 'rxjs/add/operator/map';
 
 //import { DataTableModule } from 'primeng/primeng';
@@ -31,7 +31,9 @@ export class SitesReportPage {
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   latestUnpluggedImport: Moment;
   rep: any[];
-  role: string = "admin";
+  user: IUser;
+  isAdmin: boolean;
+  role: string;
   roles: string[] = ["editor", "admin"];
 
   constructor(
@@ -44,7 +46,14 @@ export class SitesReportPage {
     private http: Http,
     public calendarCtrl: CalendarController,
     public userService: UserProvider
-  ) {}
+  ) {
+    this.user = userService.getCurrent();
+    
+    if (this.user) {
+      this.isAdmin = (this.user.role == 'admin');
+      this.role = this.user.role;
+    }
+  }
 
   ionViewCanEnter(): boolean {
     let user = this.userService.getCurrent();
