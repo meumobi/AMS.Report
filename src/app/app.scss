@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,25 +12,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 .logo-logotype {
-    max-height: 20px;
-    margin-left: 10px;
-    margin-top: 8px;
+  max-height: 20px;
+  margin-left: 10px;
+  margin-top: 8px;
 }
 
 .logo-icon {
-    position: relative;
-    width: 34px;
-    height: 34px;
+  position: relative;
+  width: 34px;
+  height: 34px;
 }
 
 button.toolbar-logo-button {
-    background: transparent;
+  background: transparent;
 }
 
 div.toolbar-logo-lockup {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.error {
+  display: none;
 }
