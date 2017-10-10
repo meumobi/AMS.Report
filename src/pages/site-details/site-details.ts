@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angular';
 
-import { SitesProvider, EditorProvider } from '../../providers';
+import { SitesProvider, EditorProvider, UserProvider } from '../../providers';
 import { ISite, IEditor } from '../../models';
 
 @IonicPage({
@@ -22,7 +22,8 @@ export class SiteDetailsPage {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public sitesService: SitesProvider,
-    public editorService: EditorProvider
+    public editorService: EditorProvider,
+    public userService: UserProvider
   ) {
     let key = this.navParams.data.id;
 
@@ -30,6 +31,12 @@ export class SiteDetailsPage {
       this.site = data;
       this.loadEditor(this.site.editor_id);
     })
+  }
+
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
   }
 
   presentToast(msg: string) {

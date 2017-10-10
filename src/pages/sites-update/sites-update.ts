@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { SitesProvider } from '../../providers';
+import { SitesProvider, UserProvider } from '../../providers';
 import { Site } from '../../models';
 
 /**
@@ -27,11 +27,18 @@ export class SitesUpdatePage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public userService: UserProvider
   ) { 
     this.site = this.navParams.data.site;
     console.log(this.site);
     console.log('Name' + this.navParams.get('name'));
+  }
+
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
   }
 
   presentToast(msg: string) {

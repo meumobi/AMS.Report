@@ -4,7 +4,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { Http } from '@angular/http';
 import { groupRowsBy } from '../../helpers/helpers';
 
-import { SitesProvider } from '../../providers';
+import { SitesProvider, UserProvider } from '../../providers';
 import { ISite } from '../../models';
 import 'rxjs/add/operator/map';
 
@@ -42,20 +42,15 @@ export class SitesReportPage {
     private db: AngularFireDatabase,
     private elRef:ElementRef,
     private http: Http,
-    public calendarCtrl: CalendarController
+    public calendarCtrl: CalendarController,
+    public userService: UserProvider
   ) {}
 
-  /*
-  ionViewCanEnter() {
-    console.log('ionViewCanEnter');
-    setTimeout(() => {
-      this.navCtrl.setRoot('login');
-    }, 0);
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
 
-    return false;
+    return !!user;
   }
-
-  */
   
   toggleRole() {
     this.role = this.roles[(this.roles.indexOf(this.role) + 1) % this.roles.length];

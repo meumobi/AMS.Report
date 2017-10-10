@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
 
-import { SitesProvider } from '../../providers';
-import { EditorProvider } from '../../providers';
+import { SitesProvider, EditorProvider, UserProvider } from '../../providers';
 import { IEditor } from '../../models';
 
 @IonicPage({
@@ -23,7 +22,8 @@ export class EditorsListPage {
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
     public sitesService: SitesProvider,
-    public editorService: EditorProvider 
+    public editorService: EditorProvider,
+    public userService: UserProvider 
   ) {
     this.editorService.fetchAll()
     .subscribe(
@@ -33,6 +33,12 @@ export class EditorsListPage {
       err => {
         console.log('error');
       });
+  }
+
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
   }
 
   presentToast(msg: string) {

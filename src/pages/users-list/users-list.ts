@@ -8,11 +8,8 @@ import {
   LoadingController,
   NavParams } from 'ionic-angular';
 
-import { UserProvider } from '../../providers';
-import { EditorProvider } from './../../providers/editor/editor';
-import { IUser } from '../../models';
-import { IEditor } from './../../models';
-
+import { UserProvider, EditorProvider } from './../../providers';
+import { IUser, IEditor } from './../../models';
 
 @IonicPage({
     name: 'users-list',
@@ -54,6 +51,12 @@ export class UsersListPage {
         console.log('error');
       });
     }  
+  }
+
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
   }
 
   loadUsers(editorId: string) {

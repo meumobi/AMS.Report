@@ -52,6 +52,12 @@ export class UserDetailsPage {
        })
   }
 
+  ionViewCanEnter(): boolean {
+    let user = this.userService.getCurrent();
+
+    return !!user;
+  }
+
   fillForm(user) {
     this.userForm = this.fb.group({
       email: [user.email, Validators.compose([Validators.required, EmailValidator.isValid])],
