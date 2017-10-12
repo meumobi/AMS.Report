@@ -146,7 +146,16 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
         }
       },
       {
-        value: 'revenuTotal', title: 'Revenues',
+        value: 'revenuBrut', title: 'Gross revenues',
+        scope: ['admin'],
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+        template: function(val, row) {
+          return val.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+        }
+      },
+      ,
+      {
+        value: 'revenuNet', title: 'Revenues',
         scope: ['admin', 'editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -186,7 +195,8 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       memo.imprPrisesTotal = (memo.imprPrisesTotal || 0) + parseFloat(row['impressions prises']);
       memo.imprEnvoyeesTotal = (memo.imprEnvoyeesTotal || 0) + parseFloat(row['impressions envoyees']);
       memo.imprRecuesTotal = (memo.imprRecuesTotal || 0) + parseFloat(row['impressions reçues']);
-      memo.revenuTotal = (memo.revenuTotal || 0) + parseFloat(row.revenu);
+      memo.revenuBrut = (memo.revenuBrut || 0) + parseFloat(row.revenu);
+      memo.revenuNet = (memo.revenuNet || 0) + parseFloat(row['revenu net']);
       memo.cpm = (1000 * memo.revenuTotal/memo.imprPrisesTotal);
       memo.fillRate = Number(100 * memo.imprPrisesTotal/memo.imprRecuesTotal).toFixed(2);
       memo.discrepencies = Number(100 * (1 - memo.imprRecuesTotal/memo.imprEnvoyeesTotal)).toFixed(2);
