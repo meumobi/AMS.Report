@@ -179,11 +179,10 @@ export class SitesReportPage {
     );    
   }
 
-
   openCalendar() {
     this.calendarCtrl.openCalendar({
       //from: new Date(),
-      isRadio: false,
+      pickMode:'range',
       isSaveHistory:true,
       canBackwardsSelected: true,
     })
