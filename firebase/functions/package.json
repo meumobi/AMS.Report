@@ -5,7 +5,8 @@
     "date-format-lite": "^17.7.0",
     "firebase-admin": "^5.2.1",
     "firebase-functions": "^0.6.2",
-    "sha1": "^1.1.1"
+    "sha1":"latest",
+    "moment":"2.18.1"
   },
   "private": true
 }
