@@ -152,9 +152,18 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
         }
       },
       {
-        value: 'cpm',
-        title: this.getTranslation('CPM'),
-        scope: ['admin', 'editor'],
+        value: 'cpmBrut',
+        title: this.getTranslation('Gross CPM'),
+        scope: ['admin'], 
+        inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
+        template: function(val, row) {
+          return val.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+        }
+      },
+      {
+        value: 'cpmNet',
+        title: this.getTranslation('Net CPM'),
+        scope: ['admin','editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
           return val.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
@@ -216,7 +225,8 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       memo.imprRecuesTotal = (memo.imprRecuesTotal || 0) + parseFloat(row['impressions reçues']);
       memo.revenuBrut = (memo.revenuBrut || 0) + parseFloat(row.revenu);
       memo.revenuNet = (memo.revenuNet || 0) + parseFloat(row['revenu net']);
-      memo.cpm = (1000 * memo.revenuTotal/memo.imprPrisesTotal);
+      memo.cpmBrut = (1000 * memo.revenuBrut/memo.imprPrisesTotal);
+      memo.cpmNet = (1000 * memo.revenuNet/memo.imprPrisesTotal);
       memo.fillRate = Number(100 * memo.imprPrisesTotal/memo.imprRecuesTotal).toFixed(2);
       memo.discrepencies = Number(100 * (1 - memo.imprRecuesTotal/memo.imprEnvoyeesTotal)).toFixed(2);
       return memo
