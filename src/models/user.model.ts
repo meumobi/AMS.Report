@@ -5,7 +5,7 @@ export interface IUser {
   displayName: string;
   firstName?: string;
   lastName?: string;
-  password?: string;
+  password: string;
   editor_id: string;
   createdAt: Object;
   email: string;
@@ -20,10 +20,12 @@ export class User implements IUser {
   displayName;
   createdAt = firebase.database.ServerValue.TIMESTAMP;
   role = "editor";
+  password;
 
-  constructor(email: string, editorId: string) {
+  constructor(email: string, editorId: string, password: string) {
     this.email = email;
     this.displayName = email;
     this.editor_id = editorId;
+    this.password = password;
   }
 }

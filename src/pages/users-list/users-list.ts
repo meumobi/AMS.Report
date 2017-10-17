@@ -87,7 +87,7 @@ export class UsersListPage {
     toast.present();
   }
  
-  createUser(editorId: string) {
+ createUser(editorId: string) {
     let prompt = this.alertCtrl.create({
       title: 'User Email',
       message: "Enter an email for this new user you're so keen on adding",
@@ -140,7 +140,6 @@ export class UsersListPage {
     });
     prompt.present();
   }
-
   deleteUser($event, user: IUser) {
     $event.stopPropagation();
     let alert = this.alertCtrl.create({
