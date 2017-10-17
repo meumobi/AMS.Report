@@ -172,7 +172,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       ,
       {
         value: 'revenuNet',
-        title: this.getTranslation('Revenues'),
+        title: this.getTranslation('Net revenues'),
         scope: ['admin', 'editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
