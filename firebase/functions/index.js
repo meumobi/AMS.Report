@@ -35,3 +35,21 @@ exports.setLatestUnpluggedImport = functions.https.onRequest((req, res) => {
       }
   });  
  });
+
+exports.removeUser = functions.database.ref('/users/{pushId}/email').onDelete(event => {
+  const email = event.data.previous.val();
+  admin.auth().getUserByEmail(email)
+  .then(function(user) {
+    const uid = user.uid;
+    admin.auth().deleteUser(uid)
+    .then(function() {
+      console.log("User Deleted");
+    })
+    .catch(function(error) {
+      console.log("Error Delete:", error);
+    });
+  })
+  .catch(function(error) {
+    console.log("Error List:", error);  
+  });
+});
