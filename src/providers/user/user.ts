@@ -51,12 +51,7 @@ export class UserProvider {
   }
 
   create(email: string, editorId: string) {
-    return this.auth.signupUser(email, 'admysports')
-      .then(
-        user => {
-          console.log(user);
-          return this.items$.push(new User(user.email, editorId));
-      })
+    return this.items$.push(new User(email, editorId,'admysports'));
   }
 
   update(id: string, changes: IUser) {
