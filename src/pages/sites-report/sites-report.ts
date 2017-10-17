@@ -183,7 +183,7 @@ export class SitesReportPage {
   openCalendar() {
     this.calendarCtrl.openCalendar({
       //from: new Date(),
-      isRadio: false,
+      //isRadio: false,
       isSaveHistory:true,
       canBackwardsSelected: true,
     })
