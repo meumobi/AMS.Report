@@ -2,11 +2,11 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "dependencies": {
-    "date-format-lite": "^17.7.0",
     "firebase-admin": "^5.2.1",
     "firebase-functions": "^0.6.2",
-    "sha1":"latest",
-    "moment":"2.18.1"
+    "moment": "2.18.1",
+    "nodemailer": "^4.2.0",
+    "sha1": "latest"
   },
   "private": true
 }
