@@ -27,10 +27,14 @@ Run `gulp` to test it on local
 
 <a name="v1.0.1"></a>
 # [v.1.0.1](https://github.com/meumobi/infomobi/compare/v1.0.0...v1.0.1)
+* ENHANCE: set searchbar-ios-toolbar-input-background color to #fff
+* ENHANCE: update default document title to Ad.MySports
+* improve performance by enabling prod mode and removing cordova references
 * ENHANCE: hide statusBar and splashScreen actions , useless on browser
 * ENHANCE: add gulp command to test --prod build on local, vs 'ionic serve'
 * ENHANCE: hide cordova.js call, useless for browser platform
 * FIX: Closes #58, ReportHeaderComponent and ReportTableComponent are part of the declarations of 2 modules
+* add release note
 
 <a name="v1.0.0"></a>
 # v1.0.0
