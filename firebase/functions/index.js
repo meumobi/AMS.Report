@@ -99,6 +99,11 @@ exports.updateUser = functions.database.ref('/users/{id}')
   }  
 });
 
+/*
+  Require environment configuration, run following firebase command to set gmail.email and gmail.password values:
+  $ firebase functions:config:set gmail.email="[SENDER EMAIL HERE]" gmail.password="[SENDER MAILBOX PASSWORD HERE]"
+*/
+
 const nodemailer = require('nodemailer');
 const gmailEmail = encodeURIComponent(functions.config().gmail.email);
 const gmailPassword = encodeURIComponent(functions.config().gmail.password);
