@@ -1,15 +1,16 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Http } from '@angular/http';
 import { groupRowsBy } from './../../helpers/helpers';
+
+import { ModalController } from 'ionic-angular';
+import { CalendarModal } from "ion2-calendar";
 
 import { SitesProvider, UserProvider } from './../../providers';
 import { ISite, IUser } from './../../models';
 import 'rxjs/add/operator/map';
 
 //import { DataTableModule } from 'primeng/primeng';
-import { CalendarController } from "ion2-calendar/dist";
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
@@ -42,9 +43,7 @@ export class SitesReportPage {
     public sitesService: SitesProvider,
     public loadingCtrl: LoadingController,
     private db: AngularFireDatabase,
-    private elRef:ElementRef,
-    private http: Http,
-    public calendarCtrl: CalendarController,
+    public modalCtrl: ModalController,
     public userService: UserProvider
   ) {
     this.user = userService.getCurrent();
@@ -180,25 +179,25 @@ export class SitesReportPage {
   }
 
   openCalendar() {
-    this.calendarCtrl.openCalendar({
-      //from: new Date(),
-      pickMode:'range',
-      isSaveHistory:true,
-      canBackwardsSelected: true,
-    })
-      .then( (res:any) => { 
-        console.log('open Calendar')
-        console.log(res) 
+    let myCalendar = this.modalCtrl.create(CalendarModal, {
+      options: {
+        pickMode:'range',
+        isSaveHistory:true,
+        canBackwardsSelected: true
+      }
+    });    
+    myCalendar.present();    
+    myCalendar.onDidDismiss((res:any) => {
+      if (res){
         this.rangeFilter = {
           startAt: moment(res.from.time),
           endAt: moment(res.to.time)
         }
-
         this.fetchDataByQuery();
-      })
-      .catch( () => {} )
+      }
+    });
   }
-  
+   
   ionViewDidLoad() {
 
     let siteId = this.navParams.data.id;
