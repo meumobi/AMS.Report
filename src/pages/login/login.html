@@ -1,39 +1,36 @@
 <ion-content class="background">
-  <ion-card>
-    <ion-card-header>
-      <div class="logo">
-        <img src="assets/img/logo.png" alt="logo">
-      </div>
-    </ion-card-header>
-    <ion-card-content>
-      <form (ngSubmit)="loginUser(user)" [formGroup]="user" novalidate>
-        <ion-list no-lines>
-          <div class="spacer" style="height: 10px;"></div>
-          <ion-item>
-            <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-          </ion-item>
-          <div class="error" *ngIf="user.get('email').hasError('required') && user.get('email').touched">
-            Email is required
-          </div>
-          <div class="error" *ngIf="user.get('email').hasError('invalidEmail') && user.get('email').touched">
-            Invalid Email
-          </div>
-          <div class="spacer" style="height: 5px;"></div>
-          <ion-item>
-            <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
-          </ion-item>
-          <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-            Password is required
-          </div>
-          <div class="error" *ngIf="user.get('password').hasError('minlength') && user.get('password').touched">
-            Min length Password is 6 characters
-          </div>
-          <div class="spacer" style="height: 10px;"></div>
-          <button type="submit" [disabled]="user.invalid" ion-button block round outline color="light">Login</button>
-          <div class="spacer" style="height: 10px;"></div>
-        </ion-list>
-      </form>
-    </ion-card-content>
-  </ion-card>
 
+  <section id="login-card">
+  <div class="logo">
+    <img src="assets/img/logo.png" alt="logo">
+  </div>
+
+  <form (ngSubmit)="loginUser(user)" [formGroup]="user" novalidate>
+    <ion-list no-lines>
+      <div class="spacer" style="height: 10px;"></div>
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="user.get('email').hasError('required') && user.get('email').touched">
+        Email is required
+      </div>
+      <div class="error" *ngIf="user.get('email').hasError('invalidEmail') && user.get('email').touched">
+        Invalid Email
+      </div>
+      <div class="spacer" style="height: 5px;"></div>
+      <ion-item>
+        <ion-input type="password" [placeholder]="'Password' | translate" formControlName="password"></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+        Password is required
+      </div>
+      <div class="error" *ngIf="user.get('password').hasError('minlength') && user.get('password').touched">
+        Min length Password is 6 characters
+      </div>
+      <div class="spacer" style="height: 10px;"></div>
+      <button type="submit" [disabled]="user.invalid" ion-button block round outline color="light">Login</button>
+      <div class="spacer" style="height: 10px;"></div>
+    </ion-list>
+  </form>
+</section>
 </ion-content>
