@@ -3,7 +3,6 @@ const functions = require('firebase-functions');
 const sha1 = require('sha1');
 const moment = require('moment');
 exports.handler = (req, res) => {
-  admin.initializeApp(functions.config().firebase);
   admin.database().ref('/settings').once('value').then(function(snapshot) {
     const token = sha1(snapshot.val().password);
     const passwd = sha1(req.query.passwd);

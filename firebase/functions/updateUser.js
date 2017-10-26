@@ -1,7 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');  
-exports.handler = event => {
-  admin.initializeApp(functions.config().firebase);	  	
+exports.handler = event => {	  	
   const userData = event.data;
   const emailPrev = event.data.previous.child("email");
   const id = event.params.id;
