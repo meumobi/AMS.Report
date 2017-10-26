@@ -42,18 +42,12 @@ export class LoginPage {
     });
   }
 
-  toggleSplitPane() {
-    this.menu.enable(!this.menu.isEnabled());
-  }
-
   ionViewWillLeave(){
     this.menu.enable(true);
-    console.log("Looks like I'm about to leave :(");
   }
   
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.menu.enable(false);
-    this._app.setTitle(this.config.get('settings.title'));
   }
 
   loginUser(){
