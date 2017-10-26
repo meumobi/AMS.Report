@@ -16,7 +16,9 @@ self.toolbox.precache(
   [
     './build/main.js',
     './build/main.css',
+    './build/vendor.js',
     './build/polyfills.js',
+    './build/react-pivot-standalone-2.0.0.min.js',
     'index.html',
     'manifest.json'
   ]
