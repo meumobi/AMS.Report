@@ -25,6 +25,19 @@ $ firebase deploy
 
 Run `gulp` to test it on local
 
+
+<a name="v1.1.0"></a>
+# [v.1.1.0](https://github.com/meumobi/infomobi/compare/v1.0.1...v1.1.0)
+* ENHANCE: setup INT ( Integration ) Enviromnent;
+* ENHANCE: split cloud functions for one file per function 
+* ENHANCE: add enabled config field for sendWelcomeEmail cloud function
+* ENHANCE: transform App on PWA, enabling service workers (pre-cache) and adding manifest
+* UPGRADE: upgrade to Ionic 3.7.1
+* FIX: #63, can't open ion2-calendar in prod mode
+* FIX: #65, login form disappear on top when focus on input on mobile
+* FIX: #71, hide sidemenu on small screens
+* FIX: #68, update npm package files to be consistent and compliant with Ionic 3.7.1
+
 <a name="v1.0.1"></a>
 # [v.1.0.1](https://github.com/meumobi/infomobi/compare/v1.0.0...v1.0.1)
 * ENHANCE: set searchbar-ios-toolbar-input-background color to #fff
