@@ -30,6 +30,12 @@
           <ion-option value="admin">{{'Admin' | translate}}</ion-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>{{'Language' | translate}}</ion-label>
+        <ion-select formControlName="preferredLanguage">
+          <ion-option *ngFor="let language of languages" value="{{language}}">{{language | uppercase}}</ion-option>
+        </ion-select>
+      </ion-item>
       <ion-item *ngIf="(editor && editor.name)">
         <ion-label color="primary" stacked>{{'Editor' | translate}}</ion-label>
         <ion-input type="text" 

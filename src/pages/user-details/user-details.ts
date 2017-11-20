@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { 
   IonicPage, 
   NavController, 
@@ -17,6 +18,7 @@ import { EmailValidator } from '../../validators/email';
   name: 'user-details',
   segment: 'user/details/:id'
 })
+
 @Component({
   selector: 'page-user-details',
   templateUrl: 'user-details.html',
@@ -27,6 +29,7 @@ export class UserDetailsPage {
   user: IUser;
   loading: Loading;
   editor: IEditor;
+  languages : Array<string>;
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +37,7 @@ export class UserDetailsPage {
     public loadingCtrl: LoadingController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
+    private db: AngularFireDatabase,
     public userService: UserProvider,
     public editorService: EditorProvider,
     public alertCtrl: AlertController,
@@ -41,6 +45,7 @@ export class UserDetailsPage {
 
   ionViewDidLoad() {
     let key = this.navParams.data.id;
+    this.loadLanguages();
 
     this.userService.fetchById(key)
       .subscribe( data => {
@@ -48,7 +53,7 @@ export class UserDetailsPage {
         this.loadEditor(this.user.editor_id);
         console.log('Fetched user');
         console.log(data);
-        this.fillForm(data);
+        this.fillForm(data);        
        })
   }
 
@@ -66,6 +71,7 @@ export class UserDetailsPage {
       lastName: user.lastName ? user.lastName : '',
       cellNumber: user.cellNumber ? user.cellNumber : '',
       landlineNumber: user.landlineNumber ? user.landlineNumber : '',
+      preferredLanguage: user.preferredLanguage ? user.preferredLanguage : 'en',      
       role: user.role ? user.role : 'editor',
       editor: this.editor ? {value: this.editor.name, disabled: true} : {value: '', disabled: true}
     });
@@ -121,6 +127,19 @@ export class UserDetailsPage {
       });
       this.loading.present();
     }
+  }
+
+  loadLanguages(){
+    let path = '/settings/';
+    this.db.object(path)
+    .subscribe(
+      data => {        
+        this.languages = data.languages.split(",");
+      },
+      err => {
+        console.log('error');
+      }
+    );   
   }
 
   loadEditor(editorId) {

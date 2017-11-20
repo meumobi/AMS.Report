@@ -11,6 +11,7 @@ export interface IUser {
   email: string;
   cellNumber?: string;
   landlineNumber?: string;
+  preferredLanguage?: string;
   role: string;
 }
 

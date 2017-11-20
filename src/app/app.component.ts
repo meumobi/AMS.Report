@@ -65,8 +65,7 @@ export class MyApp {
     public translate: TranslateService,
     public userService: UserProvider
   ) {
-    translate.setDefaultLang('fr');
-
+    translate.setDefaultLang('en');
     this.authState = afAuth.authState;
     const authObserver = this.authState.subscribe((user: firebase.User) => {
       /*
@@ -80,6 +79,8 @@ export class MyApp {
           this.user = users.shift();
           console.log(this.user);
           if (this.user) {
+            
+            translate.setDefaultLang(this.user.preferredLanguage);
             userService.setCurrent(this.user);
             this.isAdmin = (this.user.role == 'admin');
             this.linksToDisplay = filterBy(this.appPages, "scope", this.user.role);
