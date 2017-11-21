@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { groupRowsBy, convertArrayOfObjectsToCSV, downloadCSV } from './../../helpers/helpers';
+import { groupRowsBy } from './../../helpers/helpers';
 
 import { ModalController } from 'ionic-angular';
 import { CalendarModal } from "ion2-calendar";
-
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { SitesProvider, UserProvider } from './../../providers';
 import { ISite, IUser } from './../../models';
 import 'rxjs/add/operator/map';
@@ -32,7 +32,7 @@ export class SitesReportPage {
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   latestUnpluggedImport: Moment;
   rep: any[];
-  csv;
+  plainData;
   user: IUser;
   isAdmin: boolean;
   role: string;
@@ -122,13 +122,12 @@ export class SitesReportPage {
     return query;
   }
 
-  downloadPlainCSV(){
-    if (this.csv){
-      downloadCSV({
-        csv: this.csv,
-        filename: "exportPlainCSV",
-      });
-    } 
+  downloadPlainCSV(){ 
+    new Angular2Csv(this.plainData, "plain",{
+      showLabels: true,
+      quoteStrings: '',
+      headers: Object.keys(this.plainData[0]),
+    });
   }
 
   fetchDataByQuery() {
@@ -161,11 +160,11 @@ export class SitesReportPage {
           //console.log(result);
           if (Object.keys(result).length) {
             console.log("Result's length: " + Object.keys(result).length);
-            this.csv = convertArrayOfObjectsToCSV({data:result});
+            this.plainData = result;
             this.rep = groupRowsBy(result, 'inventaire');
           } else {
             console.log("Result's length 0");
-            this.csv = null;
+            this.plainData = null;
             this.rep = groupRowsBy(result, 'inventaire');
           }
           loader.dismiss();   
