@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { groupRowsBy } from './../../helpers/helpers';
+import { groupRowsBy, convertArrayOfObjectsToCSV, downloadCSV } from './../../helpers/helpers';
 
 import { ModalController } from 'ionic-angular';
 import { CalendarModal } from "ion2-calendar";
@@ -32,6 +32,7 @@ export class SitesReportPage {
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
   latestUnpluggedImport: Moment;
   rep: any[];
+  csv;
   user: IUser;
   isAdmin: boolean;
   role: string;
@@ -121,6 +122,15 @@ export class SitesReportPage {
     return query;
   }
 
+  downloadPlainCSV(){
+    if (this.csv){
+      downloadCSV({
+        csv: this.csv,
+        filename: "exportPlainCSV",
+      });
+    } 
+  }
+
   fetchDataByQuery() {
     let loader = this.loadingCtrl.create({
       content: 'Getting latest entries...',
@@ -151,9 +161,11 @@ export class SitesReportPage {
           //console.log(result);
           if (Object.keys(result).length) {
             console.log("Result's length: " + Object.keys(result).length);
+            this.csv = convertArrayOfObjectsToCSV({data:result});
             this.rep = groupRowsBy(result, 'inventaire');
           } else {
             console.log("Result's length 0");
+            this.csv = null;
             this.rep = groupRowsBy(result, 'inventaire');
           }
           loader.dismiss();   

@@ -31,7 +31,8 @@
         <span *ngIf="isAdmin">
           //
           <ion-icon name="settings"></ion-icon>
-          <button (click)="toggleRole()">{{'Change Role' | translate}}</button> : {{role}}
+            <button (click)="toggleRole()">{{'Change Role' | translate}}</button> : {{role}}
+            <button *ngIf="csv" (click)="downloadPlainCSV()">{{'Export Plain CSV' | translate}}</button>
         </span>
       </div>
     </ion-item>
