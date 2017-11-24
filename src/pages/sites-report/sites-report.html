@@ -6,6 +6,9 @@
 -->
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title *ngIf="site && site.title; else noSite">{{'sites-report.header' | translate:{name: site.title} }}</ion-title>
     <ng-template #noSite>
       <ion-title>{{"Full Reporting" | translate}}</ion-title>
