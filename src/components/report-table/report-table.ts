@@ -67,6 +67,13 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
 
       },
       {
+        value: 'campagne', 
+        title: 'Campaigns',
+        scope: ['admin', 'editor'],
+        inventaire: ["Premium"],
+
+      },
+      {
         value: 'date', 
         title: 'Date',
         scope: ['admin'],
