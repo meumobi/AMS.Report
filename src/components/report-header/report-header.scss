@@ -1,32 +1,35 @@
 report-header {
-
-    div#details div.cell {
-        width: 33.3%;
-        float: left;
-    }
-
-    div.header {
-        font-size: 2rem;
-    }
-
-    div.container {
-        color: white;
-    }
-
-    div#total, div#details {
-       float: left; 
-       height: 100px;
-       padding: 10px;
-       background-color: #A2925F !important;
-    }
-
-    div#total {
-        width: 25%;
-        border-color: white;
-        border-left: 10px solid;
-    }
-
-    div#details {
-        width: 75%;
-    }
+  div#details div.cell {
+    width: 33.3%;
+    float: left;
+    border: white;
+    border-left-width: 6px;
+    border-left-style: solid;
+    padding-left: 10px;
+  }
+  span.revenue {
+    font-size: 2rem;
+  }
+  div.header {
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+  }
+  div.container {
+    color: white;
+  }
+  div#total,
+  div#details {
+    float: left;
+    height: 110px;
+    padding: 10px;
+    background-color: #A2925F !important;
+  }
+  div#total {
+    width: 25%;
+    border-color: white;
+    border-left: 10px solid;
+  }
+  div#details {
+    width: 75%;
+  }
 }

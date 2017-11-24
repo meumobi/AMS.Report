@@ -7,21 +7,21 @@
     <div>
       <div class="cell">{{"Premium" | translate}}<br/>
         <div *ngIf="report['Premium']">
-          {{report['Premium'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
+          <span class="revenue">{{report['Premium'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
           <small>{{report['Premium'].impressions.toLocaleString('fr-FR')}} imps</small>
         </div>
       </div>
       <div class="cell">
         AMS Market Place<br/>
         <div *ngIf="report['AMS Market Place']">
-          {{report['AMS Market Place'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
+          <span class="revenue">{{report['AMS Market Place'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
           <small>{{report['AMS Market Place'].impressions.toLocaleString('fr-FR')}} imps</small>
         </div>
       </div>
       <div class="cell">
         AdNetwork Fill<br/>
         <div *ngIf="report['AdNetwork Fill']">
-          {{report['AdNetwork Fill'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
+          <span class="revenue">{{report['AdNetwork Fill'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
           <small>{{report['AdNetwork Fill'].impressions.toLocaleString('fr-FR')}} imps</small>
         </div>
       </div>
@@ -29,13 +29,13 @@
   </div>
   <div id="total">
     <div class="header">
-      <span>{{"Total" | translate}}</span>
+      <span>&nbsp;</span>
     </div>
     <div>
       <div class="cell">
-        &nbsp;<br/>
+        {{"Total" | translate}}<br/>
         <div *ngIf="report['Total']">
-          {{report['Total'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}<br />
+          <span class="revenue">{{report['Total'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
           <small>{{report['Total'].impressions.toLocaleString('fr-FR')}} imps</small></div>
         </div>
     </div>
