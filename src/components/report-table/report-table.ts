@@ -4,7 +4,6 @@ import {
   AfterViewInit, 
   ElementRef, 
   ViewChild,
-  OnInit,
   OnChanges, 
   SimpleChanges } from '@angular/core';
 
@@ -29,17 +28,16 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
 
   constructor(
     public itemService: ItemService,
-    public translate: TranslateService
-  ) {
-    translate.setDefaultLang('fr');
-  }
+    public translateService: TranslateService
+  ) {}
 
   updateReport(rows) {
     let pivot = {
       dimensions: [],
       calculations: [],
       htmlElement: null,
-      reduce: null 
+      reduce: null,
+      activeDimensions: ['Formats'] 
     };
 
     pivot.dimensions = this.getDimensions();
@@ -47,12 +45,17 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
     pivot.reduce = this.getReduce();
     pivot.htmlElement = this.input.nativeElement;
 
+    if (this.title == 'Premium') {
+      pivot.activeDimensions = [this.translateService.instant('Campaigns')];
+    }
+    console.log(pivot);
+    
     ReactPivot(pivot.htmlElement, {
       rows: rows,
       dimensions: pivot.dimensions,
       calculations: pivot.calculations,
       reduce: pivot.reduce,
-      activeDimensions: ['Formats'],
+      activeDimensions: pivot.activeDimensions,
       nPaginateRows: 20
     })
   }
@@ -122,18 +125,11 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
     return dimensionsToDisplay;
   }
 
-  getTranslation(value){
-    this.translate.get(value).subscribe((res: string) => {
-      value = res;
-    });
-    return value;
-  }
-
   getCalculations() {
     var calculations = [
       {
         value: 'imprEnvoyeesTotal', 
-        title: this.getTranslation('Sent imps'),
+        title: 'Sent imps',
         scope: ['admin'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -142,7 +138,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'imprRecuesTotal', 
-        title: this.getTranslation('Received imps'),
+        title: 'Received imps',
         scope: ['admin'],
         inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -151,7 +147,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },      
       {
         value: 'imprPrisesTotal', 
-        title: this.getTranslation('Paid imps'),
+        title: 'Paid imps',
         scope: ['admin', 'editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -160,7 +156,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'cpmBrut',
-        title: this.getTranslation('Gross CPM'),
+        title: 'Gross CPM',
         scope: ['admin'], 
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -169,7 +165,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'cpmNet',
-        title: this.getTranslation('Net CPM'),
+        title: 'Net CPM',
         scope: ['admin','editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -178,7 +174,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'revenuBrut',
-        title: this.getTranslation('Gross revenues'),
+        title: 'Gross revenues',
         scope: ['admin'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -188,7 +184,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       ,
       {
         value: 'revenuNet',
-        title: this.getTranslation('Net revenues'),
+        title: 'Net revenues',
         scope: ['admin', 'editor'],
         inventaire: ["Premium", "AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -197,7 +193,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'fillRate',
-        title: this.getTranslation('FillRate'),
+        title: 'FillRate',
         scope: ['admin'],
         inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
@@ -206,7 +202,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
       },
       {
         value: 'discrepencies',
-        title: this.getTranslation('Discrepencies'),
+        title: 'Discrepencies',
         scope: ['admin'],
         inventaire: ["AMS Market Place", "AdNetwork Fill"],
         template: function(val, row) {
