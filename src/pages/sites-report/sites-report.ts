@@ -123,11 +123,13 @@ export class SitesReportPage {
   }
 
   downloadPlainCSV(){ 
-    new Angular2Csv(this.plainData, "plain",{
-      showLabels: true,
-      quoteStrings: '',
-      headers: Object.keys(this.plainData[0]),
-    });
+    if (this.plainData) {
+      new Angular2Csv(this.plainData, "plain",{
+        showLabels: true,
+        quoteStrings: '',
+        headers: Object.keys(this.plainData[0]),
+      });
+    }
   }
 
   fetchDataByQuery() {
