@@ -16,7 +16,7 @@ Use Resume of Changes from previous command on commit message
 2. $ git push origin v1.0.0
 
 ## Push ionic:build --prod
-Run `ionic:build --prod` before firebase deploy to ensure you're pushing a prod enabled version.
+Run `npm run ionic:build --prod` before firebase deploy to ensure you're pushing a prod enabled version.
 
 ```
 $ npm run ionic:build --prod
@@ -25,9 +25,21 @@ $ firebase deploy
 
 Run `gulp` to test it on local
 
+<a name="v1.2.0"></a>
+# [v1.2.0](https://github.com/meumobi/infomobi/compare/v1.1.0...v1.2.0)
+* ENHANCE: Closes #81, Set campaign as default dimension on premium table
+* ENHANCE: Closes #76, Export Plain data on CSV
+* ENHANCE: Closes #80, Add dimension campaign on Premium, visible for admin and editor
+* ENHANCE: Closes #82, Highlight revenues on report-header
+* ENHANCE: Prevent export csv if plain data are empty
+* ENHANCE: Add github issue template
+* FEAT: Part of #67, Set Language According User Preference
+* FIX: Add menu icon on header of sites-report
+* FIX: Closes #78, Error Undefined.json 404
+* FIX: remove default Ionic service-worker
 
 <a name="v1.1.0"></a>
-# [v.1.1.0](https://github.com/meumobi/infomobi/compare/v1.0.1...v1.1.0)
+# [v1.1.0](https://github.com/meumobi/infomobi/compare/v1.0.1...v1.1.0)
 * ENHANCE: setup INT ( Integration ) Enviromnent;
 * ENHANCE: split cloud functions for one file per function 
 * ENHANCE: add enabled config field for sendWelcomeEmail cloud function
