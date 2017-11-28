@@ -126,6 +126,7 @@ export class SitesReportPage {
     if (this.plainData) {
       new Angular2Csv(this.plainData, "plain",{
         showLabels: true,
+        fieldSeparator: ';',
         quoteStrings: '',
         headers: Object.keys(this.plainData[0]),
       });
