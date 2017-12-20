@@ -3,9 +3,12 @@ report-header {
     width: 33.3%;
     float: left;
     border: white;
-    border-left-width: 6px;
+    border-left-width: 2px;
     border-left-style: solid;
     padding-left: 10px;
+  }
+  div.summ-table {
+    border-radius: 2px;
   }
   span.revenue {
     font-size: 2rem;
