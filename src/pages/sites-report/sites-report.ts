@@ -67,8 +67,8 @@ export class SitesReportPage {
 
   last7days() {
     this.rangeFilter = {
-      startAt: moment().subtract(6, 'days'),
-      endAt: moment()
+      startAt: moment().subtract(7, 'days'),
+      endAt: moment().subtract(1, 'days')
     }
 
     this.fetchDataByQuery();
@@ -76,8 +76,8 @@ export class SitesReportPage {
 
   last30days() {
     this.rangeFilter = {
-      startAt: moment().subtract(29, 'days'),
-      endAt: moment()
+      startAt: moment().subtract(30, 'days'),
+      endAt: moment().subtract(1, 'days')
     }
 
     this.fetchDataByQuery();
@@ -102,7 +102,6 @@ export class SitesReportPage {
   }
 
   formatQuery() {
-    //this.query.orderByChild = 'date';
     this.query.orderByKey = true;
     this.query.startAt = this.rangeFilter.startAt.format('YYYY-MM-DD');
     this.query.endAt = this.rangeFilter.endAt.format('YYYY-MM-DD');
@@ -117,7 +116,6 @@ export class SitesReportPage {
       startAt: filtersPrefix ? filtersPrefix + '_' +  startDate : startDate,
       endAt: filtersPrefix ? filtersPrefix + '_' +  endDate : endDate
     }
-    console.log(query);
 
     return query;
   }
@@ -136,7 +134,6 @@ export class SitesReportPage {
   fetchDataByQuery() {
     let loader = this.loadingCtrl.create({
       content: 'Getting latest entries...',
-      //dismissOnPageChange: true
     });
 
     loader.present().then(() => {
@@ -150,23 +147,20 @@ export class SitesReportPage {
       .subscribe(
         data => {
           console.log('Dd data fetched');
-          //console.log(data);
           var raws = {};
           
           data.forEach(group => {
-            //raws.concat(group['raws']);
             Object.assign(raws, group['raws']);
           });
 
           var result = Object.keys(raws).map((key)=>raws[key]);
 
-          //console.log(result);
-          if (Object.keys(result).length) {
-            console.log("Result's length: " + Object.keys(result).length);
+          console.log("Result's length: " + Object.keys(result).length);
+
+          if (Object.keys(result).length) {  
             this.plainData = result;
             this.rep = groupRowsBy(result, 'inventaire');
           } else {
-            console.log("Result's length 0");
             this.plainData = null;
             this.rep = groupRowsBy(result, 'inventaire');
           }
@@ -213,14 +207,11 @@ export class SitesReportPage {
   }
    
   ionViewDidLoad() {
-
     let siteId = this.navParams.data.id;
 
     this.sitesService.fetchById(siteId)
       .subscribe( siteSnap => {
         this.site = siteSnap;
-        console.log('========= Site');
-        console.log(this.site);
         this.last7days();
         this.getLatestUnpluggedImport();
       }
