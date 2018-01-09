@@ -1,15 +1,14 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const sha1 = require('sha1');
 const moment = require('moment');
 exports.handler = (req, res) => {
   admin.database().ref('/settings').once('value').then(function(snapshot) {
-    const token = sha1(snapshot.val().password);
-    const passwd = sha1(req.query.passwd);
-    if (token == passwd){
+    const tokenSaved = snapshot.val().completeCompilatedDateToken;
+    const tokenPassed = req.query.token;
+    if (tokenPassed == tokenSaved){
       var latestUnpluggedImport;
-      if (req.query.date){
-        latestUnpluggedImport = moment(req.query.date);
+      if (req.query.text){
+        latestUnpluggedImport = moment(req.query.text);
       } else {
         latestUnpluggedImport = moment(new Date());
       }
