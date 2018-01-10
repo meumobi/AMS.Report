@@ -40,7 +40,7 @@ export class ReportHeaderComponent implements OnInit, OnChanges {
     var report = [];
 
     for (var field of fields) {
-      let revenue = this.sum('revenu', raws[field]);
+      let revenue = this.sum('revenu net', raws[field]);
       let impressions = this.sum('impressions prises', raws[field]);
 
       report[field] = {
