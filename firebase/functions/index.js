@@ -2,14 +2,34 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-const setLatestUnpluggedImportModule = require('./setLatestUnpluggedImport');
+const setLatestSafeCompiledDateModule = require('./setLatestSafeCompiledDate');
 const removeUserModule = require('./removeUser');
 const createUserModule = require('./createUser');
 const updateUserModule = require('./updateUser');
 const sendWelcomeEmailModule = require('./sendWelcomeEmail');
 
-exports.setLatestUnpluggedImport = functions.https.onRequest(setLatestUnpluggedImportModule.handler);
-exports.removeUser = functions.database.ref('/users/{pushId}/email').onDelete(removeUserModule.handler);
-exports.createUser = functions.database.ref('/users/{id}').onCreate(createUserModule.handler);
-exports.updateUser = functions.database.ref('/users/{id}').onWrite(updateUserModule.handler);
-exports.sendWelcomeEmail = functions.auth.user().onCreate(sendWelcomeEmailModule.handler);
+exports.setLatestSafeCompiledDate = functions.https.onRequest(
+	(req,res) => {
+		setLatestSafeCompiledDateModule.handler(req,res,admin)
+	}
+);
+exports.removeUser = functions.database.ref('/users/{pushId}/email').onDelete(
+	(event) => {
+		removeUserModule.handler(event,admin);
+	}
+);
+exports.createUser = functions.database.ref('/users/{id}').onCreate(
+	(event) => {
+		createUserModule.handler(event,admin);
+	}
+);
+exports.updateUser = functions.database.ref('/users/{id}').onWrite(
+	(event) => {
+		updateUserModule.handler(event,admin)
+	}
+);
+exports.sendWelcomeEmail = functions.auth.user().onCreate(
+	(event) => {
+		sendWelcomeEmailModule.handler(event,functions);
+	}
+);
