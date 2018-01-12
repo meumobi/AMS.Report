@@ -223,11 +223,11 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
 
   getReduce() {
     var reduce = function(row, memo) {
-      memo.imprPrisesTotal = (memo.imprPrisesTotal || 0) + parseFloat(row['impressions prises']);
-      memo.imprEnvoyeesTotal = (memo.imprEnvoyeesTotal || 0) + parseFloat(row['impressions envoyees']);
-      memo.imprRecuesTotal = (memo.imprRecuesTotal || 0) + parseFloat(row['impressions reçues']);
-      memo.revenuBrut = (memo.revenuBrut || 0) + parseFloat(row.revenu);
-      memo.revenuNet = (memo.revenuNet || 0) + parseFloat(row['revenu net']);
+      memo.imprPrisesTotal = ((memo.imprPrisesTotal != undefined) ? memo.imprPrisesTotal : 0) + parseFloat(row['impressions prises']);
+      memo.imprEnvoyeesTotal = ((memo.imprEnvoyeesTotal != undefined) ? memo.imprEnvoyeesTotal : 0) + parseFloat(row['impressions envoyees']);
+      memo.imprRecuesTotal = ((memo.imprRecuesTotal != undefined) ? memo.imprRecuesTotal : 0) + parseFloat(row['impressions reçues']);
+      memo.revenuBrut = ((memo.revenuBrut != undefined) ? memo.revenuBrut : 0) + parseFloat(row.revenu);
+      memo.revenuNet = ((memo.revenuNet != undefined) ? memo.revenuNet : 0) + parseFloat(row['revenu net']);
       memo.cpmBrut = (1000 * memo.revenuBrut/memo.imprPrisesTotal);
       memo.cpmNet = (1000 * memo.revenuNet/memo.imprPrisesTotal);
       memo.fillRate = Number(100 * memo.imprPrisesTotal/memo.imprRecuesTotal).toFixed(2);
