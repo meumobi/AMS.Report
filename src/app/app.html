@@ -48,7 +48,7 @@
         </button>
       </ion-list>
       <ion-item *ngIf="user">
-        {{'Logged as:' | translate}} <br/>{{user.email}}<br/>{{user.role}}
+        {{'Logged as:' | translate}} <br/>{{user.email}}<br/>{{user.role | titlecase | translate}}
       </ion-item>
     </ion-content>
   </ion-menu>
