@@ -1,11 +1,11 @@
 {
 	"sites-list": {
-		"header": "Les sites de {{name}}"
+		"header": "Sites of {{name}}"
 	},
 	"sites-report": {
-		"header": "Reporting de {{name}}"
+		"header": "Reports of {{name}}"
 	},
 	"users-list": {
-		"header": "Les comptes associés à {{name}}"
+		"header": "Related accounts to {{name}}"
 	}
 }
