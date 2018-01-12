@@ -30,7 +30,7 @@ export class SitesReportPage {
   reports: FirebaseListObservable<any>;
   query: {orderByKey?: boolean, orderByChild?: string, startAt?: string, endAt?: string} = {};
   rangeFilter: {startAt?: Moment, endAt?: Moment} = {};
-  latestUnpluggedImport: Moment;
+  latestSafeCompiledDate: Moment;
   rep: any[];
   plainData;
   user: IUser;
@@ -173,12 +173,12 @@ export class SitesReportPage {
     });  
   }
 
-  getLatestUnpluggedImport(){
+  getLatestSafeCompiledDate(){
     let path = '/settings/';
     this.db.object(path)
     .subscribe(
       data => {        
-        this.latestUnpluggedImport = moment(data.latestUnpluggedImport);
+        this.latestSafeCompiledDate = moment(data.latestSafeCompiledDate);
       },
       err => {
         console.log('error');
@@ -213,7 +213,7 @@ export class SitesReportPage {
       .subscribe( siteSnap => {
         this.site = siteSnap;
         this.last7days();
-        this.getLatestUnpluggedImport();
+        this.getLatestSafeCompiledDate();
       }
     );
   }

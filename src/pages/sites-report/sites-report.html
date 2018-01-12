@@ -42,7 +42,7 @@
     <div class="range">
       <small>{{rangeFilter.startAt | amDateFormat:'MMMM D'}} - {{rangeFilter.endAt | amDateFormat:'LL'}}</small>
       |
-      <small>{{'Complete compiled data up to' | translate}}: {{latestUnpluggedImport | amDateFormat:'LL'}} </small>
+      <small>{{'Complete compiled data up to' | translate}}: {{latestSafeCompiledDate | amDateFormat:'LL'}} </small>
     </div>
   </div>
 
