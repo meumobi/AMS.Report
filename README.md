@@ -24,6 +24,15 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+# Screenshot APIs
+
+- [APILeap](https://apileap.com/)
+	- free for 100 per month
+	- $7/month for 1000
+- [Browshot](https://browshot.com/)
+	- free for 100 per month
+	- $10/month for 1000
+
 # Firebase PaaS Pricing
 [Free Plan](https://firebase.google.com/pricing/) includes:
 - Realtime Database
