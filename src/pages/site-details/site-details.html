@@ -23,9 +23,16 @@
           required>
         </ion-input>
       </ion-item>
-        <div *ngIf="siteName.errors?.required && siteName.touched" class="error">
-          Name is required
-        </div>
+      <div *ngIf="siteName.errors?.required && siteName.touched" class="error">
+        Name is required
+      </div>
+      <ion-item>
+        <ion-label color="primary" stacked>{{'Type' | translate}}</ion-label>
+        <ion-select type="type" name="type" [(ngModel)]="site.type">
+          <ion-option value="MarketPlace">{{'MarketPlace' | translate}}</ion-option>
+          <ion-option value="Premium">{{'Premium' | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
       <ion-item>
         <ion-label color="primary" stacked>URL</ion-label>
         <ion-input type="url" name="url" [(ngModel)]="site.url">
