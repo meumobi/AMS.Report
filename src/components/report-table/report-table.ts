@@ -66,7 +66,7 @@ export class ReportTableComponent implements AfterViewInit, OnChanges {
         value: 'annonceur', 
         title: 'Advertisers',
         scope: ['admin', 'editor'],
-        inventaire: ["Premium"],
+        inventaire: ["Premium", "AMS Market Place"],
 
       },
       {

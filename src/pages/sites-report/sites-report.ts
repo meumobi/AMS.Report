@@ -164,6 +164,10 @@ export class SitesReportPage {
             this.plainData = null;
             this.rep = groupRowsBy(result, 'inventaire');
           }
+          if (this.rep['Premium'] && this.site.type == 'MarketPlace') {
+            this.rep['AMS Market Place'] = this.rep['AMS Market Place'].concat(this.rep['Premium']);
+            delete this.rep['Premium'];
+          } 
           loader.dismiss();   
         },
         err => {
