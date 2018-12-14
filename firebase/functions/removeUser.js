@@ -1,5 +1,6 @@
 exports.handler = (event,admin) => {
-  const email = event.data.previous.val();
+  console.log(event);
+  const email = event.val()["email"];
   admin.auth().getUserByEmail(email)
   .then(function(user) {
     const uid = user.uid;

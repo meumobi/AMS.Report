@@ -1,14 +1,12 @@
-exports.handler = (event,admin) => {	  	
-  const userData = event.data;
-  const emailPrev = event.data.previous.child("email");
-  const id = event.params.id;
-  const email = userData.child("email");
-  if (email.changed()){
-    admin.auth().getUserByEmail(emailPrev.val())
+exports.handler = (event,admin) => {	
+  const newEmail = event.after.val()["email"];
+  const prevEmail = event.before.val()["email"];
+  if (newEmail !== prevEmail){
+    admin.auth().getUserByEmail(prevEmail)
     .then(function(user) {
       const uid = user.uid;
       admin.auth().updateUser(uid,{
-        email: `${email.val()}`,
+        email: `${newEmail}`,
       })
       .then(function(userRecord) {
         console.log("Successfully updated user:", userRecord.uid);
@@ -17,5 +15,5 @@ exports.handler = (event,admin) => {
         console.log("Error updating user:", error);
       });
     })
-  }  
+  } 
 }
