@@ -10,12 +10,11 @@ const nodemailer = require('nodemailer');
 
 */
 exports.handler = (event,functions) => {
-  const user = event.data;
-  const email = user.email;   
+  const user = event.val();
+  const email = user["email"];;   
   const enabled = functions.config().send_welcome_email.enabled;
   if (enabled == "true"){
-    const user = event.data; 
-    const displayName = user.displayName;
+    const displayName = user["displayName"];
     return sendWelcomeEmail(email, displayName, user, functions);
   } else {
     console.log('New user welcome email disabled, to:', email);

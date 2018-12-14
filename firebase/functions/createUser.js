@@ -1,12 +1,12 @@
 exports.handler = (event,admin) => {
-  const userData = event.data;
-  const id = event.params.id;
-  const email = userData.child("email");
-  const password = userData.child("password");
+  const userData = event.val();
+  const id = event.key;
+  const email = userData["email"];
+  const password = userData["password"];
   admin.auth().createUser({
-    email: `${email.val()}`,
+    email: `${email}`,
     emailVerified: true,
-    password: `${password.val()}`,
+    password: `${password}`,
     disabled: false
   })
   .then(function(userRecord) {
