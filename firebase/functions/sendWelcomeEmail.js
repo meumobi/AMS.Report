@@ -10,8 +10,9 @@ const nodemailer = require('nodemailer');
 
 */
 exports.handler = (event,functions) => {
-  const user = event.val();
-  const email = user["email"];;   
+  console.log(event);
+  const user = event;
+  const email = user["email"];  
   const enabled = functions.config().send_welcome_email.enabled;
   if (enabled == "true"){
     const displayName = user["displayName"];
@@ -34,7 +35,7 @@ function sendWelcomeEmail(email, displayName, user, functions)   {
   };
   var arr = JSON.stringify(user)
   mailOptions.subject = `Welcome to ${APP_NAME}!`;
-  mailOptions.text = `Hey ${displayName || ''}! Welcome to ${APP_NAME}. I hope you will enjoy our service. password ${arr}`;
+  mailOptions.text = `Hey ${displayName || ''}! Welcome to ${APP_NAME}. I hope you will enjoy our service.`;
   return mailTransport.sendMail(mailOptions).then(() => {
     console.log('New user welcome email sent to:', email);
   });
