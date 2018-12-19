@@ -57,6 +57,18 @@ $ ionic g page login
 $ ionic g page users-list
 ```
 
+# Deploy
+
+## Push ionic:build --prod
+Run `npm run ionic:build --prod` before firebase deploy to ensure you're pushing a prod enabled version.
+
+```
+$ npm run ionic:build --prod
+$ firebase deploy
+```
+
+Run `gulp` to test it on local
+
 # Contributing
 
 ## Pull Requests
