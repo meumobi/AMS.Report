@@ -1,8 +1,8 @@
 {
   "name": "ion-ams-report",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "version": "1.2.0",
+  "author": "Meumobi",
+  "homepage": "http://meumobi.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -53,6 +53,7 @@
     "@ionic/app-scripts": "~3.0.0",
     "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
+    "standard-version": "^4.4.0",
     "typescript": "^2.3.4"
   },
   "description": "An Ionic project"
