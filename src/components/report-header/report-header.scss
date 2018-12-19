@@ -1,7 +1,13 @@
 report-header {
+  #wrapper {
+    display: table;
+    table-layout: fixed;
+    width:100%;
+  }
+  #wrapper div {
+      display: table-cell;
+  }
   div#details div.cell {
-    width: 33.3%;
-    float: left;
     border: white;
     border-left-width: 2px;
     border-left-style: solid;
