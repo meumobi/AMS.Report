@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController, ToastController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
-
 import { SitesProvider, UserProvider } from '../../providers';
 import { Site } from '../../models';
 
@@ -21,7 +19,6 @@ export class SitesUpdatePage {
   site: Site;
 
   constructor(
-    private db: AngularFireDatabase,
     public sitesService: SitesProvider,
     public navCtrl: NavController,
     public alertCtrl: AlertController,

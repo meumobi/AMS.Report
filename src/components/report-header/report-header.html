@@ -4,9 +4,9 @@
     <div class="header">
       <span>{{"Estimated Revenue" | translate}}</span>
     </div>
-    <div>
-      <div class="cell">{{"Premium" | translate}}<br/>
-        <div *ngIf="report['Premium']">
+    <div id="wrapper">
+      <div *ngIf="report['Premium']" class="cell">{{"Premium" | translate}}<br/>
+        <div>
           <span class="revenue">{{report['Premium'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
           <small>{{report['Premium'].impressions.toLocaleString('fr-FR')}} imps</small>
         </div>

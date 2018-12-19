@@ -6,7 +6,7 @@ import {
   LoadingController, 
   Loading, 
   AlertController,
-  App } from 'ionic-angular';
+} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthProvider } from '../../providers';
@@ -33,7 +33,6 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public menu : MenuController,
-    private _app: App,
     public config: AppConfig
   ) {
     this.user = this.fb.group({
