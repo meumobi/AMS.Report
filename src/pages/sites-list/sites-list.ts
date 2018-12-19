@@ -6,9 +6,7 @@ import {
   ActionSheetController, 
   ToastController, 
   NavParams,
-  App } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
-import firebase from 'firebase/app';
+} from 'ionic-angular';
 
 import { 
   SitesProvider, 
@@ -39,9 +37,7 @@ export class SitesListPage {
     public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
-    private afAuth: AngularFireAuth,
     public userService: UserProvider,
-    private _app: App
   ) {
     let editorId = this.navParams.data.editor_id;
 

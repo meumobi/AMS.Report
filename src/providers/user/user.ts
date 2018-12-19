@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 import { 
@@ -6,7 +5,6 @@ import {
   FirebaseListObservable, 
   FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import firebase from 'firebase/app';
 
 import { IUser, User } from '../../models';
 import { AuthProvider } from './../auth/auth';
