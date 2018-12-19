@@ -4,7 +4,7 @@
     <div class="header">
       <span>{{"Estimated Revenue" | translate}}</span>
     </div>
-    <div>
+    <div id="wrapper">
       <div *ngIf="report['Premium']" class="cell">{{"Premium" | translate}}<br/>
         <div>
           <span class="revenue">{{report['Premium'].revenue.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}}</span><br />
