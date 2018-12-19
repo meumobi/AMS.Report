@@ -66,7 +66,7 @@ export class MyApp {
     public userService: UserProvider
   ) {
     translate.setDefaultLang('en');
-    this.authState = afAuth.authState;
+    this.authState = this.afAuth.authState;
     const authObserver = this.authState.subscribe((user: firebase.User) => {
       /*
         https://javebratt.com/angularfire2-authentication-ionic/
